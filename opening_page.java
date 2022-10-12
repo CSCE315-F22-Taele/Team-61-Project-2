@@ -21,6 +21,6 @@ public class opening_page {
         }  
         public static void main(String args[])  
         {  
-        new opening_page();  
+                new opening_page();  
         }  
     }  

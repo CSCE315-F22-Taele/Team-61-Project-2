@@ -15,9 +15,15 @@ public class opening_page {
         b1.setBorderPainted(false);
         b1.addActionListener(new ActionListener(){  
                 public void actionPerformed(ActionEvent e){  
+<<<<<<< HEAD
                             b1.setBackground(Color.GREEN);  
                         }  
                     }); 
+=======
+                    b1.setBackground(Color.green);  
+                    }  
+            }); 
+>>>>>>> eaeeb537bbf6c1166becb60bec9e9cc9e471e1a6
         JButton b2=new JButton("Button 2");   
         b2.setBounds(100,100,80,30);    
         b2.setBackground(Color.RED);   

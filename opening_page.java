@@ -8,17 +8,19 @@ public class opening_page {
         JPanel panel=new JPanel();  
         panel.setBounds(10,10,1000,600);    
         panel.setBackground(Color.gray);  
-        JButton b1=new JButton("Button 1");     
+        JButton b1=new JButton("Button 1");    
         b1.setBounds(50,100,80,30);    
-        b1.setBackground(Color.red);
+        b1.setBackground(Color.RED);
+        b1.setOpaque(true);
+        b1.setBorderPainted(false);
         b1.addActionListener(new ActionListener(){  
                 public void actionPerformed(ActionEvent e){  
-                            b1.setBackground(Color.green);  
+                            b1.setBackground(Color.GREEN);  
                         }  
                     }); 
         JButton b2=new JButton("Button 2");   
         b2.setBounds(100,100,80,30);    
-        b2.setBackground(Color.red);   
+        b2.setBackground(Color.RED);   
         panel.add(b1); panel.add(b2);  
         f.add(panel);  
                 f.setSize(1010,610);    
@@ -27,6 +29,6 @@ public class opening_page {
         }  
         public static void main(String args[])  
         {  
-        new opening_page();  
+        new opening_page();
         }  
     }  

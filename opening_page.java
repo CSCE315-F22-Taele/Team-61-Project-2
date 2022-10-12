@@ -11,10 +11,10 @@ public class opening_page {
         b1.setBounds(50,100,80,30);    
         b1.setBackground(Color.red);
         b1.addActionListener(new ActionListener(){  
-            public void actionPerformed(ActionEvent e){  
-                b1.setBackground(Color.green);  
-            }  
-        }); 
+                public void actionPerformed(ActionEvent e){  
+                    b1.setBackground(Color.green);  
+                    }  
+            }); 
         JButton b2=new JButton("Button 2");   
         b2.setBounds(100,100,80,30);    
         b2.setBackground(Color.red);   

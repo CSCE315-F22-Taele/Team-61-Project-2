@@ -1,9 +1,9 @@
 import java.awt.*;  
 import javax.swing.*;  
 import java.awt.event.*; 
-public class Manager_Page {  
+public class Home_Page {  
     JFrame f = new JFrame("Home Page");
-     Manager_Page(){  
+     Home_Page(){  
         //JFrame f= new JFrame("Panel Example");    
         JPanel panel=new JPanel();  
         panel.setBounds(10,10,1000,600);    
@@ -40,6 +40,6 @@ public class Manager_Page {
         }    
         public static void main(String args[])  
         {  
-        new Manager_Page();  
+        new Home_Page();  
         }  
     }  

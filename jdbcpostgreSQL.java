@@ -6,6 +6,7 @@ import java.util.Random;
 CSCE 331
 9-28-2022 Lab
 */
+// @author Justin, Brandon, Sam, Roee
 public class jdbcpostgreSQL {
   //Commands to run this script
   //This will compile all java files in this directory
@@ -18,6 +19,12 @@ public class jdbcpostgreSQL {
   //Mac/Linux: java -cp ".:postgresql-42.2.8.jar" jdbcpostgreSQL
 
   //MAKE SURE YOU ARE ON VPN or TAMU WIFI TO ACCESS DATABASE
+
+  /* 
+  @param none
+  @return none
+  @throws Exception when database doesn't connect, when database's connection doesn't close, when update statement doesn't execute
+  */
   public static void main(String args[]) {
     
     //Building the connection with your credentials

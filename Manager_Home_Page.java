@@ -13,7 +13,7 @@ public class Manager_Home_Page {
         b1.addActionListener(new ActionListener(){  
                 public void actionPerformed(ActionEvent e){  
                     b1.setBackground(Color.green);  
-                        new Manager_Page(); 
+                        new Home_Page(); 
                         f.dispose(); 
                     }  
             }); 

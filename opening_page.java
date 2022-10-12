@@ -1,21 +1,32 @@
 import java.awt.*;  
 import javax.swing.*;  
 import java.awt.event.*; 
+
 public class opening_page {  
      opening_page()  
         {  
-        JFrame f= new JFrame("Panel Example");    
+        JFrame f= new JFrame("Panel Example");   
         JPanel panel=new JPanel();  
         panel.setBounds(10,10,1000,600);    
         panel.setBackground(Color.gray);  
         JButton b1=new JButton("Button 1");     
         b1.setBounds(50,100,80,30);    
         b1.setBackground(Color.red);
+        b1.setOpaque(true);
+        b1.setBorderPainted(false);
         b1.addActionListener(new ActionListener(){  
                 public void actionPerformed(ActionEvent e){  
-                            b1.setBackground(Color.green);  
-                        }  
-                    }); 
+                        if(b1.getBackground() == Color.red){
+                            b1.setBackground(Color.green); 
+						}
+						else{
+							b1.setBackground(Color.red);
+						}
+                        //clerk_page clerk = new clerk_page();   
+                        //f.setVisible(false); // Hide current frame
+                        //clerk.setVisible(true); 
+                }  
+        }); 
         JButton b2=new JButton("Button 2");   
         b2.setBounds(100,100,80,30);    
         b2.setBackground(Color.red);   

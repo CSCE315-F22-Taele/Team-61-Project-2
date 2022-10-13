@@ -78,4 +78,27 @@ public class Order {
         drink = 0; 
         cost = 0; 
     }
+
+    public void update_cost(){
+        cost = 0; 
+        if (Protein == "Chicken" && Entree == "Taco"){
+            cost += 7.89;
+        }
+        else if (Protein == "Chicken"){
+            cost += 8.5; 
+        }
+        else if (Protein == "Steak"){
+            cost += 8.89;
+        }
+        else if (Protein == "Beef"){
+            cost += 8.79; 
+        }
+        else if (Protein == "Vegetable"){
+            cost += 7.89; 
+        }
+        cost += 2.19 * salsa;
+        cost += 3.49 * queso;
+        cost += 3.69 * guac; 
+        cost += 2.45 * drink; 
+    }
 }

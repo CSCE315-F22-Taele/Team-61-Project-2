@@ -1,8 +1,11 @@
 import java.awt.*;  
 import javax.swing.*;  
 import java.awt.event.*; 
+import java.util.*; 
 public class Home_Page {  
     JFrame f = new JFrame("Home Page");
+    Vector<Order> orders = new Vector<Order>(); 
+    Inventory inventory = new Inventory(); 
      Home_Page(){  
         //JFrame f= new JFrame("Panel Example");    
         JPanel panel=new JPanel();  
@@ -14,7 +17,7 @@ public class Home_Page {
         b1.addActionListener(new ActionListener(){  
                 public void actionPerformed(ActionEvent e){  
                     b1.setBackground(Color.green);  
-                        new Clerk_Home_Page(); 
+                        new Clerk_Home_Page(orders, inventory, false); 
                         f.dispose(); 
                     }  
             }); 

@@ -3,6 +3,12 @@ import java.io.*;
 import java.util.Random;
 import java.util.ArrayList;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 /*
 CSCE 331
 9-28-2022 Lab
@@ -11,16 +17,21 @@ CSCE 331
 public class jdbcpostgreSQL {
 
   	String statement = "";
+	String totalAmount = "";
+	String sql_output = "";
 
-  	jdbcpostgreSQL(String database, String start, String end, String entree, String protein, String side) {
+  	jdbcpostgreSQL(String database, String inventory, String start, String end, String entree, String protein, String side) {
 
 		if (database == "cabo_grill_sales") {
 			//Select All
 			if (entree == "All" && protein == "All" && side == "All") {
 				if (start == "" && end == "") {
 					this.statement = "SELECT * FROM cabo_grill_sales;";
+					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales;";
+
 				} else {
 					this.statement = "SELECT * FROM cabo_grill_sales WHERE date BETWEEN '" + start + "' AND '" + end + "';";
+					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE date BETWEEN '" + start + "' AND '" + end + "';";
 				}
 			}
 
@@ -28,8 +39,10 @@ public class jdbcpostgreSQL {
     		if (entree == "All" && protein == "None" && side == "None") {
 				if (start == "" && end == "") {
 					this.statement = "SELECT * FROM cabo_grill_sales WHERE type = 'entree'";
+					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE type = 'entree';";
 				} else {
 					this.statement = "SELECT * FROM cabo_grill_sales WHERE type = 'entree' AND WHERE date BETWEEN '" + start + "' AND '" + end + "';";
+					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE type = 'entree' AND WHERE date BETWEEN '" + start + "' AND '" + end + "';";
 				}
 			}
 
@@ -37,8 +50,10 @@ public class jdbcpostgreSQL {
     		if (entree == "None" && protein == "All" && side == "None") {
 				if (start == "" && end == "") {
 					this.statement = "SELECT * FROM cabo_grill_sales WHERE type = 'protein'";
+					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE type = 'protein';";
 				} else {
 					this.statement = "SELECT * FROM cabo_grill_sales WHERE type = 'protein' AND WHERE date BETWEEN '" + start + "' AND '" + end + "';";
+					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE type = 'protein' AND WHERE date BETWEEN '" + start + "' AND '" + end + "';";
 				}
 			}
 
@@ -46,8 +61,10 @@ public class jdbcpostgreSQL {
     		if (entree != "All" && protein == "None" && side == "None") {
 				if (start == "" && end == "") {
 					this.statement = "SELECT * FROM cabo_grill_sales WHERE entree_type = '" + entree + "';";
+					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE entree_type = '" + entree + "';";
 				} else {
 					this.statement = "SELECT * FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND WHERE date BETWEEN '" + start + "' AND '" + end + "';";
+					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND WHERE date BETWEEN '" + start + "' AND '" + end + "';";
 				}
 			}
 
@@ -55,8 +72,10 @@ public class jdbcpostgreSQL {
 			if (entree == "None" && protein != "All" && side == "None") {
 				if (start == "" && end == "") {
 					this.statement = "SELECT * FROM cabo_grill_sales WHERE protein = '" + protein + "';";
+					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE protein = '" + protein + "';";
 				} else {
 					this.statement = "SELECT * FROM cabo_grill_sales WHERE protein = '" + protein + "' AND WHERE date BETWEEN '" + start + "' AND '" + end + "';";
+					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE protein = '" + protein + "' AND WHERE date BETWEEN '" + start + "' AND '" + end + "';";
 				}
 			}
 
@@ -64,36 +83,25 @@ public class jdbcpostgreSQL {
     		if (entree == "None" && protein == "None" && side != "All") {
 				if (start == "" && end == "") {
 					this.statement = "SELECT * FROM cabo_grill_sales WHERE " + side + " = 1;";
+					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE " + side + " = 1;";
 				} else {
 					this.statement = "SELECT * FROM cabo_grill_sales WHERE " + side  + " = 1 AND WHERE date BETWEEN '" + start + "' AND '" + end + "'";
+					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE " + side  + " = 1 AND WHERE date BETWEEN '" + start + "' AND '" + end + "'";
 				}
 			}
 		}
-  	}
 
+		if (database == "cabo_grill") {
+			if (entree == "None" && protein == "None" && side == "None") {
+				if (inventory == "All") {
+					this.statement = "SELECT * FROM cabo_grill;";
+				} else {
+					this.statement = "SELECT * FROM cabo_grill WHERE type = " + "'" + inventory + "'";
+				}
+			}
+		}
 
-  	//Commands to run this script
-  	//This will compile all java files in this directory
-  	//javac *.java
-  	//This command tells the file where to find the postgres jar which it needs to execute postgres commands, then executes the code
-
-  	/* DON"T COPY PASTE WRITE THE COMMANDS IN YOUR TERMINAL MANUALLY*/
-
-  	//Windows: java -cp ".;postgresql-42.2.8.jar" jdbcpostgreSQL
-  	//Mac/Linux: java -cp ".:postgresql-42.2.8.jar" jdbcpostgreSQL
-
-  	//MAKE SURE YOU ARE ON VPN or TAMU WIFI TO ACCESS DATABASE
-
-  	/* 
-  	@param none
-  	@return none
- 	@throws Exception when database doesn't connect, when database's connection doesn't close, when update statement doesn't execute
-  	*/
-
-
-	/*
-  	public static void main(String args[]) {
-    
+		/*
     	//Building the connection with your credentials
     	Connection conn = null;
     	String teamNumber = "61"; // Your team number
@@ -115,9 +123,9 @@ public class jdbcpostgreSQL {
 
     	try {
         	Statement stmt = conn.createStatement();
-        	stmt.executeUpdate(statement);
-    	} 
-    	catch (Exception e){
+        	//stmt.executeUpdate(statement);
+			//ResultSet rs = stmt.executeQuery(statement);
+    	} catch (Exception e){
     		e.printStackTrace();
     		System.err.println(e.getClass().getName()+": "+e.getMessage());
     		System.exit(0);
@@ -126,16 +134,12 @@ public class jdbcpostgreSQL {
     	try {
       		conn.close();
       		System.out.println("Connection Closed.");
-    	} 
-    	catch(Exception e) {
+    	} catch(Exception e) {
       		System.out.println("Connection NOT Closed.");
-    	}//end try catch
-	}
-	*/
-
-
-
-
+    	}
+		*/
+  	}
+	public static void main(String[] args) {}
 
 
 	/*

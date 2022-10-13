@@ -6,14 +6,11 @@ public class Manager_Home_Page {
 
     JFrame f = new JFrame("Home Page");
 
-    String[] entree = new String[]{"All", "Burrito", "Bowl", "Tacos", "None"};
-    String[] protein = new String[]{"All", "Chicken", "Steak", "Beef", "Vegetable", "None"};
-    String[] sides = new String[]{"All", "Chips-Queso", "Chips-Guac", "Chips-Salsa", "Water", "None"};
-
-    Manager_Home_Page(){  
-        //JFrame f= new JFrame("Panel Example");    
+    Manager_Home_Page(String[] entrees, String[] protein, String[] sides) {   
+          
         JPanel panel=new JPanel();  
-        panel.setBounds(10, 10, 1000, 600);    
+        panel.setBounds(10, 10, 1000, 600); 
+
         JButton b1=new JButton("Back To Home Page");     
         b1.setBounds(50,100,80,30);    
         b1.addActionListener(new ActionListener(){  
@@ -25,8 +22,21 @@ public class Manager_Home_Page {
         }); 
         panel.add(b1);  
 
+
+        //Start Date TextBox
+        JTextArea startDate = new JTextArea();  
+        startDate.setBounds(180,100, 100,20);  
+        f.add(startDate);
+
+        //End Date TextBox
+        JTextArea endDate = new JTextArea();  
+        endDate.setBounds(300,100, 100,20);  
+        f.add(endDate);
+
+
+        //Lists
         DefaultListModel<String> l1 = new DefaultListModel<>();  
-        for (String e : entree) {
+        for (String e : entrees) {
             l1.addElement(e);
         }
         JList<String> list1 = new JList<>(l1);  
@@ -49,13 +59,10 @@ public class Manager_Home_Page {
         list3.setBounds(660, 100, 100, 110);  
         f.add(list3); 
 
+    
         f.add(panel);  
         f.setSize(1010,610);    
         f.setLayout(null);    
         f.setVisible(true);   
-    }  
-    public static void main(String args[])  
-    {  
-        new Manager_Home_Page();  
     }  
 }

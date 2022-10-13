@@ -22,6 +22,7 @@ public class Home_Page {
     }};
     ArrayList<String> sides = new ArrayList<String>() {{
         add("None");
+        add("All");
         add("chips_and_salsa");
         add("chips_and_queso");
         add("chips_and_guac");

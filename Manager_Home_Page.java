@@ -8,11 +8,13 @@ public class Manager_Home_Page {
 
     Manager_Home_Page(String[] entrees, String[] protein, String[] sides) {   
           
-        JPanel panel=new JPanel();  
+        JPanel panel = new JPanel();  
         panel.setBounds(10, 10, 1000, 600); 
 
-        JButton b1=new JButton("Back To Home Page");     
-        b1.setBounds(50,100,80,30);    
+        JButton b1 = new JButton("Back To Home Page");     
+        b1.setBounds(50,100,80,30); 
+        
+        // On click - Goes back to home page
         b1.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){  
                 b1.setBackground(Color.green);  

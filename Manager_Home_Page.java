@@ -14,7 +14,7 @@ public class Manager_Home_Page {
 
         JButton b1=new JButton("Back To Home Page");     
         b1.setBounds(50,100,80,30);    
-        b1.addActionListener(new ActionListener(){  
+        b1.addActionListener(new ActionListener() {  
             public void actionPerformed(ActionEvent e){  
                 b1.setBackground(Color.green);  
                     new Home_Page(); 
@@ -26,14 +26,13 @@ public class Manager_Home_Page {
 
         //Start Date TextBox
         JTextArea startDate = new JTextArea();  
-        startDate.setBounds(180,100, 100,20);  
+        startDate.setBounds(180,100, 100,20);   
         f.add(startDate);
 
         //End Date TextBox
         JTextArea endDate = new JTextArea();  
-        endDate.setBounds(300,100, 100,20);  
+        endDate.setBounds(300,100, 100,20); 
         f.add(endDate);
-
 
         //Lists
         DefaultListModel<String> l1 = new DefaultListModel<>();  
@@ -59,6 +58,16 @@ public class Manager_Home_Page {
         JList<String> list3 = new JList<>(l3);  
         list3.setBounds(660, 100, 100, 110);  
         f.add(list3); 
+
+        JButton submit = new JButton("Submit");     
+        submit.setBounds(0,100,80,30);    
+        submit.addActionListener(new ActionListener() {  
+            public void actionPerformed(ActionEvent e){  
+                String start = startDate.getText();
+                String end = endDate.getText();
+            }  
+        }); 
+        panel.add(submit);  
 
     
         f.add(panel);  

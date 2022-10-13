@@ -29,7 +29,6 @@ public class Home_Page {
         add("Water");
     }};
 
-
     JFrame f = new JFrame("Home Page");
 
     Home_Page() {    

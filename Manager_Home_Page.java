@@ -67,22 +67,28 @@ public class Manager_Home_Page {
 
         //Start Date TextBox
         JTextArea start = new JTextArea();  
-        start.setBounds(180,100, 100,20);   
+        start.setBounds(220,100, 100,20);   
         f.add(start);
 
         //End Date TextBox
         JTextArea end = new JTextArea();  
-        end.setBounds(300,100, 100,20); 
+        end.setBounds(340,100, 100,20); 
         f.add(end);
 
         //Lists
-<<<<<<< HEAD
+        DefaultListModel<String> l0 = new DefaultListModel<>();  
+        l0.addElement("cabo_grill");
+        l0.addElement("cabo_grill_sales");
+        JList<String> list0 = new JList<>(l0);  
+        list0.setBounds(80, 100, 120, 40);  
+        f.add(list0); 
+
         DefaultListModel<String> l1 = new DefaultListModel<>();  
         for (String e : entrees) {
             l1.addElement(e);
         }
         JList<String> list1 = new JList<>(l1);  
-        list1.setBounds(420, 100, 100, 150);  
+        list1.setBounds(460, 100, 100, 150);  
         f.add(list1); 
 
         DefaultListModel<String> l2 = new DefaultListModel<>();  
@@ -90,7 +96,7 @@ public class Manager_Home_Page {
             l2.addElement(p);
         }
         JList<String> list2 = new JList<>(l2);  
-        list2.setBounds(540, 100, 100, 150);  
+        list2.setBounds(580, 100, 100, 150);  
         f.add(list2); 
 
         DefaultListModel<String> l3 = new DefaultListModel<>();  
@@ -98,84 +104,16 @@ public class Manager_Home_Page {
             l3.addElement(s);
         }
         JList<String> list3 = new JList<>(l3);  
-        list3.setBounds(660, 100, 140, 150);  
+        list3.setBounds(700, 100, 140, 150);  
         f.add(list3); 
 
         // Label outputs on GUI the selections
         final JLabel label = new JLabel();
-        label.setSize(700, 100);
+        //label.setSize(1000, 100);
+        label.setBounds(100, 250, 1000, 100);
 
         JButton submitButton = new JButton("Submit");
-        submitButton.setBounds(200, 150, 100, 30);
-        
-        // After drop down menu items are selected and submit button is pressed, the values are stored and outputted on the frame
-        submitButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String data = "";
-                String entreeType = ""; 
-                String proteinType = ""; 
-                String extrasSelected = "";
-                if(list1.getSelectedIndex() != -1) {
-                    entreeType = list1.getSelectedValue();
-                    //data += entreeType + " ";
-                    //label.setText(data);
-                }
-                if(list2.getSelectedIndex() != -1) {
-                    proteinType = list2.getSelectedValue();
-                    //data += proteinType + " ";
-                    //label.setText(data);
-                }
-                if(list3.getSelectedIndex() != -1) {
-                    extrasSelected = list3.getSelectedValue();
-                    //data += extrasSelected + " ";
-                    //label.setText(data);
-                }
-                String startDate = start.getText();
-                String endDate = end.getText();
-                String command = "SELEC";
-
-                jdbcpostgreSQL databaseConnection = new jdbcpostgreSQL(command, startDate, endDate, entreeType, proteinType, extrasSelected);
-                String sql_statement = databaseConnection.statement;
-                data += sql_statement;
-                label.setText(data);
-            }
-        });
-    
-        f.add(submitButton); f.add(label);
-
-=======
-=======
->>>>>>> 3471b940b1f4290257501a0acbed5bfa8a0914d2
-        DefaultListModel<String> l1 = new DefaultListModel<>();  
-        for (String e : entrees) {
-            l1.addElement(e);
-        }
-        JList<String> list1 = new JList<>(l1);  
-        list1.setBounds(420, 100, 100, 150);  
-        f.add(list1); 
-
-        DefaultListModel<String> l2 = new DefaultListModel<>();  
-        for (String p : protein) {
-            l2.addElement(p);
-        }
-        JList<String> list2 = new JList<>(l2);  
-        list2.setBounds(540, 100, 100, 150);  
-        f.add(list2); 
-
-        DefaultListModel<String> l3 = new DefaultListModel<>();  
-        for (String s : sides) {
-            l3.addElement(s);
-        }
-        JList<String> list3 = new JList<>(l3);  
-        list3.setBounds(660, 100, 140, 150);  
-        f.add(list3); 
-
-        // Label outputs on GUI the selections
-        final JLabel label = new JLabel();
-        label.setSize(700, 100);
-
-        JButton submitButton = new JButton("Submit");
-        submitButton.setBounds(200, 150, 100, 30);
+        submitButton.setBounds(100, 150, 100, 30);
         
 <<<<<<< HEAD
 >>>>>>> main
@@ -184,9 +122,13 @@ public class Manager_Home_Page {
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String data = "";
+                String database = "";
                 String entreeType = ""; 
                 String proteinType = ""; 
                 String extrasSelected = "";
+                if (list0.getSelectedIndex() != -1) {
+                    database = list0.getSelectedValue();
+                }
                 if(list1.getSelectedIndex() != -1) {
                     entreeType = list1.getSelectedValue();
                     //data += entreeType + " ";
@@ -202,11 +144,17 @@ public class Manager_Home_Page {
                     //data += extrasSelected + " ";
                     //label.setText(data);
                 }
-                String startDate = start.getText();
-                String endDate = end.getText();
-                String command = "SELEC";
 
-                jdbcpostgreSQL databaseConnection = new jdbcpostgreSQL(command, startDate, endDate, entreeType, proteinType, extrasSelected);
+                String startDate = "";
+                String endDate = "";
+                if (!start.getText().isEmpty()) {
+                    startDate = start.getText();
+                }
+                if (!end.getText().isEmpty()) {
+                    endDate = end.getText();
+                }
+
+                jdbcpostgreSQL databaseConnection = new jdbcpostgreSQL(database, startDate, endDate, entreeType, proteinType, extrasSelected);
                 String sql_statement = databaseConnection.statement;
                 data += sql_statement;
                 label.setText(data);

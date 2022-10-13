@@ -8,25 +8,24 @@ public class Home_Page {
     ArrayList<String> entrees = new ArrayList<String>() {{
         add("None");
         add("All");
-        add("Bowl");
-        add("Burrito");
-        add("Tacos");
+        add("bowl");
+        add("burrito");
+        add("tacos");
     }};
     ArrayList<String> protein = new ArrayList<String>() {{
         add("None");
         add("All");
-        add("Chicken");
-        add("Steak");
-        add("Beef");
-        add("Vegetable");
+        add("chicken");
+        add("steak");
+        add("beef");
+        add("vegetable medley");
     }};
     ArrayList<String> sides = new ArrayList<String>() {{
         add("None");
-        add("All");
-        add("Chips-Queso");
-        add("Chips-Guac");
-        add("Chips-Salsa");
-        add("Water");
+        add("chips_and_salsa");
+        add("chips_and_queso");
+        add("chips_and_guac");
+        add("drink");
     }};
 
     JFrame f = new JFrame("Home Page");
@@ -46,7 +45,7 @@ public class Home_Page {
                         new Clerk_Home_Page(); 
                         f.dispose(); 
                     }  
-            }); 
+        }); 
 
         JButton b2=new JButton("Manager Page");   
         b2.setBounds(100,100,80,30);    

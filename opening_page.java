@@ -23,9 +23,9 @@ public class opening_page {
                 f.setSize(1010,610);    
                 f.setLayout(null);    
                 f.setVisible(true);    
+        }  
+        public static void main(String args[])  
+        {  
+            new opening_page();  
+        }  
     }  
-    public static void main(String args[])  
-    {  
-        new opening_page();  
-    }  
-} 

@@ -42,8 +42,12 @@ public class jdbcpostgreSQL {
 					this.statement = "SELECT * FROM cabo_grill_sales WHERE entree_type = '" + entree + "';";
 					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE entree_type = '" + entree + "';";
 				} else {
+<<<<<<< HEAD
 					this.statement = "SELECT * FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND date BETWEEN '" + start + "' AND '" + end + "';";
 					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND date BETWEEN '" + start + "' AND '" + end + "';";
+=======
+					this.statement = "SELECT * FROM cabo_grill_sales WHERE type = 'entree' AND date BETWEEN '" + start + "' AND '" + end + "';";
+>>>>>>> main
 				}
 			}
 			//Select all with Particular Entree and Protein
@@ -52,8 +56,12 @@ public class jdbcpostgreSQL {
 					this.statement = "SELECT * FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND protein = '" + protein + "';";
 					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND protein = '" + protein + "';";
 				} else {
+<<<<<<< HEAD
 					this.statement = "SELECT * FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND date BETWEEN '" + start + "' AND '" + end + "';";
 					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND date BETWEEN '" + start + "' AND '" + end + "';";
+=======
+					this.statement = "SELECT * FROM cabo_grill_sales WHERE type = 'protein' AND date BETWEEN '" + start + "' AND '" + end + "';";
+>>>>>>> main
 				}
 			}
 			//Select all with Particular Entree and Side
@@ -62,6 +70,7 @@ public class jdbcpostgreSQL {
 					this.statement = "SELECT * FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND " + side + "= 1;";
 					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND " + side + "= 1;";
 				} else {
+<<<<<<< HEAD
 					this.statement = "SELECT * FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND " + side + "= 1 AND date BETWEEN '" + start + "' AND '" + end + "';";
 					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND " + side + "= 1 AND date BETWEEN '" + start + "' AND '" + end + "';";
 				}
@@ -74,6 +83,9 @@ public class jdbcpostgreSQL {
 				} else {
 					this.statement = "SELECT * FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND protein = '" + protein + "'" + " AND " + side + "= 1 AND date BETWEEN '" + start + "' AND '" + end + "';";
 					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND protein = '" + protein + "'" + " AND " + side + "= 1 AND date BETWEEN '" + start + "' AND '" + end + "';";
+=======
+					this.statement = "SELECT * FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND date BETWEEN '" + start + "' AND '" + end + "';";
+>>>>>>> main
 				}
 			}
 
@@ -93,8 +105,12 @@ public class jdbcpostgreSQL {
 					this.statement = "SELECT * FROM cabo_grill_sales WHERE protein = '" + protein + "'" + " AND " + side + "= 1;";
 					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE protein = '" + protein + "'" + " AND " + side + "= 1;";
 				} else {
+<<<<<<< HEAD
 					this.statement = "SELECT * FROM cabo_grill_sales WHERE protein = '" + protein + "'" + " AND " + side + "= 1 AND date BETWEEN '" + start + "' AND '" + end + "';";
 					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE protein = '" + protein + "'" + " AND " + side + "= 1 AND date BETWEEN '" + start + "' AND '" + end + "';";
+=======
+					this.statement = "SELECT * FROM cabo_grill_sales WHERE protein = '" + protein + "' AND date BETWEEN '" + start + "' AND '" + end + "';";
+>>>>>>> main
 				}
 			}
 
@@ -105,7 +121,10 @@ public class jdbcpostgreSQL {
 					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE " + side + " = 1;";
 				} else {
 					this.statement = "SELECT * FROM cabo_grill_sales WHERE " + side  + " = 1 AND date BETWEEN '" + start + "' AND '" + end + "'";
+<<<<<<< HEAD
 					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE " + side  + " = 1 AND date BETWEEN '" + start + "' AND '" + end + "'";
+=======
+>>>>>>> main
 				}
 			}
 		}

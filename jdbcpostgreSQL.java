@@ -9,7 +9,9 @@ CSCE 331
 */
 // @author Justin, Brandon, Sam, Roee
 public class jdbcpostgreSQL {
-
+    static final String DB_URL = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce331_905_61";
+    static final String USER = "csce331_905_brandon";
+    static final String PASS = "ParkCity92?2";
   	String statement = "";
 
   	jdbcpostgreSQL(String database, String start, String end, String entree, String protein, String side) {
@@ -69,6 +71,27 @@ public class jdbcpostgreSQL {
 				}
 			}
 		}
+      // Connect to database
+      try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+          Statement stmt = conn.createStatement();
+          ResultSet rs = stmt.executeQuery(this.statement);) {
+          // Extract data from result set
+          while (rs.next()) {
+              // Retrieve by column name
+              System.out.print("ID: " + rs.getInt("sale_id"));
+              System.out.print(", Date: " + rs.getInt("date"));
+              System.out.print(", Entree Type: " + rs.getString("entree_type"));
+              System.out.println(", Protein: " + rs.getString("protein"));
+              System.out.println(", Chips and Salsa: " + rs.getString("chips_and_salsa"));
+              System.out.println(", Chips and Queso: " + rs.getString("chips_and_queso"));
+              System.out.println(", Chips and Guac: " + rs.getString("chips_and_guac"));
+              System.out.println(", Drink: " + rs.getString("drink"));
+              System.out.println(", Cost: " + rs.getString("cost"));
+          }
+        } catch (SQLException e) {
+          e.printStackTrace();
+        }
+    
   	}
 
 

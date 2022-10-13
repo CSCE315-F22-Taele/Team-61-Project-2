@@ -45,6 +45,41 @@ public class jdbcpostgreSQL {
 	}
   }
 
+  public static void main(String[] args) throws SQLException {
+    //Building the connection with your credentials
+    Connection conn = null;
+    String teamNumber = "61"; // Your team number
+    String sectionNumber = "905"; // Your section number
+    String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
+    String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+    dbSetup myCredentials = new dbSetup(); 
+
+    //Connecting to the database
+    try {
+      conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+    } catch (Exception e) {
+      e.printStackTrace();
+      System.err.println(e.getClass().getName()+": "+e.getMessage());
+      System.exit(0);
+    }
+    System.out.println("Opened database successfully");
+
+    String query = "SELECT * FROM cabo_grill";
+    try {
+      Statement smtnt = conn.createStatement();
+      ResultSet result = smtnt.executeQuery(query);
+      while (result.next()) {
+        String data = "";
+        for (int i = 1; i <= 5; i++) {
+          data += result.getString(i) + " ";
+        }
+        System.out.println(data);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
 
   //Commands to run this script
   //This will compile all java files in this directory

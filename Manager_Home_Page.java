@@ -2,9 +2,13 @@ import java.awt.*;
 import javax.swing.*;  
 import java.awt.event.*; 
 import java.util.ArrayList;
+import java.sql.*;
 
 public class Manager_Home_Page {
-
+    // DATABASE CREDENTIALS
+    static final String DB_URL = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce331_905_61";
+    static final String USER = "csce331_905_brandon";
+    static final String PASS = "ParkCity92?2";
     JFrame f = new JFrame("Home Page");
 
     Manager_Home_Page(ArrayList<String> entrees, ArrayList<String> protein, ArrayList<String> sides) {   
@@ -128,6 +132,28 @@ public class Manager_Home_Page {
 
                 jdbcpostgreSQL databaseConnection = new jdbcpostgreSQL(database, startDate, endDate, entreeType, proteinType, extrasSelected);
                 String sql_statement = databaseConnection.statement;
+
+                // Connect to database
+                try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql_statement);) {
+                // Extract data from result set
+                while (rs.next()) {
+                    // Output each column to terminal from cabo_grill_sales table
+                    System.out.print("ID: " + rs.getInt("sale_id"));
+                    System.out.print(", DATE: " + rs.getDate("date"));
+                    System.out.print(", ENTREE TYPE: " + rs.getString("entree_type"));
+                    System.out.print(", PROTEIN: " + rs.getString("protein"));
+                    System.out.print(", CHIPS & SALSA: " + rs.getInt("chips_and_salsa"));
+                    System.out.print(", CHIPSA & QUESO: " + rs.getInt("chips_and_queso"));
+                    System.out.print(", CHIPS & GUAC: " + rs.getInt("chips_and_guac"));
+                    System.out.print(", DRINK: " + rs.getInt("drink"));
+                    System.out.println(", COST: " + rs.getFloat("cost"));
+                }
+                } catch (SQLException exc) {
+                    exc.printStackTrace();
+                }
+
                 data += sql_statement;
                 label.setText(data);
             }

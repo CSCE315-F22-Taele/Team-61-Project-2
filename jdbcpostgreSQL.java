@@ -1,7 +1,7 @@
-import java.sql.*;
 import java.io.*;   
 import java.util.Random;
 import java.util.ArrayList;
+import java.sql.*;
 
 /*
 CSCE 331
@@ -71,22 +71,23 @@ public class jdbcpostgreSQL {
 				}
 			}
 		}
+    
       // Connect to database
       try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
           Statement stmt = conn.createStatement();
           ResultSet rs = stmt.executeQuery(this.statement);) {
           // Extract data from result set
           while (rs.next()) {
-              // Retrieve by column name
+              // Output each column to terminal from cabo_grill_sales table
               System.out.print("ID: " + rs.getInt("sale_id"));
-              System.out.print(", Date: " + rs.getInt("date"));
-              System.out.print(", Entree Type: " + rs.getString("entree_type"));
-              System.out.println(", Protein: " + rs.getString("protein"));
-              System.out.println(", Chips and Salsa: " + rs.getString("chips_and_salsa"));
-              System.out.println(", Chips and Queso: " + rs.getString("chips_and_queso"));
-              System.out.println(", Chips and Guac: " + rs.getString("chips_and_guac"));
-              System.out.println(", Drink: " + rs.getString("drink"));
-              System.out.println(", Cost: " + rs.getString("cost"));
+              System.out.print(", DATE: " + rs.getDate("date"));
+              System.out.print(", ENTREE TYPE: " + rs.getString("entree_type"));
+              System.out.print(", PROTEIN: " + rs.getString("protein"));
+              System.out.print(", CHIPS & SALSA: " + rs.getInt("chips_and_salsa"));
+              System.out.print(", CHIPSA & QUESO: " + rs.getInt("chips_and_queso"));
+              System.out.print(", CHIPS & GUAC: " + rs.getInt("chips_and_guac"));
+              System.out.print(", DRINK: " + rs.getInt("drink"));
+              System.out.println(", COST: " + rs.getFloat("cost"));
           }
         } catch (SQLException e) {
           e.printStackTrace();

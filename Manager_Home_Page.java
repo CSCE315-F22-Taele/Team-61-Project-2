@@ -61,7 +61,38 @@ public class Manager_Home_Page {
         list3.setBounds(660, 100, 100, 110);  
         f.add(list3); 
 
+        // Label outputs on GUI the selections
+        final JLabel label = new JLabel();
+        label.setSize(500, 100);
+
+        JButton submitButton = new JButton("Submit");
+        submitButton.setBounds(200, 150, 80, 30);
+        
+        // After drop down menu items are selected and submit button is pressed, the values are stored and outputted on the frame
+        submitButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String data = "";
+                String entreeType; String proteinType; String extrasSelected;
+                if(list1.getSelectedIndex() != -1) {
+                    entreeType = list1.getSelectedValue();
+                    data += entreeType + " ";
+                    label.setText(data);
+                }
+                if(list2.getSelectedIndex() != -1) {
+                    proteinType = list2.getSelectedValue();
+                    data += proteinType + " ";
+                    label.setText(data);
+                }
+                if(list3.getSelectedIndex() != -1) {
+                    extrasSelected = list3.getSelectedValue();
+                    data += extrasSelected + " ";
+                    label.setText(data);
+                }
+            }
+        });
     
+        f.add(submitButton); f.add(label);
+
         f.add(panel);  
         f.setSize(1010,610);    
         f.setLayout(null);    

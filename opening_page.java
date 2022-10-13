@@ -2,9 +2,8 @@ import java.awt.*;
 import javax.swing.*;  
 import java.awt.event.*; 
 public class opening_page {  
-     opening_page()  
-        {  
-        JFrame f= new JFrame("Panel Example");    
+    opening_page() {  
+    	JFrame f= new JFrame("Panel Example");    
         JPanel panel=new JPanel();  
         panel.setBounds(10,10,1000,600);    
         panel.setBackground(Color.gray);  
@@ -24,9 +23,9 @@ public class opening_page {
                 f.setSize(1010,610);    
                 f.setLayout(null);    
                 f.setVisible(true);    
-        }  
-        public static void main(String args[])  
-        {  
-        new opening_page();  
-        }  
     }  
+    public static void main(String args[])  
+    {  
+        new opening_page();  
+    }  
+} 

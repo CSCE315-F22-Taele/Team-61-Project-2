@@ -46,7 +46,7 @@ public class Home_Page {
                         new Clerk_Home_Page(); 
                         f.dispose(); 
                     }  
-            }); 
+        }); 
 
         JButton b2=new JButton("Manager Page");   
         b2.setBounds(100,100,80,30);    

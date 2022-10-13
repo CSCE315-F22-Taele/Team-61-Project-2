@@ -12,7 +12,7 @@ public class Manager_Home_Page {
         JPanel panel = new JPanel();  
         panel.setBounds(10, 10, 1000, 600); 
 
-        JButton b1=new JButton("Back To Home Page");     
+        JButton b1 = new JButton("Back To Home Page");     
         b1.setBounds(50,100,80,30);    
         b1.addActionListener(new ActionListener() {  
             public void actionPerformed(ActionEvent e){  
@@ -22,6 +22,24 @@ public class Manager_Home_Page {
                 }  
         }); 
         panel.add(b1);  
+
+
+        //Add new items to sides
+        JTextArea addItemTextBox = new JTextArea();  
+        addItemTextBox.setBounds(50,400, 100,20);   
+        f.add(addItemTextBox);
+
+        JButton addItem = new JButton("Add Item");     
+        addItem.setBounds(160,400,100,30);    
+        addItem.addActionListener(new ActionListener(){  
+            public void actionPerformed(ActionEvent e){  
+                sides.add(addItemTextBox.getText());
+                new Manager_Home_Page(entrees, protein, sides);
+                f.dispose(); 
+            }  
+        }); 
+        f.add(addItem);
+
 
         //Start Date TextBox
         JTextArea start = new JTextArea();  
@@ -39,7 +57,7 @@ public class Manager_Home_Page {
             l1.addElement(e);
         }
         JList<String> list1 = new JList<>(l1);  
-        list1.setBounds(420, 100, 100, 110);  
+        list1.setBounds(420, 100, 100, 150);  
         f.add(list1); 
 
         DefaultListModel<String> l2 = new DefaultListModel<>();  
@@ -47,7 +65,7 @@ public class Manager_Home_Page {
             l2.addElement(p);
         }
         JList<String> list2 = new JList<>(l2);  
-        list2.setBounds(540, 100, 100, 110);  
+        list2.setBounds(540, 100, 100, 150);  
         f.add(list2); 
 
         DefaultListModel<String> l3 = new DefaultListModel<>();  
@@ -55,7 +73,7 @@ public class Manager_Home_Page {
             l3.addElement(s);
         }
         JList<String> list3 = new JList<>(l3);  
-        list3.setBounds(660, 100, 100, 110);  
+        list3.setBounds(660, 100, 100, 150);  
         f.add(list3); 
 
         // Label outputs on GUI the selections

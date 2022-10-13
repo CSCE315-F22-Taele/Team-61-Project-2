@@ -5,9 +5,30 @@ import java.util.ArrayList;
 
 public class Home_Page {  
     
-    String[] entrees = new String[]{"All", "Bowl", "Burrito", "Tacos", "None"};
-    String[] protein = new String[]{"All", "Chicken", "Steak", "Beef", "Vegetable", "None"};
-    String[] sides = new String[]{"All", "Chips-Queso", "Chips-Guac", "Chips-Salsa", "Water", "None"};
+    ArrayList<String> entrees = new ArrayList<String>() {{
+        add("None");
+        add("All");
+        add("Bowl");
+        add("Burrito");
+        add("Tacos");
+    }};
+    ArrayList<String> protein = new ArrayList<String>() {{
+        add("None");
+        add("All");
+        add("Chicken");
+        add("Steak");
+        add("Beef");
+        add("Vegetable");
+    }};
+    ArrayList<String> sides = new ArrayList<String>() {{
+        add("None");
+        add("All");
+        add("Chips-Queso");
+        add("Chips-Guac");
+        add("Chips-Salsa");
+        add("Water");
+    }};
+
 
     JFrame f = new JFrame("Home Page");
 

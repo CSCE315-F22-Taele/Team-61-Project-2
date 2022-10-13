@@ -1,13 +1,14 @@
 import java.awt.*;  
 import javax.swing.*;  
 import java.awt.event.*; 
+import java.util.ArrayList;
 
 public class Manager_Home_Page {
 
     JFrame f = new JFrame("Home Page");
 
-    Manager_Home_Page(String[] entrees, String[] protein, String[] sides) {   
-          
+    Manager_Home_Page(ArrayList<String> entrees, ArrayList<String> protein, ArrayList<String> sides) {   
+
         JPanel panel=new JPanel();  
         panel.setBounds(10, 10, 1000, 600); 
 

@@ -25,11 +25,11 @@ public class Manager_Home_Page {
 
         //Add new items to sides
         JTextArea addItemTextBox = new JTextArea();  
-        addItemTextBox.setBounds(50,400, 100,20);   
+        addItemTextBox.setBounds(20,400, 100,20);   
         f.add(addItemTextBox);
 
         JButton addItem = new JButton("Add Item");     
-        addItem.setBounds(160,400,100,30);    
+        addItem.setBounds(140,400,100,30);    
         addItem.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){  
                 sides.add(addItemTextBox.getText());
@@ -38,7 +38,6 @@ public class Manager_Home_Page {
             }  
         }); 
         f.add(addItem);
-
 
         //Start Date TextBox
         JTextArea start = new JTextArea();  
@@ -83,29 +82,33 @@ public class Manager_Home_Page {
         f.add(list3); 
 
         DefaultListModel<String> l4 = new DefaultListModel<>(); 
+        l4.addElement("None"); 
         l4.addElement("All"); 
-        l4.addElement("Entrees");
-        l4.addElement("Protein");
-        l4.addElement("Sides");
+        l4.addElement("protein");
+        l4.addElement("side");
+        l4.addElement("topping");
+        l4.addElement("tortilla");
+        l4.addElement("misc");
         JList<String> list4 = new JList<>(l4);  
-        list4.setBounds(80, 180, 120, 70);  
+        list4.setBounds(80, 170, 120, 130);  
         f.add(list4); 
 
         // Label outputs on GUI the selections
-        final JLabel queryLabel = new JLabel();
-        queryLabel.setBounds(50, 280, 1000, 100);
+        JTextArea queryLabel = new JTextArea();
+        queryLabel.setBounds(250, 280, 600, 500);
 
         // Label outputs total
-        final JLabel totalLabel = new JLabel();
-        totalLabel.setBounds(50, 300, 1000, 100);
+        JTextArea totalLabel = new JTextArea();
+        totalLabel.setBounds(50, 320, 170, 30);
 
         JButton submitButton = new JButton("Submit");
-        submitButton.setBounds(80, 270, 100, 30);
+        submitButton.setBounds(270, 200, 100, 30);
         
         // After drop down menu items are selected and submit button is pressed, the values are stored and outputted on the frame
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String data = "";
+                queryLabel.setText("");
+                totalLabel.setText("");
                 String database = "";
                 String inventory = "";
                 String entreeType = ""; 
@@ -137,12 +140,11 @@ public class Manager_Home_Page {
                 }
 
                 jdbcpostgreSQL databaseConnection = new jdbcpostgreSQL(database, inventory, startDate, endDate, entreeType, proteinType, extrasSelected);
-                String sql_statement = databaseConnection.statement;
-                data += sql_statement;
-                queryLabel.setText("Result: " + data);
+                String output = databaseConnection.sql_output;
+                queryLabel.append(output);
 
-                String total = databaseConnection.totalAmount;
-                totalLabel.setText("Total Sales: " + total);
+                String total = databaseConnection.total_output;
+                totalLabel.append(total);
             }
         });
     

@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.awt.event.*; 
 import java.util.*; 
 
-public class Clerk_Sides_Page extends Clerk_Toppings_Page{
+public class Clerk_Sides_Page extends Home_Page{
     JFrame f = new JFrame("Clerk Sides Page");
     int chips_salsa = 0;
     int chips_queso = 0;

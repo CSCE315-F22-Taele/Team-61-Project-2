@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.awt.event.*; 
 import java.util.*; 
 
-public class Clerk_Protein_Page extends Clerk_Home_Page{
+public class Clerk_Protein_Page extends Home_Page{
     JFrame f = new JFrame("Clerk Protein Page");
     Clerk_Protein_Page(boolean additional_entree){  
        //JFrame f= new JFrame("Panel Example");

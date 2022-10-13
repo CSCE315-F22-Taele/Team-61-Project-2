@@ -3,9 +3,14 @@ import javax.swing.*;
 import java.awt.event.*; 
 
 public class opening_page {  
+<<<<<<< HEAD
      opening_page()  
         {  
         JFrame f= new JFrame("Panel Example");   
+=======
+    opening_page() {  
+    	JFrame f= new JFrame("Panel Example");    
+>>>>>>> 7d9099e64d5308674bc3e381b99ac40a0face391
         JPanel panel=new JPanel();  
         panel.setBounds(10,10,1000,600);    
         panel.setBackground(Color.gray);  
@@ -27,9 +32,9 @@ public class opening_page {
                 f.setSize(1010,610);    
                 f.setLayout(null);    
                 f.setVisible(true);    
-        }  
-        public static void main(String args[])  
-        {  
-        new opening_page();  
-        }  
     }  
+    public static void main(String args[])  
+    {  
+        new opening_page();  
+    }  
+} 

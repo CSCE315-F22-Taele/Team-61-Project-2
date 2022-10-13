@@ -1,6 +1,7 @@
 import java.sql.*;
 import java.io.*;   
 import java.util.Random;
+import java.util.ArrayList;
 
 /*
 CSCE 331
@@ -8,43 +9,136 @@ CSCE 331
 */
 // @author Justin, Brandon, Sam, Roee
 public class jdbcpostgreSQL {
-  //Commands to run this script
-  //This will compile all java files in this directory
-  //javac *.java
-  //This command tells the file where to find the postgres jar which it needs to execute postgres commands, then executes the code
 
-  /* DON"T COPY PASTE WRITE THE COMMANDS IN YOUR TERMINAL MANUALLY*/
+  	String statement = "";
 
-  //Windows: java -cp ".;postgresql-42.2.8.jar" jdbcpostgreSQL
-  //Mac/Linux: java -cp ".:postgresql-42.2.8.jar" jdbcpostgreSQL
+  	jdbcpostgreSQL(String database, String start, String end, String entree, String protein, String side) {
 
-  //MAKE SURE YOU ARE ON VPN or TAMU WIFI TO ACCESS DATABASE
+		if (database == "cabo_grill_sales") {
+			//Select All
+			if (entree == "All" && protein == "All" && side == "All") {
+				if (start == "" && end == "") {
+					this.statement = "SELECT * FROM cabo_grill_sales;";
+				} else {
+					this.statement = "SELECT * FROM cabo_grill_sales WHERE date BETWEEN '" + start + "' AND '" + end + "';";
+				}
+			}
 
-  /* 
-  @param none
-  @return none
-  @throws Exception when database doesn't connect, when database's connection doesn't close, when update statement doesn't execute
-  */
-  public static void main(String args[]) {
+			//Select All Entrees
+    		if (entree == "All" && protein == "None" && side == "None") {
+				if (start == "" && end == "") {
+					this.statement = "SELECT * FROM cabo_grill_sales WHERE type = 'entree'";
+				} else {
+					this.statement = "SELECT * FROM cabo_grill_sales WHERE type = 'entree' AND date BETWEEN '" + start + "' AND '" + end + "';";
+				}
+			}
+
+			//Select All Protein
+    		if (entree == "None" && protein == "All" && side == "None") {
+				if (start == "" && end == "") {
+					this.statement = "SELECT * FROM cabo_grill_sales WHERE type = 'protein'";
+				} else {
+					this.statement = "SELECT * FROM cabo_grill_sales WHERE type = 'protein' AND date BETWEEN '" + start + "' AND '" + end + "';";
+				}
+			}
+
+			//Select all with Particular Entree
+    		if (entree != "All" && protein == "None" && side == "None") {
+				if (start == "" && end == "") {
+					this.statement = "SELECT * FROM cabo_grill_sales WHERE entree_type = '" + entree + "';";
+				} else {
+					this.statement = "SELECT * FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND date BETWEEN '" + start + "' AND '" + end + "';";
+				}
+			}
+
+			//Select all with Particular Protein
+			if (entree == "None" && protein != "All" && side == "None") {
+				if (start == "" && end == "") {
+					this.statement = "SELECT * FROM cabo_grill_sales WHERE protein = '" + protein + "';";
+				} else {
+					this.statement = "SELECT * FROM cabo_grill_sales WHERE protein = '" + protein + "' AND date BETWEEN '" + start + "' AND '" + end + "';";
+				}
+			}
+
+			//Select all with Particular Side
+    		if (entree == "None" && protein == "None" && side != "All") {
+				if (start == "" && end == "") {
+					this.statement = "SELECT * FROM cabo_grill_sales WHERE " + side + " = 1;";
+				} else {
+					this.statement = "SELECT * FROM cabo_grill_sales WHERE " + side  + " = 1 AND date BETWEEN '" + start + "' AND '" + end + "'";
+				}
+			}
+		}
+  	}
+
+
+  	//Commands to run this script
+  	//This will compile all java files in this directory
+  	//javac *.java
+  	//This command tells the file where to find the postgres jar which it needs to execute postgres commands, then executes the code
+
+  	/* DON"T COPY PASTE WRITE THE COMMANDS IN YOUR TERMINAL MANUALLY*/
+
+  	//Windows: java -cp ".;postgresql-42.2.8.jar" jdbcpostgreSQL
+  	//Mac/Linux: java -cp ".:postgresql-42.2.8.jar" jdbcpostgreSQL
+
+  	//MAKE SURE YOU ARE ON VPN or TAMU WIFI TO ACCESS DATABASE
+
+  	/* 
+  	@param none
+  	@return none
+ 	@throws Exception when database doesn't connect, when database's connection doesn't close, when update statement doesn't execute
+  	*/
+
+
+	/*
+  	public static void main(String args[]) {
     
-    //Building the connection with your credentials
-    Connection conn = null;
-    String teamNumber = "61"; // Your team number
-    String sectionNumber = "905"; // Your section number
-    String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
-    String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-    dbSetup myCredentials = new dbSetup(); 
+    	//Building the connection with your credentials
+    	Connection conn = null;
+    	String teamNumber = "61"; // Your team number
+    	String sectionNumber = "905"; // Your section number
+    	String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
+    	String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+    	dbSetup myCredentials = new dbSetup(); 
 
-    //Connecting to the database
-    try {
-      conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
-    } catch (Exception e) {
-      e.printStackTrace();
-      System.err.println(e.getClass().getName()+": "+e.getMessage());
-      System.exit(0);
-    }
-    System.out.println("Opened database successfully");
+    	//Connecting to the database
+    	try {
+      		conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+    	} catch (Exception e) {
+      		e.printStackTrace();
+      		System.err.println(e.getClass().getName()+": "+e.getMessage());
+      		System.exit(0);
+    	}
+    	System.out.println("Opened database successfully");
 
+
+    	try {
+        	Statement stmt = conn.createStatement();
+        	stmt.executeUpdate(statement);
+    	} 
+    	catch (Exception e){
+    		e.printStackTrace();
+    		System.err.println(e.getClass().getName()+": "+e.getMessage());
+    		System.exit(0);
+    	}
+    	//closing the connection
+    	try {
+      		conn.close();
+      		System.out.println("Connection Closed.");
+    	} 
+    	catch(Exception e) {
+      		System.out.println("Connection NOT Closed.");
+    	}//end try catch
+	}
+	*/
+
+
+
+
+
+
+	/*
     String[] entree = new String[]{"burrito", "bowl", "tacos"};
     String[] protein = new String[]{"chicken", "steak", "beef", "vegetable medley"};
     Double[] protein_prices = new Double[]{8.50, 8.89, 8.79, 7.89};
@@ -100,6 +194,8 @@ public class jdbcpostgreSQL {
     catch(Exception e) {
       System.out.println("Connection NOT Closed.");
     }//end try catch
-  }//end main
+  //end main
+  }
+  */
 }
 //end Class

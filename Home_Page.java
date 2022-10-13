@@ -36,6 +36,7 @@ public class Home_Page {
         JPanel panel=new JPanel();  
         panel.setBounds(10,10,1000,600);    
         panel.setBackground(Color.gray);  
+
         JButton b1=new JButton("Clerk Page");     
         b1.setBounds(50,100,80,30);    
         b1.setBackground(Color.red);
@@ -46,6 +47,7 @@ public class Home_Page {
                         f.dispose(); 
                     }  
             }); 
+
         JButton b2=new JButton("Manager Page");   
         b2.setBounds(100,100,80,30);    
         b2.setBackground(Color.yellow);   
@@ -56,18 +58,17 @@ public class Home_Page {
                 f.dispose(); 
             }  
         }); 
-        panel.add(b1); panel.add(b2);  
+
+        panel.add(b1); panel.add(b2); 
+
         f.add(panel);  
-                f.setSize(1010,610);    
-                f.setLayout(null);    
-                f.setVisible(true);    
-        }  
-        
-        public void windowClosing (WindowEvent e) {    
-            f.dispose();    
-        }    
-        public static void main(String args[])  
-        {  
-            new Home_Page();  
-        }  
+        f.setSize(1010,610);    
+        f.setLayout(null);    
+        f.setVisible(true);    
     }  
+           
+    public static void main(String args[])  
+    {  
+        new Home_Page();  
+    }  
+}  

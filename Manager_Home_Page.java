@@ -9,7 +9,7 @@ public class Manager_Home_Page {
 
     Manager_Home_Page(ArrayList<String> entrees, ArrayList<String> protein, ArrayList<String> sides) {   
 
-        JPanel panel=new JPanel();  
+        JPanel panel = new JPanel();  
         panel.setBounds(10, 10, 1000, 600); 
 
         JButton b1=new JButton("Back To Home Page");     
@@ -63,7 +63,7 @@ public class Manager_Home_Page {
         label.setSize(500, 100);
 
         JButton submitButton = new JButton("Submit");
-        submitButton.setBounds(200, 150, 80, 30);
+        submitButton.setBounds(200, 150, 100, 30);
         
         // After drop down menu items are selected and submit button is pressed, the values are stored and outputted on the frame
         submitButton.addActionListener(new ActionListener() {

@@ -73,12 +73,12 @@ public class Manager_Home_Page {
             l3.addElement(s);
         }
         JList<String> list3 = new JList<>(l3);  
-        list3.setBounds(660, 100, 100, 150);  
+        list3.setBounds(660, 100, 140, 150);  
         f.add(list3); 
 
         // Label outputs on GUI the selections
         final JLabel label = new JLabel();
-        label.setSize(500, 100);
+        label.setSize(700, 100);
 
         JButton submitButton = new JButton("Submit");
         submitButton.setBounds(200, 150, 100, 30);
@@ -87,24 +87,32 @@ public class Manager_Home_Page {
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String data = "";
-                String entreeType; String proteinType; String extrasSelected;
+                String entreeType = ""; 
+                String proteinType = ""; 
+                String extrasSelected = "";
                 if(list1.getSelectedIndex() != -1) {
                     entreeType = list1.getSelectedValue();
-                    data += entreeType + " ";
-                    label.setText(data);
+                    //data += entreeType + " ";
+                    //label.setText(data);
                 }
                 if(list2.getSelectedIndex() != -1) {
                     proteinType = list2.getSelectedValue();
-                    data += proteinType + " ";
-                    label.setText(data);
+                    //data += proteinType + " ";
+                    //label.setText(data);
                 }
                 if(list3.getSelectedIndex() != -1) {
                     extrasSelected = list3.getSelectedValue();
-                    data += extrasSelected + " ";
-                    label.setText(data);
+                    //data += extrasSelected + " ";
+                    //label.setText(data);
                 }
                 String startDate = start.getText();
                 String endDate = end.getText();
+                String command = "SELEC";
+
+                jdbcpostgreSQL databaseConnection = new jdbcpostgreSQL(command, startDate, endDate, entreeType, proteinType, extrasSelected);
+                String sql_statement = databaseConnection.statement;
+                data += sql_statement;
+                label.setText(data);
             }
         });
     

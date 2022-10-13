@@ -1,6 +1,7 @@
 import java.sql.*;
 import java.io.*;   
 import java.util.Random;
+import java.util.ArrayList;
 
 /*
 CSCE 331
@@ -8,6 +9,43 @@ CSCE 331
 */
 // @author Justin, Brandon, Sam, Roee
 public class jdbcpostgreSQL {
+
+  String statement = "";
+
+  jdbcpostgreSQL(String command, String start, String end, String entree, String protein, String side) {
+
+	//Select All
+	if (entree == "All" && protein == "All" && side == "All") {
+		this.statement = "SELECT * FROM cabo_grill_sales";
+	}
+
+	//Select All Entrees
+    if (entree == "All" && protein == "None" && side == "None") {
+		this.statement = "SELECT * FROM cabo_grill_sales WHERE type = 'entree'";
+	}
+
+	//Select All Protein
+    if (entree == "None" && protein == "All" && side == "None") {
+		this.statement = "SELECT * FROM cabo_grill_sales WHERE type = 'protein'";
+	}
+
+	//Select all with Particular Entree
+    if (protein == "None" && side == "None") {
+		this.statement = "SELECT * FROM cabo_grill_sales WHERE type = '" + entree + "'";
+	}
+
+	//Select all with Particular Protein
+	if (entree == "None" && side == "None") {
+		this.statement = "SELECT * FROM cabo_grill_sales WHERE type = '" + protein + "'";
+	}
+
+	//Select all with Particular Side
+    if (entree == "None" && protein == "None") {
+		this.statement = "SELECT * FROM cabo_grill_sales WHERE type = '" + side + "'";
+	}
+  }
+
+
   //Commands to run this script
   //This will compile all java files in this directory
   //javac *.java
@@ -25,7 +63,10 @@ public class jdbcpostgreSQL {
   @return none
   @throws Exception when database doesn't connect, when database's connection doesn't close, when update statement doesn't execute
   */
+
+  /*
   public static void main(String args[]) {
+    
     
     //Building the connection with your credentials
     Connection conn = null;
@@ -100,6 +141,8 @@ public class jdbcpostgreSQL {
     catch(Exception e) {
       System.out.println("Connection NOT Closed.");
     }//end try catch
-  }//end main
+  //end main
+  }
+  */
 }
 //end Class

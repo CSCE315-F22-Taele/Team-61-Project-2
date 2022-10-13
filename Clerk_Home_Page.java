@@ -98,6 +98,7 @@ public class Clerk_Home_Page {
                f.setVisible(true);    
        }  
 <<<<<<< HEAD
+<<<<<<< HEAD
        
        public void windowClosing (WindowEvent e) {    
            f.dispose();    
@@ -106,6 +107,8 @@ public class Clerk_Home_Page {
     //    {  
     //    new Clerk_Home_Page();  
     //    }  
+=======
+>>>>>>> 3471b940b1f4290257501a0acbed5bfa8a0914d2
 =======
 >>>>>>> 3471b940b1f4290257501a0acbed5bfa8a0914d2
 }

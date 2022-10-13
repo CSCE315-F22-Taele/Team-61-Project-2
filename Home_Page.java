@@ -2,7 +2,12 @@ import java.awt.*;
 import javax.swing.*;  
 import java.awt.event.*; 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.*; 
+=======
+import java.util.ArrayList;
+
+>>>>>>> 3471b940b1f4290257501a0acbed5bfa8a0914d2
 =======
 import java.util.ArrayList;
 
@@ -34,10 +39,16 @@ public class Home_Page {
 
     JFrame f = new JFrame("Home Page");
 <<<<<<< HEAD
+<<<<<<< HEAD
     Vector<Order> orders = new Vector<Order>(); 
     Inventory inventory = new Inventory(); 
      Home_Page(){  
         //JFrame f= new JFrame("Panel Example");    
+=======
+
+    Home_Page() {    
+
+>>>>>>> 3471b940b1f4290257501a0acbed5bfa8a0914d2
 =======
 
     Home_Page() {    

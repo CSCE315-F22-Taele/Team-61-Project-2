@@ -29,7 +29,7 @@ public class jdbcpostgreSQL {
 				if (start == "" && end == "") {
 					this.statement = "SELECT * FROM cabo_grill_sales WHERE type = 'entree'";
 				} else {
-					this.statement = "SELECT * FROM cabo_grill_sales WHERE type = 'entree' AND WHERE date BETWEEN '" + start + "' AND '" + end + "';";
+					this.statement = "SELECT * FROM cabo_grill_sales WHERE type = 'entree' AND date BETWEEN '" + start + "' AND '" + end + "';";
 				}
 			}
 
@@ -38,7 +38,7 @@ public class jdbcpostgreSQL {
 				if (start == "" && end == "") {
 					this.statement = "SELECT * FROM cabo_grill_sales WHERE type = 'protein'";
 				} else {
-					this.statement = "SELECT * FROM cabo_grill_sales WHERE type = 'protein' AND WHERE date BETWEEN '" + start + "' AND '" + end + "';";
+					this.statement = "SELECT * FROM cabo_grill_sales WHERE type = 'protein' AND date BETWEEN '" + start + "' AND '" + end + "';";
 				}
 			}
 
@@ -47,7 +47,7 @@ public class jdbcpostgreSQL {
 				if (start == "" && end == "") {
 					this.statement = "SELECT * FROM cabo_grill_sales WHERE entree_type = '" + entree + "';";
 				} else {
-					this.statement = "SELECT * FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND WHERE date BETWEEN '" + start + "' AND '" + end + "';";
+					this.statement = "SELECT * FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND date BETWEEN '" + start + "' AND '" + end + "';";
 				}
 			}
 
@@ -56,7 +56,7 @@ public class jdbcpostgreSQL {
 				if (start == "" && end == "") {
 					this.statement = "SELECT * FROM cabo_grill_sales WHERE protein = '" + protein + "';";
 				} else {
-					this.statement = "SELECT * FROM cabo_grill_sales WHERE protein = '" + protein + "' AND WHERE date BETWEEN '" + start + "' AND '" + end + "';";
+					this.statement = "SELECT * FROM cabo_grill_sales WHERE protein = '" + protein + "' AND date BETWEEN '" + start + "' AND '" + end + "';";
 				}
 			}
 
@@ -65,7 +65,7 @@ public class jdbcpostgreSQL {
 				if (start == "" && end == "") {
 					this.statement = "SELECT * FROM cabo_grill_sales WHERE " + side + " = 1;";
 				} else {
-					this.statement = "SELECT * FROM cabo_grill_sales WHERE " + side  + " = 1 AND WHERE date BETWEEN '" + start + "' AND '" + end + "'";
+					this.statement = "SELECT * FROM cabo_grill_sales WHERE " + side  + " = 1 AND date BETWEEN '" + start + "' AND '" + end + "'";
 				}
 			}
 		}

@@ -1,21 +1,20 @@
 import java.awt.*;  
 import javax.swing.*;  
 import java.awt.event.*; 
+import java.util.ArrayList;
 
 public class Manager_Home_Page {
 
     JFrame f = new JFrame("Home Page");
 
-    Manager_Home_Page(String[] entrees, String[] protein, String[] sides) {   
-          
+    Manager_Home_Page(ArrayList<String> entrees, ArrayList<String> protein, ArrayList<String> sides) {   
+
         JPanel panel = new JPanel();  
         panel.setBounds(10, 10, 1000, 600); 
 
-        JButton b1 = new JButton("Back To Home Page");     
-        b1.setBounds(50,100,80,30); 
-        
-        // On click - Goes back to home page
-        b1.addActionListener(new ActionListener(){  
+        JButton b1=new JButton("Back To Home Page");     
+        b1.setBounds(50,100,80,30);    
+        b1.addActionListener(new ActionListener() {  
             public void actionPerformed(ActionEvent e){  
                 b1.setBackground(Color.green);  
                     new Home_Page(); 
@@ -24,17 +23,15 @@ public class Manager_Home_Page {
         }); 
         panel.add(b1);  
 
-
         //Start Date TextBox
-        JTextArea startDate = new JTextArea();  
-        startDate.setBounds(180,100, 100,20);  
-        f.add(startDate);
+        JTextArea start = new JTextArea();  
+        start.setBounds(180,100, 100,20);   
+        f.add(start);
 
         //End Date TextBox
-        JTextArea endDate = new JTextArea();  
-        endDate.setBounds(300,100, 100,20);  
-        f.add(endDate);
-
+        JTextArea end = new JTextArea();  
+        end.setBounds(300,100, 100,20); 
+        f.add(end);
 
         //Lists
         DefaultListModel<String> l1 = new DefaultListModel<>();  
@@ -66,7 +63,7 @@ public class Manager_Home_Page {
         label.setSize(500, 100);
 
         JButton submitButton = new JButton("Submit");
-        submitButton.setBounds(200, 150, 80, 30);
+        submitButton.setBounds(200, 150, 100, 30);
         
         // After drop down menu items are selected and submit button is pressed, the values are stored and outputted on the frame
         submitButton.addActionListener(new ActionListener() {
@@ -88,6 +85,8 @@ public class Manager_Home_Page {
                     data += extrasSelected + " ";
                     label.setText(data);
                 }
+                String startDate = start.getText();
+                String endDate = end.getText();
             }
         });
     

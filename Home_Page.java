@@ -1,10 +1,18 @@
 import java.awt.*;  
 import javax.swing.*;  
 import java.awt.event.*; 
+import java.util.ArrayList;
+
 public class Home_Page {  
+    
+    String[] entrees = new String[]{"All", "Bowl", "Burrito", "Tacos", "None"};
+    String[] protein = new String[]{"All", "Chicken", "Steak", "Beef", "Vegetable", "None"};
+    String[] sides = new String[]{"All", "Chips-Queso", "Chips-Guac", "Chips-Salsa", "Water", "None"};
+
     JFrame f = new JFrame("Home Page");
-     Home_Page(){  
-        //JFrame f= new JFrame("Panel Example");    
+
+    Home_Page() {    
+
         JPanel panel=new JPanel();  
         panel.setBounds(10,10,1000,600);    
         panel.setBackground(Color.gray);  
@@ -24,9 +32,9 @@ public class Home_Page {
         b2.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){  
                 b1.setBackground(Color.green);  
-                    new Manager_Home_Page(); 
-                    f.dispose(); 
-                }  
+                new Manager_Home_Page(entrees, protein, sides); 
+                f.dispose(); 
+            }  
         }); 
         panel.add(b1); panel.add(b2);  
         f.add(panel);  
@@ -40,6 +48,6 @@ public class Home_Page {
         }    
         public static void main(String args[])  
         {  
-        new Home_Page();  
+            new Home_Page();  
         }  
     }  

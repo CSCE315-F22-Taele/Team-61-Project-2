@@ -3,14 +3,14 @@ import javax.swing.*;
 import java.awt.event.*; 
 import java.util.*; 
 
-public class Clerk_Sides_Page {
+public class Clerk_Sides_Page extends Clerk_Toppings_Page{
     JFrame f = new JFrame("Clerk Sides Page");
     int chips_salsa = 0;
     int chips_queso = 0;
     int chips_guac = 0;
     int drinks = 0; 
     float cost = 0; 
-    Clerk_Sides_Page(Vector<Order> orders, Inventory inventory, boolean additional_entree){  
+    Clerk_Sides_Page(boolean additional_entree){  
        //JFrame f= new JFrame("Panel Example");
        GridLayout test_layout = new GridLayout(4, 4); 
        JPanel panel=new JPanel();  
@@ -19,18 +19,18 @@ public class Clerk_Sides_Page {
        //b1.setBackground(Color.red);     
        //b1.setOpaque(true);
        //b1.setBorderPainted(false);
-       orders.lastElement().update_cost();
+       main_cost_update();
        JButton home_page_button =new JButton("Back To Clerk Home Page");
        JButton chips_salsa_button = new JButton("Chips and Salsa: " + chips_salsa); 
        JButton chips_guac_button = new JButton("Chips and Guac: " + chips_guac ); 
        JButton chips_queso_button = new JButton("Chips and Queso: " + chips_queso); 
        JButton drink_button = new JButton("Drink: " + drinks); 
        JButton more_food = new JButton("More Food"); 
-       JButton pay_button = new JButton("Pay Now: " + orders.lastElement().cost); 
+       JButton pay_button = new JButton("Pay Now: " + get_order_total()); 
        home_page_button.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){  
-                orders.remove(orders.size() -1);
-                new Clerk_Home_Page(orders, inventory, false); 
+                remove();
+                new Clerk_Home_Page(false); 
                 f.dispose(); 
             }  
         }); 
@@ -38,47 +38,49 @@ public class Clerk_Sides_Page {
             public void actionPerformed(ActionEvent e){  
                 chips_salsa += 1; 
                 chips_salsa_button.setText("chips and Salsa: " + chips_salsa);
-                orders.lastElement().update_cost();
-                pay_button.setText("Pay Now: " + orders.lastElement().cost); 
+                setSalsa(chips_salsa);
+                main_cost_update();
+                main_print();
+                pay_button.setText("Pay Now: " + get_order_total()); 
             }  
         }); 
         chips_guac_button.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){  
                 chips_guac += 1; 
                 chips_guac_button.setText("Chips and Guac: " + chips_guac);
-                orders.lastElement().update_cost();
-                pay_button.setText("Pay Now: " + orders.lastElement().cost); 
+                main_cost_update();
+                pay_button.setText("Pay Now: " + get_order_total()); 
             }  
         }); 
         chips_queso_button.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){  
                 chips_queso += 1; 
                 chips_queso_button.setText("Chips and Queso: " + chips_queso);
-                orders.lastElement().update_cost();
-                pay_button.setText("Pay Now: " + orders.lastElement().cost); 
+                main_cost_update();
+                pay_button.setText("Pay Now: " + get_order_total()); 
             }  
         }); 
         drink_button.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){  
                 drinks += 1; 
                 drink_button.setText("Drinks: " + drinks);
-                orders.lastElement().update_cost();
-                pay_button.setText("Pay Now: " + orders.lastElement().cost); 
+                main_cost_update();
+                pay_button.setText("Pay Now: " + get_order_total()); 
             }  
         }); 
         more_food.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){  
-                orders.lastElement().guac = chips_guac; 
-                orders.lastElement().salsa = chips_salsa;
-                orders.lastElement().queso = chips_queso; 
-                orders.lastElement().drink = drinks; 
-                new Clerk_Home_Page(orders, inventory, true); 
+                setGuac(chips_guac);
+                setSalsa(chips_salsa);
+                setQueso(chips_queso);
+                setDrink(drinks);
+                new Clerk_Home_Page(true); 
                 f.dispose(); 
             }  
         }); 
         pay_button.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){  
-                new Clerk_Home_Page(orders, inventory, additional_entree);
+                new Clerk_Home_Page(additional_entree);
                 f.dispose(); 
             }
         }); 

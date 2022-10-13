@@ -1,17 +1,14 @@
 import java.awt.*;  
 import javax.swing.*;  
 import java.awt.event.*; 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 import java.util.*; 
-=======
+
 import java.util.ArrayList;
 
->>>>>>> 3471b940b1f4290257501a0acbed5bfa8a0914d2
-=======
+
 import java.util.ArrayList;
 
->>>>>>> 3471b940b1f4290257501a0acbed5bfa8a0914d2
 public class Home_Page {  
     
     ArrayList<String> entrees = new ArrayList<String>() {{
@@ -38,22 +35,12 @@ public class Home_Page {
     }};
 
     JFrame f = new JFrame("Home Page");
-<<<<<<< HEAD
-<<<<<<< HEAD
+
     Vector<Order> orders = new Vector<Order>(); 
-    Inventory inventory = new Inventory(); 
-     Home_Page(){  
-        //JFrame f= new JFrame("Panel Example");    
-=======
+    Inventory inventory = new Inventory();   
 
     Home_Page() {    
 
->>>>>>> 3471b940b1f4290257501a0acbed5bfa8a0914d2
-=======
-
-    Home_Page() {    
-
->>>>>>> 3471b940b1f4290257501a0acbed5bfa8a0914d2
         JPanel panel=new JPanel();  
         panel.setBounds(10,10,1000,600);    
         panel.setBackground(Color.gray);  
@@ -63,10 +50,10 @@ public class Home_Page {
         b1.setBackground(Color.red);
         b1.addActionListener(new ActionListener(){  
                 public void actionPerformed(ActionEvent e){  
-                    b1.setBackground(Color.green);  
-                        new Clerk_Home_Page(orders, inventory, false); 
+                        b1.setBackground(Color.green);  
+                        new Clerk_Home_Page(false); 
                         f.dispose(); 
-                    }  
+                }  
         }); 
 
         JButton b2=new JButton("Manager Page");   
@@ -92,4 +79,71 @@ public class Home_Page {
     {  
         new Home_Page();  
     }  
-}  
+
+    public void add_order(Order o){
+        System.out.println("add order running");
+        orders.add(o);
+        System.out.println(orders.firstElement().Entree);
+    }
+
+    public void set_protein(String p){
+        if(!orders.isEmpty()){
+            orders.lastElement().Protein = p;
+        }
+    }
+
+    public void main_cost_update(){
+        if(!orders.isEmpty()){
+            orders.lastElement().update_cost();
+        }
+    }
+
+    public void remove(){
+        if(!orders.isEmpty()){
+            orders.remove(orders.size() -1);
+        }
+    }
+
+    public void setGuac(int i){
+        if(!orders.isEmpty()){
+            orders.lastElement().guac = i;
+        }
+    }
+    
+    public void setSalsa(int i){
+        if(!orders.isEmpty()){
+            orders.lastElement().salsa = i;
+        }
+    }
+
+    public void setQueso(int i){
+        if(!orders.isEmpty()){
+            orders.lastElement().queso = i;
+        }
+    }
+
+    public void setDrink(int i){
+        if(!orders.isEmpty()){
+            orders.lastElement().drink = i;
+        }
+    }
+
+    public String get_entree() {
+        if(!orders.isEmpty()){
+            return orders.lastElement().Entree;
+        }
+        return "null";
+    }
+
+    public float get_order_total(){
+        if(!orders.isEmpty()){
+            return orders.lastElement().cost;
+        }
+        return 0;
+    }
+
+    public void main_print(){
+        orders.lastElement().print();
+    }
+
+}

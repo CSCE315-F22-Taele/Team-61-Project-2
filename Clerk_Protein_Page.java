@@ -3,9 +3,9 @@ import javax.swing.*;
 import java.awt.event.*; 
 import java.util.*; 
 
-public class Clerk_Protein_Page {
+public class Clerk_Protein_Page extends Clerk_Home_Page{
     JFrame f = new JFrame("Clerk Protein Page");
-    Clerk_Protein_Page(Vector<Order> orders, Inventory inventory, boolean additional_entree){  
+    Clerk_Protein_Page(boolean additional_entree){  
        //JFrame f= new JFrame("Panel Example");
        GridLayout test_layout = new GridLayout(4, 4); 
        JPanel panel=new JPanel();  
@@ -22,35 +22,35 @@ public class Clerk_Protein_Page {
         home_page_button.addActionListener(new ActionListener(){  
                 public void actionPerformed(ActionEvent e){  
                     orders.remove(orders.size() -1);
-                    new Clerk_Home_Page(orders, inventory, additional_entree); 
+                    new Clerk_Home_Page(additional_entree); 
                     f.dispose(); 
                 }  
             }); 
         chicken_button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                orders.lastElement().Entree = "Chicken"; 
-                new Clerk_Toppings_Page(orders, inventory, additional_entree);
+                set_protein("Chicken");
+                new Clerk_Toppings_Page(additional_entree);
                 f.dispose(); 
             }
         });
         steak_button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                orders.lastElement().Entree = "Steak"; 
-                new Clerk_Toppings_Page(orders, inventory, additional_entree);
+                set_protein("Steak");
+                new Clerk_Toppings_Page(additional_entree);
                 f.dispose(); 
             }
         });
         beef_button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                orders.lastElement().Entree = "Beef"; 
-                new Clerk_Toppings_Page(orders, inventory, additional_entree);
+                set_protein("Beef");
+                new Clerk_Toppings_Page(additional_entree);
                 f.dispose(); 
             }
         });
         vegetable_button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                orders.lastElement().Entree = "Vegetable"; 
-                new Clerk_Toppings_Page(orders, inventory, additional_entree);
+                set_protein("Vegetable"); 
+                new Clerk_Toppings_Page(additional_entree);
                 f.dispose(); 
             }
         });

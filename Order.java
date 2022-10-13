@@ -101,4 +101,8 @@ public class Order {
         cost += 3.69 * guac; 
         cost += 2.45 * drink; 
     }
+
+    public void print(){
+        System.out.println(Sale_Id + ", " + date + ", " + Entree + ", " + Protein + ", " + salsa + ", " + queso + ", " + guac + ", " + drink + "," + cost);
+    }
 }

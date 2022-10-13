@@ -3,9 +3,9 @@ import javax.swing.*;
 import java.awt.event.*; 
 import java.util.*; 
 
-public class Clerk_Home_Page {
+public class Clerk_Home_Page extends Home_Page{
     JFrame f = new JFrame("Clerk Home Page"); 
-    Clerk_Home_Page(Vector<Order> orders, Inventory inventory, boolean additional_entree){  
+    Clerk_Home_Page(boolean additional_entree){  
        //JFrame f= new JFrame("Panel Example");
        GridLayout test_layout = new GridLayout(4, 4); 
        JPanel panel=new JPanel();  
@@ -37,8 +37,10 @@ public class Clerk_Home_Page {
                     current_order = new Order(); 
                 }
                 current_order.Entree = "Bowl"; 
-                orders.add(current_order); 
-                new Clerk_Protein_Page(orders, inventory, additional_entree); 
+                //orders.add(current_order); 
+                //updateVector(orders, current_order);
+                add_order(current_order);
+                new Clerk_Protein_Page(additional_entree); 
                 f.dispose();
             }
         });
@@ -52,8 +54,9 @@ public class Clerk_Home_Page {
                     current_order = new Order(); 
                 }
                 current_order.Entree = "Burrito"; 
-                orders.add(current_order); 
-                new Clerk_Protein_Page(orders, inventory, additional_entree); 
+                //orders.add(current_order); 
+                add_order(current_order);
+                new Clerk_Protein_Page(additional_entree); 
                 f.dispose();
             }
         });
@@ -67,8 +70,9 @@ public class Clerk_Home_Page {
                     current_order = new Order(); 
                 }
                 current_order.Entree = "Taco"; 
-                orders.add(current_order); 
-                new Clerk_Protein_Page(orders, inventory, additional_entree); 
+                //orders.add(current_order); 
+                add_order(current_order);
+                new Clerk_Protein_Page(additional_entree); 
                 f.dispose();
             }
         });
@@ -82,8 +86,9 @@ public class Clerk_Home_Page {
                     current_order = new Order(); 
                 }
                 current_order.Entree = "Salad"; 
-                orders.add(current_order); 
-                new Clerk_Protein_Page(orders, inventory, additional_entree); 
+                //orders.add(current_order); 
+                add_order(current_order);
+                new Clerk_Protein_Page(additional_entree); 
                 f.dispose();
             }
         });
@@ -97,18 +102,15 @@ public class Clerk_Home_Page {
                f.setLayout(null);    
                f.setVisible(true);    
        }  
-<<<<<<< HEAD
-<<<<<<< HEAD
+
        
        public void windowClosing (WindowEvent e) {    
            f.dispose();    
        }    
+
     //    public static void main(String args[])  
     //    {  
     //    new Clerk_Home_Page();  
     //    }  
-=======
->>>>>>> 3471b940b1f4290257501a0acbed5bfa8a0914d2
-=======
->>>>>>> 3471b940b1f4290257501a0acbed5bfa8a0914d2
+
 }

@@ -3,9 +3,9 @@ import javax.swing.*;
 import java.awt.event.*; 
 import java.util.*; 
 
-public class Clerk_Toppings_Page {
+public class Clerk_Toppings_Page extends Clerk_Protein_Page{
     JFrame f = new JFrame("Clerk Toppings Page");
-    Clerk_Toppings_Page(Vector<Order> orders, Inventory inventory, boolean additional_entree){  
+    Clerk_Toppings_Page(boolean additional_entree){  
        //JFrame f= new JFrame("Panel Example");
        GridLayout test_layout = new GridLayout(4, 4); 
        JPanel panel=new JPanel();  
@@ -25,7 +25,7 @@ public class Clerk_Toppings_Page {
         home_page_button.addActionListener(new ActionListener(){  
                 public void actionPerformed(ActionEvent e){  
                     orders.remove(orders.size() -1);
-                    new Clerk_Home_Page(orders, inventory, additional_entree); 
+                    new Clerk_Home_Page(additional_entree); 
                     f.dispose(); 
                 }  
             }); 
@@ -133,7 +133,7 @@ public class Clerk_Toppings_Page {
         });
         continue_button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                new Clerk_Sides_Page(orders, inventory, additional_entree); 
+                new Clerk_Sides_Page(additional_entree); 
                 f.dispose(); 
             }
         });

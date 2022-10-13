@@ -2,12 +2,31 @@ import java.awt.*;
 import javax.swing.*;  
 import java.awt.event.*; 
 import java.util.ArrayList;
+import java.sql.*;
 
 public class Manager_Home_Page {
 
     JFrame f = new JFrame("Home Page");
 
     Manager_Home_Page(ArrayList<String> entrees, ArrayList<String> protein, ArrayList<String> sides) {   
+        //Building the connection with your credentials
+        Connection conn = null;
+        String teamNumber = "61"; // Your team number
+        String sectionNumber = "905"; // Your section number
+        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup(); 
+
+        //Connecting to the database
+        try {
+        conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+        } catch (Exception e) {
+        e.printStackTrace();
+        System.err.println(e.getClass().getName()+": "+e.getMessage());
+        System.exit(0);
+        }
+        System.out.println("Opened database successfully");
+
 
         JPanel panel = new JPanel();  
         panel.setBounds(10, 10, 1000, 600); 
@@ -147,12 +166,25 @@ public class Manager_Home_Page {
                 totalLabel.append(total);
             }
         });
+<<<<<<< HEAD
     
         f.add(submitButton); f.add(queryLabel); f.add(totalLabel);
+=======
+        f.add(submitButton); f.add(label);
+>>>>>>> ca1d3f0ad41669d3e0f4478e0edf5726a5abe94d
 
         f.add(panel);  
         f.setSize(1010,610);    
         f.setLayout(null);    
         f.setVisible(true);   
+
+        //closing the connection
+        try {
+            conn.close();
+            System.out.println("Connection Closed.");
+        } 
+        catch(Exception e) {
+            System.out.println("Connection NOT Closed.");
+        }//end try catch
     }  
 }

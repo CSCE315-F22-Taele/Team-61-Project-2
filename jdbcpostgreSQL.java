@@ -188,4 +188,8 @@ public class jdbcpostgreSQL {
       		System.out.println("Connection NOT Closed.");
     	}
   	}
+
+	// jdbcpostgreSQL(String table, String quantityAmt, String sufficientSupplyValue, String itemID) {
+
+	// }
 }

@@ -122,6 +122,15 @@ public class Manager_Home_Page {
         quantityTextLabel.setBounds(80, 470, 100, 30);
         f.add(quantityTextLabel);
 
+        // Text box for sufficient supply 
+        JTextArea sufficientSupplyLabel = new JTextArea();
+        sufficientSupplyLabel.setBounds(140, 500, 50, 20);
+        f.add(sufficientSupplyLabel);
+        // Text above sufficient supply text box
+        JLabel sufficientSupplyTextLabel = new JLabel("Sufficient Supply");
+        sufficientSupplyTextLabel.setBounds(140, 470, 150, 30);
+        f.add(sufficientSupplyTextLabel);
+
         
         // After drop down menu items are selected and submit button is pressed, the values are stored and outputted on the frame
         submitButton.addActionListener(new ActionListener() {

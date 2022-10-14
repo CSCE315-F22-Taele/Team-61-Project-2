@@ -103,6 +103,10 @@ public class Manager_Home_Page {
 
         JButton submitButton = new JButton("Submit");
         submitButton.setBounds(270, 200, 100, 30);
+
+        // Label to type in Item ID
+        JTextArea updateLabel = new JTextArea();
+        updateLabel.setBounds(30, 500, 50, 20);
         
         // After drop down menu items are selected and submit button is pressed, the values are stored and outputted on the frame
         submitButton.addActionListener(new ActionListener() {
@@ -148,7 +152,7 @@ public class Manager_Home_Page {
             }
         });
     
-        f.add(submitButton); f.add(queryLabel); f.add(totalLabel);
+        f.add(submitButton); f.add(queryLabel); f.add(totalLabel); f.add(updateLabel);
 
         f.add(panel);  
         f.setSize(1010,610);    

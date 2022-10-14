@@ -188,4 +188,48 @@ public class jdbcpostgreSQL {
       		System.out.println("Connection NOT Closed.");
     	}
   	}
+
+	// constructor for update statement
+	jdbcpostgreSQL(String table, String quantityAmt, String sufficientSupplyValue, String itemID) {
+		//Building the connection with your credentials
+    	Connection conn = null;
+    	String teamNumber = "61"; // Your team number
+    	String sectionNumber = "905"; // Your section number
+    	String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
+    	String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+    	dbSetup myCredentials = new dbSetup(); 
+
+    	//Connecting to the database
+    	try {
+      		conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+    	} catch (Exception e) {
+      		e.printStackTrace();
+      		System.err.println(e.getClass().getName()+": "+e.getMessage());
+      		System.exit(0);
+    	}
+
+		// Try Except block executes UPDATE query
+		try {
+			Statement stmt = conn.createStatement();
+			String sql_query = "";
+			if (table == "cabo_grill") {
+				sql_query = "UPDATE cabo_grill SET quantity = " + quantityAmt + ", sufficient_supply = '" + sufficientSupplyValue
+							+ "' WHERE id = " + itemID;
+				// System.out.println(sql_query);
+				stmt.executeUpdate(sql_query);
+			}
+		} catch (Exception e){
+    		e.printStackTrace();
+    		System.err.println(e.getClass().getName()+": "+e.getMessage());
+    		System.exit(0);
+    	}
+
+		//closing the connection
+    	try {
+			conn.close();
+			//System.out.println("Connection Closed.");
+		} catch(Exception e) {
+			System.out.println("Connection NOT Closed.");
+		}
+	}
 }

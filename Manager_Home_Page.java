@@ -103,6 +103,34 @@ public class Manager_Home_Page {
 
         JButton submitButton = new JButton("Submit");
         submitButton.setBounds(270, 200, 100, 30);
+
+        // Text box to type in Item ID
+        JTextArea itemIDTextBox = new JTextArea();
+        itemIDTextBox.setBounds(20, 500, 50, 20);
+        f.add(itemIDTextBox); 
+        // Text above Item ID text box
+        JLabel itemIDTextLabel = new JLabel("Item ID");
+        itemIDTextLabel.setBounds(20, 470, 100, 30);
+        f.add(itemIDTextLabel);
+
+        // Text box for quantity 
+        JTextArea quantityTextBox = new JTextArea();
+        quantityTextBox.setBounds(80, 500, 50, 20);
+        f.add(quantityTextBox);
+        // Text above quantity text box
+        JLabel quantityTextLabel = new JLabel("Quantity");
+        quantityTextLabel.setBounds(80, 470, 100, 30);
+        f.add(quantityTextLabel);
+
+        // Text box for sufficient supply 
+        JTextArea sufficientSupplyTextBox = new JTextArea();
+        sufficientSupplyTextBox.setBounds(140, 500, 50, 20);
+        f.add(sufficientSupplyTextBox);
+        // Text above sufficient supply text box
+        JLabel sufficientSupplyTextLabel = new JLabel("Sufficient Supply");
+        sufficientSupplyTextLabel.setBounds(140, 470, 150, 30);
+        f.add(sufficientSupplyTextLabel);
+
         
         // After drop down menu items are selected and submit button is pressed, the values are stored and outputted on the frame
         submitButton.addActionListener(new ActionListener() {
@@ -147,12 +175,31 @@ public class Manager_Home_Page {
                 totalLabel.append(total);
             }
         });
-    
-        f.add(submitButton); f.add(queryLabel); f.add(totalLabel);
+        
+            // Update button to update inventory quantity and sufficient supply field
+            JButton updateButton = new JButton("Update");
+            updateButton.setBounds(60, 530, 100, 30);
+            updateButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    // System.out.println(itemIDTextBox.getText());
+                    // System.out.println(quantityTextBox.getText());
+                    // System.out.println(sufficientSupplyTextBox.getText());
+                    String id = "";
+                    String quantity = "";
+                    String suffSupp = "";
+                    id = itemIDTextBox.getText();
+                    quantity = quantityTextBox.getText();
+                    suffSupp = sufficientSupplyTextBox.getText();
+                    
+                    jdbcpostgreSQL databaseConnection = new jdbcpostgreSQL("cabo_grill", quantity, suffSupp, id);
+                }
+            });
+        
+            f.add(updateButton); f.add(submitButton); f.add(queryLabel); f.add(totalLabel); 
 
-        f.add(panel);  
-        f.setSize(1010,610);    
-        f.setLayout(null);    
-        f.setVisible(true);   
+            f.add(panel);  
+            f.setSize(1010,610);    
+            f.setLayout(null);    
+            f.setVisible(true);   
     }  
 }

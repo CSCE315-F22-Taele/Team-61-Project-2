@@ -104,13 +104,23 @@ public class Manager_Home_Page {
         JButton submitButton = new JButton("Submit");
         submitButton.setBounds(270, 200, 100, 30);
 
-        // Label to type in Item ID
+        // Text box to type in Item ID
         JTextArea updateLabel = new JTextArea();
         updateLabel.setBounds(20, 500, 50, 20);
-
+        f.add(updateLabel); 
+        // Text above Item ID text box
         JLabel updateTextLabel = new JLabel("Item ID");
         updateTextLabel.setBounds(20, 470, 100, 30);
         f.add(updateTextLabel);
+
+        // Text box for quantity 
+        JTextArea quantityLabel = new JTextArea();
+        quantityLabel.setBounds(80, 500, 50, 20);
+        f.add(quantityLabel);
+        // Text above quantity text box
+        JLabel quantityTextLabel = new JLabel("Quantity");
+        quantityTextLabel.setBounds(80, 470, 100, 30);
+        f.add(quantityTextLabel);
 
         
         // After drop down menu items are selected and submit button is pressed, the values are stored and outputted on the frame
@@ -157,7 +167,7 @@ public class Manager_Home_Page {
             }
         });
     
-        f.add(submitButton); f.add(queryLabel); f.add(totalLabel); f.add(updateLabel); 
+        f.add(submitButton); f.add(queryLabel); f.add(totalLabel); 
 
         f.add(panel);  
         f.setSize(1010,610);    

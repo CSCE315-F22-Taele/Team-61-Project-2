@@ -181,9 +181,17 @@ public class Manager_Home_Page {
             updateButton.setBounds(60, 530, 100, 30);
             updateButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    System.out.println(itemIDTextBox.getText());
-                    System.out.println(quantityTextBox.getText());
-                    System.out.println(sufficientSupplyTextBox.getText());
+                    // System.out.println(itemIDTextBox.getText());
+                    // System.out.println(quantityTextBox.getText());
+                    // System.out.println(sufficientSupplyTextBox.getText());
+                    String id = "";
+                    String quantity = "";
+                    String suffSupp = "";
+                    id = itemIDTextBox.getText();
+                    quantity = quantityTextBox.getText();
+                    suffSupp = sufficientSupplyTextBox.getText();
+                    
+                    jdbcpostgreSQL databaseConnection = new jdbcpostgreSQL("cabo_grill", quantity, suffSupp, id);
                 }
             });
         

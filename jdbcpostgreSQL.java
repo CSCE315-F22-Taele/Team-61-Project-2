@@ -208,14 +208,14 @@ public class jdbcpostgreSQL {
       		System.exit(0);
     	}
 
-		// Try Except block executes update query
+		// Try Except block executes UPDATE query
 		try {
 			Statement stmt = conn.createStatement();
 			String sql_query = "";
 			if (table == "cabo_grill") {
 				sql_query = "UPDATE cabo_grill SET quantity = " + quantityAmt + ", sufficient_supply = '" + sufficientSupplyValue
 							+ "' WHERE id = " + itemID;
-				System.out.println(sql_query);
+				// System.out.println(sql_query);
 				stmt.executeUpdate(sql_query);
 			}
 		} catch (Exception e){
@@ -227,7 +227,7 @@ public class jdbcpostgreSQL {
 		//closing the connection
     	try {
 			conn.close();
-			System.out.println("Connection Closed.");
+			//System.out.println("Connection Closed.");
 		} catch(Exception e) {
 			System.out.println("Connection NOT Closed.");
 		}

@@ -44,7 +44,7 @@ public class Home_Page {
         b1.addActionListener(new ActionListener(){  
                 public void actionPerformed(ActionEvent e){  
                     b1.setBackground(Color.green);  
-                        new Clerk_Home_Page(orders, inventory, false); 
+                        new Clerk_Home_Page(orders, inventory, entrees, protein, sides, false); 
                         f.dispose(); 
                     }  
         }); 
@@ -66,6 +66,7 @@ public class Home_Page {
         f.setSize(1010,610);    
         f.setLayout(null);    
         f.setVisible(true);    
+        f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }  
            
     public static void main(String args[])  

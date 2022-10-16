@@ -12,6 +12,7 @@ public class Home_Page {
         add("bowl");
         add("burrito");
         add("tacos");
+        add("salad"); 
     }};
     ArrayList<String> protein = new ArrayList<String>() {{
         add("None");

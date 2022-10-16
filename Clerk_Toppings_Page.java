@@ -150,8 +150,5 @@ public class Clerk_Toppings_Page {
        public void windowClosing (WindowEvent e) {    
            f.dispose();    
        }    
-    //    public static void main(String args[])  
-    //    {  
-    //    new Clerk_Protein_Page();  
-    //    }  
+
 }

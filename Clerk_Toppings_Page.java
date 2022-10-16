@@ -95,6 +95,10 @@ public class Clerk_Toppings_Page {
         });
         corn_button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
+<<<<<<< HEAD
+=======
+                System.out.println(corn_button.getBackground()); 
+>>>>>>> 03793a2a35a2eb96423d4c3cd7e7fa12e4580c88
                 if (corn_button.getBackground() == Color.green){
                     inventory.corn -= 1; 
                     corn_button.setBackground(null);     

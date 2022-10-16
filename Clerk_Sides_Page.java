@@ -21,7 +21,7 @@ public class Clerk_Sides_Page {
     int chips_guac = 0;
     int drinks = 0; 
     float cost = 0; 
-    Clerk_Sides_Page(Vector<Order> orders, Inventory inventory, boolean additional_entree){  
+    Clerk_Sides_Page(Vector<Order> orders, Inventory inventory, ArrayList<String> entrees, ArrayList<String> protein, ArrayList<String> sides, boolean additional_entree){  
        //JFrame f= new JFrame("Panel Example");
        GridLayout test_layout = new GridLayout(4, 4); 
        JPanel panel=new JPanel();  
@@ -41,7 +41,7 @@ public class Clerk_Sides_Page {
        home_page_button.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){  
                 orders.remove(orders.size() -1);
-                new Clerk_Home_Page(orders, inventory, false); 
+                new Clerk_Home_Page(orders, inventory, entrees, protein, sides, false); 
                 f.dispose(); 
             }  
         }); 
@@ -88,13 +88,13 @@ public class Clerk_Sides_Page {
                 orders.lastElement().salsa = chips_salsa;
                 orders.lastElement().queso = chips_queso; 
                 orders.lastElement().drink = drinks; 
-                new Clerk_Home_Page(orders, inventory, true); 
+                new Clerk_Home_Page(orders, inventory, entrees, protein, sides, true); 
                 f.dispose(); 
             }  
         }); 
         pay_button.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){  
-                new Clerk_Home_Page(orders, inventory, additional_entree);
+                new Clerk_Home_Page(orders, inventory, entrees, protein, sides, additional_entree);
                 f.dispose(); 
 
                 Connection conn = null;

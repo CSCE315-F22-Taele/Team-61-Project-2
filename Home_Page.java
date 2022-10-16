@@ -2,6 +2,8 @@ import java.awt.*;
 import javax.swing.*;  
 import java.awt.event.*; 
 import java.util.*; 
+import java.util.ArrayList;
+
 public class Home_Page {  
     
     ArrayList<String> entrees = new ArrayList<String>() {{

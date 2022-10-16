@@ -28,28 +28,28 @@ public class Clerk_Protein_Page {
             }); 
         chicken_button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                orders.lastElement().Entree = "Chicken"; 
+                orders.lastElement().Protein = "Chicken"; 
                 new Clerk_Toppings_Page(orders, inventory, additional_entree);
                 f.dispose(); 
             }
         });
         steak_button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                orders.lastElement().Entree = "Steak"; 
+                orders.lastElement().Protein = "Steak"; 
                 new Clerk_Toppings_Page(orders, inventory, additional_entree);
                 f.dispose(); 
             }
         });
         beef_button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                orders.lastElement().Entree = "Beef"; 
+                orders.lastElement().Protein = "Beef"; 
                 new Clerk_Toppings_Page(orders, inventory, additional_entree);
                 f.dispose(); 
             }
         });
         vegetable_button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                orders.lastElement().Entree = "Vegetable"; 
+                orders.lastElement().Protein = "Vegetable"; 
                 new Clerk_Toppings_Page(orders, inventory, additional_entree);
                 f.dispose(); 
             }

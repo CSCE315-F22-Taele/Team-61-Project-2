@@ -31,7 +31,6 @@ public class Clerk_Toppings_Page {
             }); 
         lettuce_button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                System.out.println(lettuce_button.getBackground()); 
                 if (lettuce_button.getBackground() == Color.green){
                     inventory.lettuce -= 1; 
                     lettuce_button.setBackground(null);     
@@ -48,7 +47,6 @@ public class Clerk_Toppings_Page {
         });
         cheese_button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                System.out.println(cheese_button.getBackground()); 
                 if (cheese_button.getBackground() == Color.green){
                     inventory.cheese -= 1; 
                     cheese_button.setBackground(null);     
@@ -65,7 +63,6 @@ public class Clerk_Toppings_Page {
         });
         tomatoes_button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                System.out.println(tomatoes_button.getBackground()); 
                 if (tomatoes_button.getBackground() == Color.green){
                     inventory.tomatoes -= 1; 
                     tomatoes_button.setBackground(null);     
@@ -82,7 +79,6 @@ public class Clerk_Toppings_Page {
         });
         pico_button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                System.out.println(pico_button.getBackground()); 
                 if (pico_button.getBackground() == Color.green){
                     inventory.pico -= 1; 
                     pico_button.setBackground(null);     
@@ -99,7 +95,6 @@ public class Clerk_Toppings_Page {
         });
         corn_button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                System.out.println(corn_button.getBackground()); 
                 if (corn_button.getBackground() == Color.green){
                     inventory.corn -= 1; 
                     corn_button.setBackground(null);     
@@ -116,7 +111,6 @@ public class Clerk_Toppings_Page {
         });
         sour_cream_button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                System.out.println(sour_cream_button.getBackground()); 
                 if (sour_cream_button.getBackground() == Color.green){
                     inventory.sour_cream -= 1; 
                     sour_cream_button.setBackground(null);     

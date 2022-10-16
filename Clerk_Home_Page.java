@@ -97,12 +97,4 @@ public class Clerk_Home_Page {
                f.setLayout(null);    
                f.setVisible(true);    
        }  
-       
-       public void windowClosing (WindowEvent e) {    
-           f.dispose();    
-       }    
-    //    public static void main(String args[])  
-    //    {  
-    //    new Clerk_Home_Page();  
-    //    }  
 }

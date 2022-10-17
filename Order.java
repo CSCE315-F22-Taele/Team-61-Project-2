@@ -19,11 +19,11 @@ public class Order {
     int guac; 
     int queso;
     int drink;
-    float cost; 
+    double cost; 
 
     Order(int saleid){
         Date temp_date = new Date(); 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");  
         date = formatter.format(temp_date);
         Entree = ""; 
         Protein = "";
@@ -36,8 +36,8 @@ public class Order {
     }
 
     Order(){
-        Date temp_date = new Date(); 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+        //Date temp_date = new Date(); 
+        //SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");  
 
         // connecting to our data base to get sale id start number
         Connection conn = null;
@@ -55,21 +55,22 @@ public class Order {
             System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
-        System.out.println("Opened database successfully");
+        //System.out.println("Opened database successfully");
         try{
             Statement stmt = conn.createStatement(); 
             String sqlQuery = "SELECT MAX(sale_id) from cabo_grill_sales;";
             ResultSet result = stmt.executeQuery(sqlQuery); 
             result.next(); 
             Sale_Id = result.getInt("max") + 1; 
-            System.out.println(Sale_Id);
+            //System.out.println(Sale_Id);
         }
         catch (Exception e){
             e.printStackTrace();
             //System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
-        date = formatter.format(temp_date);
+        //date = formatter.format(date); 
+        date = "2022-12-12"; //needs to be changed to accomodate for proper date
         Entree = ""; 
         Protein = "";
         salsa = 0;
@@ -100,5 +101,9 @@ public class Order {
         cost += 3.49 * queso;
         cost += 3.69 * guac; 
         cost += 2.45 * drink; 
+    }
+
+    public void print(){
+        System.out.println(Sale_Id + ", " + date + ", " + Entree + ", " + Protein + ", " + salsa + ", " + queso + ", " + guac + ", " + drink + "," + cost);
     }
 }

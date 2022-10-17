@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Clerk_Toppings_Page {
     JFrame f = new JFrame("Clerk Toppings Page");
-    Clerk_Toppings_Page(Vector<Order> orders, Inventory inventory, boolean additional_entree){  
+    Clerk_Toppings_Page(Vector<Order> orders, Inventory inventory, ArrayList<String> entrees, ArrayList<String> protein, ArrayList<String> sides, boolean additional_entree){  
        //JFrame f= new JFrame("Panel Example");
        GridLayout test_layout = new GridLayout(4, 4); 
        JPanel panel=new JPanel();  
@@ -25,13 +25,12 @@ public class Clerk_Toppings_Page {
         home_page_button.addActionListener(new ActionListener(){  
                 public void actionPerformed(ActionEvent e){  
                     orders.remove(orders.size() -1);
-                    new Clerk_Home_Page(orders, inventory, additional_entree); 
+                    new Clerk_Home_Page(orders, inventory, entrees, protein, sides, additional_entree); 
                     f.dispose(); 
                 }  
             }); 
         lettuce_button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                System.out.println(lettuce_button.getBackground()); 
                 if (lettuce_button.getBackground() == Color.green){
                     inventory.lettuce -= 1; 
                     lettuce_button.setBackground(null);     
@@ -48,7 +47,6 @@ public class Clerk_Toppings_Page {
         });
         cheese_button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                System.out.println(cheese_button.getBackground()); 
                 if (cheese_button.getBackground() == Color.green){
                     inventory.cheese -= 1; 
                     cheese_button.setBackground(null);     
@@ -65,7 +63,6 @@ public class Clerk_Toppings_Page {
         });
         tomatoes_button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                System.out.println(tomatoes_button.getBackground()); 
                 if (tomatoes_button.getBackground() == Color.green){
                     inventory.tomatoes -= 1; 
                     tomatoes_button.setBackground(null);     
@@ -82,7 +79,6 @@ public class Clerk_Toppings_Page {
         });
         pico_button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                System.out.println(pico_button.getBackground()); 
                 if (pico_button.getBackground() == Color.green){
                     inventory.pico -= 1; 
                     pico_button.setBackground(null);     
@@ -99,7 +95,6 @@ public class Clerk_Toppings_Page {
         });
         corn_button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                System.out.println(corn_button.getBackground()); 
                 if (corn_button.getBackground() == Color.green){
                     inventory.corn -= 1; 
                     corn_button.setBackground(null);     
@@ -116,7 +111,6 @@ public class Clerk_Toppings_Page {
         });
         sour_cream_button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                System.out.println(sour_cream_button.getBackground()); 
                 if (sour_cream_button.getBackground() == Color.green){
                     inventory.sour_cream -= 1; 
                     sour_cream_button.setBackground(null);     
@@ -133,7 +127,7 @@ public class Clerk_Toppings_Page {
         });
         continue_button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                new Clerk_Sides_Page(orders, inventory, additional_entree); 
+                new Clerk_Sides_Page(orders, inventory, entrees, protein, sides, additional_entree); 
                 f.dispose(); 
             }
         });
@@ -156,8 +150,5 @@ public class Clerk_Toppings_Page {
        public void windowClosing (WindowEvent e) {    
            f.dispose();    
        }    
-    //    public static void main(String args[])  
-    //    {  
-    //    new Clerk_Protein_Page();  
-    //    }  
+
 }

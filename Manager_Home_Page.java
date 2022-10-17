@@ -21,7 +21,16 @@ public class Manager_Home_Page {
                 f.dispose(); 
             }  
         }); 
+        JButton edit_item_button = new JButton("Adjust Prices / Add New Items"); 
+        edit_item_button.setBounds(200,200,100,40);
+        edit_item_button.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                new Edit_Item_Page();
+                f.dispose(); 
+            }
+        }); 
         panel.add(b1);  
+        panel.add(edit_item_button); 
 
         //Add new items to sides
         JTextArea addItemTextBox = new JTextArea();  
@@ -191,7 +200,7 @@ public class Manager_Home_Page {
                     quantity = quantityTextBox.getText();
                     suffSupp = sufficientSupplyTextBox.getText();
                     
-                    jdbcpostgreSQL databaseConnection = new jdbcpostgreSQL("cabo_grill", quantity, suffSupp, id);
+                    jdbcpostgreSQL databaseConnection = new jdbcpostgreSQL("inventory", quantity, suffSupp, id);
                 }
             });
         

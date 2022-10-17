@@ -7,7 +7,6 @@ import java.sql.*;
 
 public class Home_Page {  
     ArrayList<String> entrees = new ArrayList<String>() {{
-        add("ALL");
         add("NONE");
         add("bowl");
         add("burrito");
@@ -38,9 +37,7 @@ public class Home_Page {
         }
         //System.out.println("Opened database successfully");
         try{
-            sides.add("ALL");
             sides.add("NONE"); 
-            protein.add("ALL");
             protein.add("NONE"); 
             Statement stmt = conn.createStatement(); 
             String sqlQuery = "SELECT item_name FROM cabo_grill WHERE type = 'protein';";

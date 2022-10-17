@@ -21,11 +21,11 @@ public class jdbcpostgreSQL {
 	String sql_output = "Result: \n";
 	String total_output = "Total: ";
 
-  	jdbcpostgreSQL(String database, String inventory_item, String start, String end, String entree, String protein, String side) {
+  	jdbcpostgreSQL(String table, String inventory_item, String start, String end, String entree, String protein, String side) {
 
 		boolean whereUsed = false;
 
-		if (database == "Sales") {
+		if (table == "Sales") {
 
 			this.statement = "SELECT * FROM cabo_grill_sales";
 			this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales";
@@ -35,7 +35,7 @@ public class jdbcpostgreSQL {
 				additionalCriteria += " WHERE date BETWEEN '" + start + "' AND '" + end + "'";
 				whereUsed = true;
 			}
-			if (entree != "None") {
+			if (entree != "NONE") {
 				if (!whereUsed) {
 					additionalCriteria += " WHERE";
 					whereUsed = true;
@@ -44,7 +44,7 @@ public class jdbcpostgreSQL {
 				}
 				additionalCriteria += " entree_type = '" + entree + "'";
 			}
-			if (protein != "None") {
+			if (protein != "NONE") {
 				if (!whereUsed) {
 					additionalCriteria += " WHERE";
 					whereUsed = true;
@@ -53,7 +53,7 @@ public class jdbcpostgreSQL {
 				}
 				additionalCriteria += " protein = '" + protein + "'";
 			}
-			if (side != "None") {
+			if (side != "NONE") {
 				if (!whereUsed) {
 					additionalCriteria += " WHERE";
 					whereUsed = true;
@@ -66,7 +66,7 @@ public class jdbcpostgreSQL {
 			this.totalAmount += additionalCriteria + ";";
 		}
 
-		if (database == "Inventory") {
+		if (table == "Inventory") {
 			if (inventory_item == "All") {
 				this.statement = "SELECT * FROM cabo_grill ORDER BY id DESC;";
 			} else {
@@ -92,12 +92,11 @@ public class jdbcpostgreSQL {
     	}
     	//System.out.println("Opened database successfully");
 
-
     	try {
         	Statement stmt = conn.createStatement();
         	stmt.execute(statement);
 			ResultSet rs = stmt.executeQuery(statement);
-			if (database == "Sales") {
+			if (table == "Sales") {
 				while (rs.next()) {
 					String id = rs.getString(1);
 					String date = rs.getString(2);
@@ -118,7 +117,7 @@ public class jdbcpostgreSQL {
 				}		
 			}
 			
-			if (database == "Inventory") {
+			if (table == "Inventory") {
 				while (rs.next()) {
 					String id = rs.getString(1);
 					String item_name = rs.getString(2);
@@ -130,9 +129,10 @@ public class jdbcpostgreSQL {
 			}
 
     	} catch (Exception e){
-    		e.printStackTrace();
-    		System.err.println(e.getClass().getName()+": "+e.getMessage());
-    		System.exit(0);
+			sql_output += "Error: Query failed.";
+    		//e.printStackTrace();
+    		//System.err.println(e.getClass().getName()+": "+e.getMessage());
+    		//System.exit(0);
     	}
     	//closing the connection
     	try {

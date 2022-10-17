@@ -21,7 +21,16 @@ public class Manager_Home_Page {
                 f.dispose(); 
             }  
         }); 
+        JButton edit_item_button = new JButton("Adjust Prices / Add New Items"); 
+        edit_item_button.setBounds(200,200,100,40);
+        edit_item_button.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                new Edit_Item_Page();
+                f.dispose(); 
+            }
+        }); 
         panel.add(b1);  
+        panel.add(edit_item_button); 
 
         //Add new items to sides
         JTextArea addItemTextBox = new JTextArea();  
@@ -51,8 +60,8 @@ public class Manager_Home_Page {
 
         //Lists
         DefaultListModel<String> l0 = new DefaultListModel<>();  
-        l0.addElement("inventory");
-        l0.addElement("sales history");
+        l0.addElement("Inventory");
+        l0.addElement("Sales");
         JList<String> list0 = new JList<>(l0);  
         list0.setBounds(80, 100, 120, 40);  
         f.add(list0); 

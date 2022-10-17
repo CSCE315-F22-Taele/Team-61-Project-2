@@ -25,103 +25,57 @@ public class jdbcpostgreSQL {
 	 */
   	jdbcpostgreSQL(String database, String inventory_item, String start, String end, String entree, String protein, String side) {
 
-		if (database == "cabo_grill_sales") {
-			//Select All
-			if (entree == "All" && protein == "All" && side == "All") {
-				if (start == "" && end == "") {
-					this.statement = "SELECT * FROM cabo_grill_sales;";
-					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales;";
+		boolean whereUsed = false;
 
-				} else {
-					this.statement = "SELECT * FROM cabo_grill_sales WHERE date BETWEEN '" + start + "' AND '" + end + "';";
-					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE date BETWEEN '" + start + "' AND '" + end + "';";
-				}
-			}
+		if (database == "Sales") {
 
-			//Select all with Particular Entree
-    		if (entree != "All" && protein == "None" && side == "None") {
-				if (start == "" && end == "") {
-					this.statement = "SELECT * FROM cabo_grill_sales WHERE entree_type = '" + entree + "';";
-					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE entree_type = '" + entree + "';";
-				} else {
-					this.statement = "SELECT * FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND date BETWEEN '" + start + "' AND '" + end + "';";
-					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND date BETWEEN '" + start + "' AND '" + end + "';";
-				}
-			}
-			//Select all with Particular Entree and Protein
-    		if (entree != "All" && protein != "None" && side == "None") {
-				if (start == "" && end == "") {
-					this.statement = "SELECT * FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND protein = '" + protein + "';";
-					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND protein = '" + protein + "';";
-				} else {
-					this.statement = "SELECT * FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND date BETWEEN '" + start + "' AND '" + end + "';";
-					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND date BETWEEN '" + start + "' AND '" + end + "';";
-				}
-			}
-			//Select all with Particular Entree and Side
-    		if (entree != "All" && protein == "None" && side != "None") {
-				if (start == "" && end == "") {
-					this.statement = "SELECT * FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND " + side + "= 1;";
-					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND " + side + "= 1;";
-				} else {
-					this.statement = "SELECT * FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND " + side + "= 1 AND date BETWEEN '" + start + "' AND '" + end + "';";
-					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND " + side + "= 1 AND date BETWEEN '" + start + "' AND '" + end + "';";
-				}
-			}
-			//Select all with Particular Entree and Protein and Side
-    		if (entree != "All" && protein != "None" && side != "None") {
-				if (start == "" && end == "") {
-					this.statement = "SELECT * FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND protein = '" + protein + "'" + " AND " + side + "= 1;";
-					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND protein = '" + protein + "'" + " AND " + side + "= 1;";
-				} else {
-					this.statement = "SELECT * FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND protein = '" + protein + "'" + " AND " + side + "= 1 AND date BETWEEN '" + start + "' AND '" + end + "';";
-					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND protein = '" + protein + "'" + " AND " + side + "= 1 AND date BETWEEN '" + start + "' AND '" + end + "';";
-				}
-			}
+			this.statement = "SELECT * FROM cabo_grill_sales";
+			this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales";
+			String additionalCriteria = "";
 
-			//Select all with Particular Protein
-			if (entree == "None" && protein != "All" && side == "None") {
-				if (start == "" && end == "") {
-					this.statement = "SELECT * FROM cabo_grill_sales WHERE protein = '" + protein + "';";
-					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE protein = '" + protein + "';";
-				} else {
-					this.statement = "SELECT * FROM cabo_grill_sales WHERE protein = '" + protein + "' AND date BETWEEN '" + start + "' AND '" + end + "';";
-					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE protein = '" + protein + "' AND date BETWEEN '" + start + "' AND '" + end + "';";
-				}
+			if (start != "" && end != "") {
+				additionalCriteria += " WHERE date BETWEEN '" + start + "' AND '" + end + "'";
+				whereUsed = true;
 			}
-			//Select all with Particular Protein and Side
-    		if (entree == "None" && protein != "None" && side != "None") {
-				if (start == "" && end == "") {
-					this.statement = "SELECT * FROM cabo_grill_sales WHERE protein = '" + protein + "'" + " AND " + side + "= 1;";
-					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE protein = '" + protein + "'" + " AND " + side + "= 1;";
+			if (entree != "None") {
+				if (!whereUsed) {
+					additionalCriteria += " WHERE";
+					whereUsed = true;
 				} else {
-					this.statement = "SELECT * FROM cabo_grill_sales WHERE protein = '" + protein + "'" + " AND " + side + "= 1 AND date BETWEEN '" + start + "' AND '" + end + "';";
-					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE protein = '" + protein + "'" + " AND " + side + "= 1 AND date BETWEEN '" + start + "' AND '" + end + "';";
+					additionalCriteria += " AND";
 				}
+				additionalCriteria += " entree_type = '" + entree + "'";
 			}
-
-			//Select all with Particular Side
-    		if (entree == "None" && protein == "None" && side != "All") {
-				if (start == "" && end == "") {
-					this.statement = "SELECT * FROM cabo_grill_sales WHERE " + side + " = 1;";
-					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE " + side + " = 1;";
+			if (protein != "None") {
+				if (!whereUsed) {
+					additionalCriteria += " WHERE";
+					whereUsed = true;
 				} else {
-					this.statement = "SELECT * FROM cabo_grill_sales WHERE " + side  + " = 1 AND date BETWEEN '" + start + "' AND '" + end + "'";
-					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE " + side  + " = 1 AND date BETWEEN '" + start + "' AND '" + end + "'";
+					additionalCriteria += " AND";
 				}
+				additionalCriteria += " protein = '" + protein + "'";
 			}
+			if (side != "None") {
+				if (!whereUsed) {
+					additionalCriteria += " WHERE";
+					whereUsed = true;
+				} else {
+					additionalCriteria += " AND";
+				}
+				additionalCriteria += " " + side + " = 1";
+			}
+			this.statement += additionalCriteria + " ORDER BY sale_id DESC;";
+			this.totalAmount += additionalCriteria + ";";
 		}
 
-		if (database == "cabo_grill") {
-			if (entree == "None" && protein == "None" && side == "None") {
-				if (inventory_item == "All") {
-					this.statement = "SELECT * FROM cabo_grill;";
-				} else {
-					this.statement = "SELECT * FROM cabo_grill WHERE type = " + "'" + inventory_item + "'";
-				}
+		if (database == "Inventory") {
+			if (inventory_item == "All") {
+				this.statement = "SELECT * FROM cabo_grill ORDER BY id DESC;";
+			} else {
+				this.statement = "SELECT * FROM cabo_grill WHERE type = " + "'" + inventory_item + "' ORDER BY id DESC;";
 			}
 		}
-	
+		
     	//Building the connection with your credentials
     	Connection conn = null;
     	String teamNumber = "61"; // Your team number
@@ -145,7 +99,7 @@ public class jdbcpostgreSQL {
         	Statement stmt = conn.createStatement();
         	stmt.execute(statement);
 			ResultSet rs = stmt.executeQuery(statement);
-			if (database == "cabo_grill_sales") {
+			if (database == "Sales") {
 				while (rs.next()) {
 					String id = rs.getString(1);
 					String date = rs.getString(2);
@@ -166,7 +120,7 @@ public class jdbcpostgreSQL {
 				}		
 			}
 			
-			if (database == "cabo_grill") {
+			if (database == "Inventory") {
 				while (rs.next()) {
 					String id = rs.getString(1);
 					String item_name = rs.getString(2);

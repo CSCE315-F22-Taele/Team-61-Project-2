@@ -3,37 +3,72 @@ import javax.swing.*;
 import java.awt.event.*; 
 import java.util.*; 
 import java.util.ArrayList;
+import java.sql.*; 
 
 public class Home_Page {  
-    
     ArrayList<String> entrees = new ArrayList<String>() {{
-        add("None");
-        add("All");
+        add("NONE");
+        add("ALL");
         add("bowl");
         add("burrito");
-        add("tacos");
-        add("salad"); 
+        add("tacos"); 
     }};
     ArrayList<String> protein = new ArrayList<String>() {{
-        add("None");
-        add("All");
-        add("chicken");
-        add("steak");
-        add("beef");
-        add("vegetable medley");
+
     }};
     ArrayList<String> sides = new ArrayList<String>() {{
-        add("None");
-        add("chips_and_salsa");
-        add("chips_and_queso");
-        add("chips_and_guac");
-        add("drink");
+
     }};
+
+    public void fill_arrays(){
+        Connection conn = null;
+        String teamNumber = "61"; // Your team number
+        String sectionNumber = "905"; // Your section number
+        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup();
+
+        try {
+            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+        } 
+        catch (Exception e) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+        //System.out.println("Opened database successfully");
+        try{
+            Statement stmt = conn.createStatement(); 
+            String sqlQuery = "SELECT item_name FROM cabo_grill WHERE type = 'protein';";
+            ResultSet result = stmt.executeQuery(sqlQuery); 
+            while(result.next()){
+                protein.add(result.getString("item_name"));
+            }
+            protein.add("ALL");
+            protein.add("NONE"); 
+            sqlQuery = "SELECT item_name FROM cabo_grill WHERE type = 'side';";
+            result = stmt.executeQuery(sqlQuery); 
+            while (result.next()){
+                sides.add(result.getString("item_name"));
+            }
+            sides.add("ALL");
+            sides.add("NONE"); 
+
+            //System.out.println(Sale_Id);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            //System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+    }
+
 
     JFrame f = new JFrame("Home Page");
     Vector<Order> orders = new Vector<Order>(); 
     Inventory inventory = new Inventory(); 
      Home_Page(){  
+        fill_arrays();
         //JFrame f= new JFrame("Panel Example");    
         JPanel panel=new JPanel();  
         panel.setBounds(10,10,1000,600);    

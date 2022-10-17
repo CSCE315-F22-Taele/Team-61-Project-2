@@ -60,7 +60,6 @@ public class Clerk_Sides_Page {
                 orders.lastElement().guac += 1; 
                 chips_guac_button.setText("Chips and Guac: " + chips_guac);
                 orders.lastElement().update_cost();
-                orders.lastElement().print();
                 pay_button.setText("Pay Now: " + orders.lastElement().cost); 
             }  
         }); 

@@ -51,8 +51,8 @@ public class Manager_Home_Page {
 
         //Lists
         DefaultListModel<String> l0 = new DefaultListModel<>();  
-        l0.addElement("cabo_grill");
-        l0.addElement("cabo_grill_sales");
+        l0.addElement("Inventory");
+        l0.addElement("Sales");
         JList<String> list0 = new JList<>(l0);  
         list0.setBounds(80, 100, 120, 40);  
         f.add(list0); 

@@ -7,8 +7,8 @@ import java.sql.*;
 
 public class Home_Page {  
     ArrayList<String> entrees = new ArrayList<String>() {{
-        add("NONE");
         add("ALL");
+        add("NONE");
         add("bowl");
         add("burrito");
         add("tacos"); 
@@ -17,12 +17,7 @@ public class Home_Page {
 
     }};
     ArrayList<String> sides = new ArrayList<String>() {{
-        add("None");
-        add("All");
-        add("chips_and_salsa");
-        add("chips_and_queso");
-        add("chips_and_guac");
-        add("drink");
+
     }};
 
     public void fill_arrays(){
@@ -43,21 +38,22 @@ public class Home_Page {
         }
         //System.out.println("Opened database successfully");
         try{
+            sides.add("ALL");
+            sides.add("NONE"); 
+            protein.add("ALL");
+            protein.add("NONE"); 
             Statement stmt = conn.createStatement(); 
             String sqlQuery = "SELECT item_name FROM cabo_grill WHERE type = 'protein';";
             ResultSet result = stmt.executeQuery(sqlQuery); 
             while(result.next()){
                 protein.add(result.getString("item_name"));
             }
-            protein.add("ALL");
-            protein.add("NONE"); 
             sqlQuery = "SELECT item_name FROM cabo_grill WHERE type = 'side';";
             result = stmt.executeQuery(sqlQuery); 
             while (result.next()){
                 sides.add(result.getString("item_name"));
             }
-            sides.add("ALL");
-            sides.add("NONE"); 
+            
 
             //System.out.println(Sale_Id);
         }

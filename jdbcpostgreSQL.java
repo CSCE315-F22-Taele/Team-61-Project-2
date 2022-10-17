@@ -139,7 +139,7 @@ public class jdbcpostgreSQL {
       		conn.close();
       		//System.out.println("Connection Closed.");
     	} catch(Exception e) {
-      		System.out.println("Connection NOT Closed.");
+      		//System.out.println("Connection NOT Closed.");
     	}
   	}
 

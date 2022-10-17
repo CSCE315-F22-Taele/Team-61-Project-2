@@ -10,10 +10,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /*
-CSCE 331
-9-28-2022 Lab
-*/
-// @author Justin, Brandon, Sam, Roee
+ * @author Justin & Brandon
+ */
 public class jdbcpostgreSQL {
 
   	String statement = "";
@@ -21,6 +19,10 @@ public class jdbcpostgreSQL {
 	String sql_output = "Result: \n";
 	String total_output = "Total: ";
 
+	/*
+	 * @param table the name of table that will be queried
+	 * @param inventory_item
+	 */
   	jdbcpostgreSQL(String database, String inventory_item, String start, String end, String entree, String protein, String side) {
 
 		if (database == "cabo_grill_sales") {

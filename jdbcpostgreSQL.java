@@ -212,7 +212,7 @@ public class jdbcpostgreSQL {
 		try {
 			Statement stmt = conn.createStatement();
 			String sql_query = "";
-			if (table == "cabo_grill") {
+			if (table == "inventory") {
 				sql_query = "UPDATE cabo_grill SET quantity = " + quantityAmt + ", sufficient_supply = '" + sufficientSupplyValue
 							+ "' WHERE id = " + itemID;
 				// System.out.println(sql_query);

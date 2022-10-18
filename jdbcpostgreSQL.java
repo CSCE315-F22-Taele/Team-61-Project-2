@@ -2,9 +2,6 @@ import java.sql.*;
 import java.io.*;   
 import java.util.Random;
 import java.util.ArrayList;
-
-//import java.sql.Connection;
-//import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -104,8 +101,7 @@ public class jdbcpostgreSQL {
       		e.printStackTrace();
       		System.err.println(e.getClass().getName()+": "+e.getMessage());
       		System.exit(0);
-    	}
-    	//System.out.println("Opened database successfully");
+		}
 
     	try {
         	Statement stmt = conn.createStatement();
@@ -166,16 +162,12 @@ public class jdbcpostgreSQL {
 
     	} catch (Exception e){
 			sql_output += "Error: Query failed.";
-    		//e.printStackTrace();
-    		//System.err.println(e.getClass().getName()+": "+e.getMessage());
-    		//System.exit(0);
     	}
     	//closing the connection
     	try {
       		conn.close();
-      		//System.out.println("Connection Closed.");
     	} catch(Exception e) {
-      		//System.out.println("Connection NOT Closed.");
+			System.out.println("Connection NOT Closed.");
     	}
   	}
 
@@ -224,7 +216,6 @@ public class jdbcpostgreSQL {
 		//closing the connection
     	try {
 			conn.close();
-			//System.out.println("Connection Closed.");
 		} catch(Exception e) {
 			System.out.println("Connection NOT Closed.");
 		}

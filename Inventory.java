@@ -21,7 +21,7 @@ public class Inventory {
             System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
-        //System.out.println("Opened database successfully");
+
         try{
             String sqlQuery = "Select item_name from cabo_grill where id > 0;";
             Statement stmt = conn.createStatement(); 
@@ -33,7 +33,6 @@ public class Inventory {
         }
         catch (Exception e){
             e.printStackTrace();
-            //System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
     }

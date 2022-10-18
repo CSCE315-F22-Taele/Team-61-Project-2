@@ -67,7 +67,6 @@ public class Home_Page {
         }
         catch (Exception e){
             e.printStackTrace();
-            //System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
         try{
@@ -81,7 +80,6 @@ public class Home_Page {
         }
         catch (Exception e){
             e.printStackTrace();
-            //System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
     }
@@ -92,8 +90,7 @@ public class Home_Page {
      * This constructor creates the main layout for the home page as well as the buttons to access the clerk and manager view.
      */
      Home_Page(){  
-        fill_arrays();
-        //JFrame f= new JFrame("Panel Example");    
+        fill_arrays();    
         JPanel panel=new JPanel();  
         panel.setBounds(10,10,1000,600);    
         panel.setBackground(Color.gray);  

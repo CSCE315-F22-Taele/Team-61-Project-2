@@ -20,8 +20,14 @@ public class jdbcpostgreSQL {
 	String total_output = "Total: ";
 
 	/*
-	 * @param table the name of table that will be queried
-	 * @param inventory_item
+	 * @author Justin Singletary
+	 * @param  table          the name of table that will be queried
+	 * @param  inventory_item the type of item to be selected in the table (protein, side, topping, etc.)
+	 * @param  start          the beginning date to start the query
+	 * @param  end            the end date to end the query time interval
+	 * @param  entree         the entree that is selected from the list (bowl, taco, burrito, etc.)
+	 * @param  protein		  the protein option that is ordered (chicken, steak, beef, etc.)
+	 * @param  side 		  the side that is ordered with the entree (chips, salsa, guac, etc.)
 	 */
   	jdbcpostgreSQL(String database, String inventory_item, String start, String end, String entree, String protein, String side) {
 

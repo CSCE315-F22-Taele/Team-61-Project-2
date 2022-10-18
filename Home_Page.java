@@ -5,7 +5,9 @@ import java.util.*;
 import java.util.ArrayList;
 import java.sql.*; 
 /**
- * @author Roee Belkin & Sam Brokaw
+ * This class creates the base page for the point-of-sale system. It also has a method to help
+ * populate a vector of the menu items. 
+ * @author Roee Belkin, Sam Brokaw
  */
 public class Home_Page {  
     Vector<Order> orders = new Vector<Order>(); 
@@ -22,7 +24,6 @@ public class Home_Page {
     /**
      * This method fills the entree, protein, and side arrays with 
      * all the possible options that are within the database.
-     * @throws if database doesn't connect or query doesn't execute properly
      */
     public void fill_arrays(){
         Connection conn = null;
@@ -86,6 +87,9 @@ public class Home_Page {
 
 
     JFrame f = new JFrame("Home Page");
+    /*
+     * This constructor creates the main layout for the home page as well as the buttons to access the clerk and manager view.
+     */
      Home_Page(){  
         fill_arrays();
         //JFrame f= new JFrame("Panel Example");    
@@ -124,6 +128,10 @@ public class Home_Page {
         f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }  
            
+    /**
+     * this main method creates an instance of the home page to be displayed as a GUI.
+     * @param args[] Doesn't serve a purpose for this program
+     */
     public static void main(String args[])  
     {  
         new Home_Page();  

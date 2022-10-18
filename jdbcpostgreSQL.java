@@ -18,108 +18,66 @@ public class jdbcpostgreSQL {
 
   	String statement = "";
 	String totalAmount = "";
+	String count = "";
 	String sql_output = "Result: \n";
 	String total_output = "Total: ";
+	String count_output = "Count: ";
 
-  	jdbcpostgreSQL(String database, String inventory_item, String start, String end, String entree, String protein, String side) {
+  	jdbcpostgreSQL(String table, String inventory_item, String start, String end, String entree, String protein, String side) {
 
-		if (database == "cabo_grill_sales") {
-			//Select All
-			if (entree == "All" && protein == "All" && side == "All") {
-				if (start == "" && end == "") {
-					this.statement = "SELECT * FROM cabo_grill_sales;";
-					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales;";
+		boolean whereUsed = false;
 
-				} else {
-					this.statement = "SELECT * FROM cabo_grill_sales WHERE date BETWEEN '" + start + "' AND '" + end + "';";
-					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE date BETWEEN '" + start + "' AND '" + end + "';";
-				}
-			}
+		if (table == "Sales") {
 
-			//Select all with Particular Entree
-    		if (entree != "All" && protein == "None" && side == "None") {
-				if (start == "" && end == "") {
-					this.statement = "SELECT * FROM cabo_grill_sales WHERE entree_type = '" + entree + "';";
-					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE entree_type = '" + entree + "';";
-				} else {
-					this.statement = "SELECT * FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND date BETWEEN '" + start + "' AND '" + end + "';";
-					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND date BETWEEN '" + start + "' AND '" + end + "';";
-				}
-			}
-			//Select all with Particular Entree and Protein
-    		if (entree != "All" && protein != "None" && side == "None") {
-				if (start == "" && end == "") {
-					this.statement = "SELECT * FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND protein = '" + protein + "';";
-					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND protein = '" + protein + "';";
-				} else {
-					this.statement = "SELECT * FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND date BETWEEN '" + start + "' AND '" + end + "';";
-					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND date BETWEEN '" + start + "' AND '" + end + "';";
-				}
-			}
-			//Select all with Particular Entree and Side
-    		if (entree != "All" && protein == "None" && side != "None") {
-				if (start == "" && end == "") {
-					this.statement = "SELECT * FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND " + side + "= 1;";
-					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND " + side + "= 1;";
-				} else {
-					this.statement = "SELECT * FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND " + side + "= 1 AND date BETWEEN '" + start + "' AND '" + end + "';";
-					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND " + side + "= 1 AND date BETWEEN '" + start + "' AND '" + end + "';";
-				}
-			}
-			//Select all with Particular Entree and Protein and Side
-    		if (entree != "All" && protein != "None" && side != "None") {
-				if (start == "" && end == "") {
-					this.statement = "SELECT * FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND protein = '" + protein + "'" + " AND " + side + "= 1;";
-					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND protein = '" + protein + "'" + " AND " + side + "= 1;";
-				} else {
-					this.statement = "SELECT * FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND protein = '" + protein + "'" + " AND " + side + "= 1 AND date BETWEEN '" + start + "' AND '" + end + "';";
-					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE entree_type = '" + entree + "' AND protein = '" + protein + "'" + " AND " + side + "= 1 AND date BETWEEN '" + start + "' AND '" + end + "';";
-				}
-			}
+			this.statement = "SELECT * FROM cabo_grill_sales";
+			this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales";
+			this.count = "SELECT COUNT(*) FROM cabo_grill_sales";
+			String additionalCriteria = "";
 
-			//Select all with Particular Protein
-			if (entree == "None" && protein != "All" && side == "None") {
-				if (start == "" && end == "") {
-					this.statement = "SELECT * FROM cabo_grill_sales WHERE protein = '" + protein + "';";
-					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE protein = '" + protein + "';";
-				} else {
-					this.statement = "SELECT * FROM cabo_grill_sales WHERE protein = '" + protein + "' AND date BETWEEN '" + start + "' AND '" + end + "';";
-					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE protein = '" + protein + "' AND date BETWEEN '" + start + "' AND '" + end + "';";
-				}
+			if (start != "" && end != "") {
+				additionalCriteria += " WHERE date BETWEEN '" + start + "' AND '" + end + "'";
+				whereUsed = true;
 			}
-			//Select all with Particular Protein and Side
-    		if (entree == "None" && protein != "None" && side != "None") {
-				if (start == "" && end == "") {
-					this.statement = "SELECT * FROM cabo_grill_sales WHERE protein = '" + protein + "'" + " AND " + side + "= 1;";
-					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE protein = '" + protein + "'" + " AND " + side + "= 1;";
+			if (entree != "NONE") {
+				if (!whereUsed) {
+					additionalCriteria += " WHERE";
+					whereUsed = true;
 				} else {
-					this.statement = "SELECT * FROM cabo_grill_sales WHERE protein = '" + protein + "'" + " AND " + side + "= 1 AND date BETWEEN '" + start + "' AND '" + end + "';";
-					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE protein = '" + protein + "'" + " AND " + side + "= 1 AND date BETWEEN '" + start + "' AND '" + end + "';";
+					additionalCriteria += " AND";
 				}
+				additionalCriteria += " entree_type = '" + entree + "'";
 			}
-
-			//Select all with Particular Side
-    		if (entree == "None" && protein == "None" && side != "All") {
-				if (start == "" && end == "") {
-					this.statement = "SELECT * FROM cabo_grill_sales WHERE " + side + " = 1;";
-					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE " + side + " = 1;";
+			if (protein != "NONE") {
+				if (!whereUsed) {
+					additionalCriteria += " WHERE";
+					whereUsed = true;
 				} else {
-					this.statement = "SELECT * FROM cabo_grill_sales WHERE " + side  + " = 1 AND date BETWEEN '" + start + "' AND '" + end + "'";
-					this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales WHERE " + side  + " = 1 AND date BETWEEN '" + start + "' AND '" + end + "'";
+					additionalCriteria += " AND";
 				}
+				additionalCriteria += " protein = '" + protein + "'";
 			}
+			if (side != "NONE") {
+				if (!whereUsed) {
+					additionalCriteria += " WHERE";
+					whereUsed = true;
+				} else {
+					additionalCriteria += " AND";
+				}
+				additionalCriteria += " " + side + " = 1";
+			}
+			this.statement += additionalCriteria + ";";
+			this.totalAmount += additionalCriteria + ";";
+			this.count += additionalCriteria + ";";
 		}
 
-		if (database == "cabo_grill") {
-			if (entree == "None" && protein == "None" && side == "None") {
-				if (inventory_item == "All") {
-					this.statement = "SELECT * FROM cabo_grill;";
-				} else {
-					this.statement = "SELECT * FROM cabo_grill WHERE type = " + "'" + inventory_item + "'";
-				}
+		if (table == "Inventory") {
+			if (inventory_item == "All") {
+				this.statement = "SELECT * FROM cabo_grill ORDER BY id DESC;";
+			} else {
+				this.statement = "SELECT * FROM cabo_grill WHERE type = " + "'" + inventory_item + "' ORDER BY id DESC;";
 			}
 		}
-	
+		
     	//Building the connection with your credentials
     	Connection conn = null;
     	String teamNumber = "61"; // Your team number
@@ -138,12 +96,11 @@ public class jdbcpostgreSQL {
     	}
     	//System.out.println("Opened database successfully");
 
-
     	try {
         	Statement stmt = conn.createStatement();
         	stmt.execute(statement);
 			ResultSet rs = stmt.executeQuery(statement);
-			if (database == "cabo_grill_sales") {
+			if (table == "Sales") {
 				while (rs.next()) {
 					String id = rs.getString(1);
 					String date = rs.getString(2);
@@ -156,15 +113,23 @@ public class jdbcpostgreSQL {
 					String cost = rs.getString(9);
 					sql_output += (id + " " + date + " " + entree_type + " " + protein_type + " " + chips_and_salsa + " " + chips_and_queso + " " + chips_and_guac + " " + drink + " " + cost +"\n");
 				}		
+
 				Statement stmt2 = conn.createStatement();
         		stmt2.execute(totalAmount);
 				ResultSet rs2 = stmt2.executeQuery(totalAmount);
 				while (rs2.next()) {
-					total_output += rs2.getString(1);
-				}		
+					total_output += "$" + rs2.getString(1);
+				}	
+
+				Statement stmt3 = conn.createStatement();
+				stmt3.execute(count);
+				ResultSet rs3 = stmt3.executeQuery(count);
+				while (rs3.next()) {
+					count_output += rs3.getString(1);
+				}			
 			}
 			
-			if (database == "cabo_grill") {
+			if (table == "Inventory") {
 				while (rs.next()) {
 					String id = rs.getString(1);
 					String item_name = rs.getString(2);
@@ -176,16 +141,17 @@ public class jdbcpostgreSQL {
 			}
 
     	} catch (Exception e){
-    		e.printStackTrace();
-    		System.err.println(e.getClass().getName()+": "+e.getMessage());
-    		System.exit(0);
+			sql_output += "Error: Query failed.";
+    		//e.printStackTrace();
+    		//System.err.println(e.getClass().getName()+": "+e.getMessage());
+    		//System.exit(0);
     	}
     	//closing the connection
     	try {
       		conn.close();
       		//System.out.println("Connection Closed.");
     	} catch(Exception e) {
-      		System.out.println("Connection NOT Closed.");
+      		//System.out.println("Connection NOT Closed.");
     	}
   	}
 
@@ -218,6 +184,7 @@ public class jdbcpostgreSQL {
 				// System.out.println(sql_query);
 				stmt.executeUpdate(sql_query);
 			}
+	
 		} catch (Exception e){
     		e.printStackTrace();
     		System.err.println(e.getClass().getName()+": "+e.getMessage());

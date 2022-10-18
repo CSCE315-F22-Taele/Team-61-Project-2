@@ -9,7 +9,6 @@ public class Home_Page {
     Vector<Order> orders = new Vector<Order>(); 
     ArrayList<Tuple> inventory = new ArrayList<Tuple>();
     ArrayList<String> entrees = new ArrayList<String>() {{
-
     }};
     ArrayList<String> protein = new ArrayList<String>() {{
 
@@ -35,9 +34,7 @@ public class Home_Page {
             System.exit(0);
         }
         try{
-            sides.add("ALL");
             sides.add("NONE"); 
-            protein.add("ALL");
             protein.add("NONE"); 
             entrees.add("ALL"); 
             entrees.add("NONE"); 

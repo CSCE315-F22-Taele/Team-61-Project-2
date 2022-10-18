@@ -18,8 +18,10 @@ public class jdbcpostgreSQL {
 
   	String statement = "";
 	String totalAmount = "";
+	String count = "";
 	String sql_output = "Result: \n";
 	String total_output = "Total: ";
+	String count_output = "Count: ";
 
   	jdbcpostgreSQL(String table, String inventory_item, String start, String end, String entree, String protein, String side) {
 
@@ -29,6 +31,7 @@ public class jdbcpostgreSQL {
 
 			this.statement = "SELECT * FROM cabo_grill_sales";
 			this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales";
+			this.count = "SELECT COUNT(*) FROM cabo_grill_sales";
 			String additionalCriteria = "";
 
 			if (start != "" && end != "") {
@@ -62,8 +65,9 @@ public class jdbcpostgreSQL {
 				}
 				additionalCriteria += " " + side + " = 1";
 			}
-			this.statement += additionalCriteria + " ORDER BY sale_id DESC;";
+			this.statement += additionalCriteria + ";";
 			this.totalAmount += additionalCriteria + ";";
+			this.count += additionalCriteria + ";";
 		}
 
 		if (table == "Inventory") {
@@ -109,12 +113,20 @@ public class jdbcpostgreSQL {
 					String cost = rs.getString(9);
 					sql_output += (id + " " + date + " " + entree_type + " " + protein_type + " " + chips_and_salsa + " " + chips_and_queso + " " + chips_and_guac + " " + drink + " " + cost +"\n");
 				}		
+
 				Statement stmt2 = conn.createStatement();
         		stmt2.execute(totalAmount);
 				ResultSet rs2 = stmt2.executeQuery(totalAmount);
 				while (rs2.next()) {
-					total_output += rs2.getString(1);
-				}		
+					total_output += "$" + rs2.getString(1);
+				}	
+
+				Statement stmt3 = conn.createStatement();
+				stmt3.execute(count);
+				ResultSet rs3 = stmt3.executeQuery(count);
+				while (rs3.next()) {
+					count_output += rs3.getString(1);
+				}			
 			}
 			
 			if (table == "Inventory") {
@@ -172,6 +184,7 @@ public class jdbcpostgreSQL {
 				// System.out.println(sql_query);
 				stmt.executeUpdate(sql_query);
 			}
+	
 		} catch (Exception e){
     		e.printStackTrace();
     		System.err.println(e.getClass().getName()+": "+e.getMessage());

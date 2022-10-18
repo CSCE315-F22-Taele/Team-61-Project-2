@@ -34,11 +34,11 @@ public class Manager_Home_Page {
 
         //Add new items to sides
         JTextArea addItemTextBox = new JTextArea();  
-        addItemTextBox.setBounds(20,400, 100,20);   
+        addItemTextBox.setBounds(20,370, 100,20);   
         f.add(addItemTextBox);
 
         JButton addItem = new JButton("Add Item");     
-        addItem.setBounds(140,400,100,30);    
+        addItem.setBounds(140,370,100,30);    
         addItem.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){  
                 sides.add(addItemTextBox.getText());
@@ -103,9 +103,8 @@ public class Manager_Home_Page {
         f.add(list4); 
 
         // Label outputs on GUI the selections
-        JTextArea queryLabel = new JTextArea();
-        queryLabel.setBounds(250, 280, 600, 500);
-
+        JTextArea queryTextBox = new JTextArea();
+                
         // Label outputs total
         JTextArea totalLabel = new JTextArea();
         totalLabel.setBounds(50, 320, 170, 30);
@@ -115,36 +114,36 @@ public class Manager_Home_Page {
 
         // Text box to type in Item ID
         JTextArea itemIDTextBox = new JTextArea();
-        itemIDTextBox.setBounds(20, 500, 50, 20);
+        itemIDTextBox.setBounds(20, 430, 50, 20);
         f.add(itemIDTextBox); 
         // Text above Item ID text box
         JLabel itemIDTextLabel = new JLabel("Item ID");
-        itemIDTextLabel.setBounds(20, 470, 100, 30);
+        itemIDTextLabel.setBounds(20, 400, 100, 30);
         f.add(itemIDTextLabel);
 
         // Text box for quantity 
         JTextArea quantityTextBox = new JTextArea();
-        quantityTextBox.setBounds(80, 500, 50, 20);
+        quantityTextBox.setBounds(80, 430, 50, 20);
         f.add(quantityTextBox);
         // Text above quantity text box
         JLabel quantityTextLabel = new JLabel("Quantity");
-        quantityTextLabel.setBounds(80, 470, 100, 30);
+        quantityTextLabel.setBounds(80, 400, 100, 30);
         f.add(quantityTextLabel);
 
         // Text box for sufficient supply 
         JTextArea sufficientSupplyTextBox = new JTextArea();
-        sufficientSupplyTextBox.setBounds(140, 500, 50, 20);
+        sufficientSupplyTextBox.setBounds(140, 430, 50, 20);
         f.add(sufficientSupplyTextBox);
         // Text above sufficient supply text box
         JLabel sufficientSupplyTextLabel = new JLabel("Sufficient Supply");
-        sufficientSupplyTextLabel.setBounds(140, 470, 150, 30);
+        sufficientSupplyTextLabel.setBounds(140, 400, 150, 30);
         f.add(sufficientSupplyTextLabel);
 
         
         // After drop down menu items are selected and submit button is pressed, the values are stored and outputted on the frame
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                queryLabel.setText("");
+                queryTextBox.setText("");
                 totalLabel.setText("");
                 String database = "";
                 String inventory = "";
@@ -178,16 +177,19 @@ public class Manager_Home_Page {
 
                 jdbcpostgreSQL databaseConnection = new jdbcpostgreSQL(database, inventory, startDate, endDate, entreeType, proteinType, extrasSelected);
                 String output = databaseConnection.sql_output;
-                queryLabel.append(output);
+                queryTextBox.append(output);
 
                 String total = databaseConnection.total_output;
                 totalLabel.append(total);
+
+                String count = databaseConnection.count_output;
+                totalLabel.append("\n" + count); 
             }
         });
         
             // Update button to update inventory quantity and sufficient supply field
             JButton updateButton = new JButton("Update");
-            updateButton.setBounds(60, 530, 100, 30);
+            updateButton.setBounds(60, 460, 100, 30);
             updateButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     // System.out.println(itemIDTextBox.getText());
@@ -203,12 +205,17 @@ public class Manager_Home_Page {
                     jdbcpostgreSQL databaseConnection = new jdbcpostgreSQL("inventory", quantity, suffSupp, id);
                 }
             });
-        
-            f.add(updateButton); f.add(submitButton); f.add(queryLabel); f.add(totalLabel); 
+
+            JScrollPane scrollableTextArea = new JScrollPane(queryTextBox);
+            scrollableTextArea.setBounds(350, 280, 500, 200);
+
+            f.add(scrollableTextArea);
+
+            f.add(updateButton); f.add(submitButton); f.add(totalLabel);
 
             f.add(panel);  
             f.setSize(1010,610);    
-            f.setLayout(null);    
+            //f.setLayout(null);    
             f.setVisible(true);   
     }  
 }

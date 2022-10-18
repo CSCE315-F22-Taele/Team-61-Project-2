@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Clerk_Protein_Page {
     JFrame f = new JFrame("Clerk Protein Page");
-    Clerk_Protein_Page(Vector<Order> orders, Inventory inventory, ArrayList<String> entrees, ArrayList<String> protein, ArrayList<String> sides, boolean additional_entree){  
+    Clerk_Protein_Page(Vector<Order> orders, ArrayList<Tuple> inventory, ArrayList<String> entrees, ArrayList<String> protein, ArrayList<String> sides, boolean additional_entree){  
 
        GridLayout test_layout = new GridLayout(4, 4); 
        JPanel panel=new JPanel();  
@@ -27,6 +27,11 @@ public class Clerk_Protein_Page {
                 temp_button.addActionListener(new ActionListener(){
                     public void actionPerformed(ActionEvent e){
                         orders.lastElement().Protein = temp_protein; 
+                        for (Tuple item : inventory){
+                            if (item.side_name.equals(temp_protein)){
+                                item.amount++; 
+                            }
+                        }
                         new Clerk_Toppings_Page(orders, inventory, entrees, protein, sides, additional_entree); 
                         f.dispose();
                     }

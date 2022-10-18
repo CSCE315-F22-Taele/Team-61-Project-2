@@ -15,14 +15,25 @@ import java.text.SimpleDateFormat;
 import java.text.ParseException;
 
 public class Clerk_Sides_Page {
+
+    //function deals with getting cost when we have multiple entrees under the same persons bill, so same sale_id. 
+    public float sale_id_cost(Vector<Order> orders){
+        float return_cost = 0; 
+        //orders.lastElement().update_cost_individual();
+        return_cost = orders.lastElement().cost; 
+        for (int i = 0; i < orders.size() -1; i++){
+            if (orders.get(i).Sale_Id == orders.lastElement().Sale_Id){
+                return_cost += orders.get(i).cost; 
+            }
+        }
+        return return_cost; 
+    }
+
+
     JFrame f = new JFrame("Clerk Sides Page");
-    int chips_salsa = 0;
-    int chips_queso = 0;
-    int chips_guac = 0;
-    int drinks = 0; 
-    float cost = 0; 
-    Clerk_Sides_Page(Vector<Order> orders, Inventory inventory, ArrayList<String> entrees, ArrayList<String> protein, ArrayList<String> sides, boolean additional_entree){  
-       //JFrame f= new JFrame("Panel Example");
+    float total_cost = 0; 
+    Clerk_Sides_Page(Vector<Order> orders, ArrayList<Tuple> inventory, ArrayList<String> entrees, ArrayList<String> protein, ArrayList<String> sides, boolean additional_entree){  
+       
        GridLayout test_layout = new GridLayout(4, 4); 
        JPanel panel=new JPanel();  
        panel.setLayout(test_layout); 
@@ -30,14 +41,11 @@ public class Clerk_Sides_Page {
        //b1.setBackground(Color.red);     
        //b1.setOpaque(true);
        //b1.setBorderPainted(false);
-       orders.lastElement().update_cost();
+       orders.lastElement().update_cost_individual();
+       total_cost = sale_id_cost(orders); 
        JButton home_page_button =new JButton("Back To Clerk Home Page");
-       JButton chips_salsa_button = new JButton("Chips and Salsa: " + chips_salsa); 
-       JButton chips_guac_button = new JButton("Chips and Guac: " + chips_guac ); 
-       JButton chips_queso_button = new JButton("Chips and Queso: " + chips_queso); 
-       JButton drink_button = new JButton("Drink: " + drinks); 
        JButton more_food = new JButton("More Food"); 
-       JButton pay_button = new JButton("Pay Now: " + orders.lastElement().cost); 
+       JButton pay_button = new JButton("Pay Now: " + total_cost); 
        home_page_button.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){  
                 orders.remove(orders.size() -1);
@@ -45,48 +53,31 @@ public class Clerk_Sides_Page {
                 f.dispose(); 
             }  
         }); 
-        chips_salsa_button.addActionListener(new ActionListener(){  
-            public void actionPerformed(ActionEvent e){  
-                chips_salsa += 1; 
-                orders.lastElement().salsa += 1; 
-                chips_salsa_button.setText("chips and Salsa: " + chips_salsa);
-                orders.lastElement().update_cost();
-                pay_button.setText("Pay Now: " + orders.lastElement().cost); 
-            }  
-        }); 
-        chips_guac_button.addActionListener(new ActionListener(){  
-            public void actionPerformed(ActionEvent e){  
-                chips_guac += 1; 
-                orders.lastElement().guac += 1; 
-                chips_guac_button.setText("Chips and Guac: " + chips_guac);
-                orders.lastElement().update_cost();
-                pay_button.setText("Pay Now: " + orders.lastElement().cost); 
-            }  
-        }); 
-        chips_queso_button.addActionListener(new ActionListener(){  
-            public void actionPerformed(ActionEvent e){  
-                chips_queso += 1; 
-                orders.lastElement().queso += 1; 
-                chips_queso_button.setText("Chips and Queso: " + chips_queso);
-                orders.lastElement().update_cost();
-                pay_button.setText("Pay Now: " + orders.lastElement().cost); 
-            }  
-        }); 
-        drink_button.addActionListener(new ActionListener(){  
-            public void actionPerformed(ActionEvent e){  
-                drinks += 1;
-                orders.lastElement().drink += 1;  
-                drink_button.setText("Drinks: " + drinks);
-                orders.lastElement().update_cost();
-                pay_button.setText("Pay Now: " + orders.lastElement().cost); 
-            }  
-        }); 
+
+        for (String temp_side : sides){
+            if (temp_side != "all" && temp_side != "ALL" && temp_side != "All" && temp_side != "NONE" && temp_side != "None" && temp_side != "none"){
+                JButton temp_button = new JButton(temp_side); 
+                temp_button.addActionListener(new ActionListener(){
+                    public void actionPerformed(ActionEvent e){
+                        for (Tuple item : inventory){
+                            if (item.side_name.equals(temp_side)){
+                                item.amount++; 
+                            }
+                        }
+                        orders.lastElement().add_side(temp_side);
+                        orders.lastElement().update_cost_individual();
+                        total_cost = sale_id_cost(orders); 
+                        pay_button.setText("Pay Now: " + total_cost);
+                    }
+                });
+                panel.add(temp_button); 
+            }
+        }
+
+
         more_food.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){  
-                orders.lastElement().guac = chips_guac; 
-                orders.lastElement().salsa = chips_salsa;
-                orders.lastElement().queso = chips_queso; 
-                orders.lastElement().drink = drinks; 
+                orders.lastElement().update_cost_individual();
                 new Clerk_Home_Page(orders, inventory, entrees, protein, sides, true); 
                 f.dispose(); 
             }  
@@ -94,48 +85,18 @@ public class Clerk_Sides_Page {
         pay_button.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){  
                 new Clerk_Home_Page(orders, inventory, entrees, protein, sides, additional_entree);
-                f.dispose(); 
-
-                Connection conn = null;
-                String teamNumber = "61"; // Your team number
-                String sectionNumber = "905"; // Your section number
-                String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
-                String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-                dbSetup myCredentials = new dbSetup(); 
-
-                try {
-                    conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
-                } 
-                catch (Exception ex) {
-                    ex.printStackTrace();
-                    System.err.println(e.getClass().getName()+": "+ex.getMessage());
-                    System.exit(0);
-                }
-                //System.out.println("Opened database successfully");
-                try{
-                    Statement stmt = conn.createStatement(); 
-                    String sqlQuery = "INSERT INTO cabo_grill_sales VALUES (" + orders.lastElement().Sale_Id + ", \'" + orders.lastElement().date + "\', \'" + orders.lastElement().Entree + "\', \'" + orders.lastElement().Protein + "\', " + orders.lastElement().salsa + ", " + orders.lastElement().queso + ", " + orders.lastElement().guac + ", " + orders.lastElement().drink + ", " + orders.lastElement().cost + ");";
-                    stmt.executeUpdate(sqlQuery); 
-                }
-                catch (Exception ex){
-                    ex.printStackTrace();
-                    //System.err.println(e.getClass().getName()+": "+e.getMessage());
-                    System.exit(0);
-                }
+                f.dispose();
             }
         }); 
-       panel.add(pay_button); 
-       panel.add(home_page_button); 
-       panel.add(chips_salsa_button);
-       panel.add(chips_guac_button);
-       panel.add(chips_queso_button);
-       panel.add(drink_button); 
-       panel.add(more_food); 
-       panel.add(pay_button); 
-       f.add(panel);  
-               f.setSize(1010,610);    
-               f.setLayout(null);    
-               f.setVisible(true);    
+        pay_button.setText("Pay Now: " + total_cost);
+        panel.add(pay_button); 
+        panel.add(home_page_button); 
+        panel.add(more_food); 
+        panel.add(pay_button); 
+        f.add(panel);  
+        f.setSize(1010,610);    
+        f.setLayout(null);    
+        f.setVisible(true);    
        }  
        
        public void windowClosing (WindowEvent e) {    

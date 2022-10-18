@@ -6,12 +6,10 @@ import java.util.ArrayList;
 import java.sql.*; 
 
 public class Home_Page {  
+    Vector<Order> orders = new Vector<Order>(); 
+    ArrayList<Tuple> inventory = new ArrayList<Tuple>();
     ArrayList<String> entrees = new ArrayList<String>() {{
-        add("ALL");
-        add("NONE");
-        add("bowl");
-        add("burrito");
-        add("tacos"); 
+
     }};
     ArrayList<String> protein = new ArrayList<String>() {{
 
@@ -36,12 +34,13 @@ public class Home_Page {
             System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
-        //System.out.println("Opened database successfully");
         try{
             sides.add("ALL");
             sides.add("NONE"); 
             protein.add("ALL");
             protein.add("NONE"); 
+            entrees.add("ALL"); 
+            entrees.add("NONE"); 
             Statement stmt = conn.createStatement(); 
             String sqlQuery = "SELECT item_name FROM cabo_grill WHERE type = 'protein';";
             ResultSet result = stmt.executeQuery(sqlQuery); 
@@ -53,9 +52,27 @@ public class Home_Page {
             while (result.next()){
                 sides.add(result.getString("item_name"));
             }
+            sqlQuery = "SELECT item_name FROM cabo_grill WHERE type = 'entree';";
+            result = stmt.executeQuery(sqlQuery); 
+            while (result.next()){
+                entrees.add(result.getString("item_name"));
+            }
             
 
-            //System.out.println(Sale_Id);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            //System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+        try{
+            String sqlQuery = "Select item_name from cabo_grill where id > 0;";
+            Statement stmt = conn.createStatement(); 
+            ResultSet result = stmt.executeQuery(sqlQuery); 
+            result = stmt.executeQuery(sqlQuery); 
+            while (result.next()){
+                inventory.add(new Tuple(result.getString("item_name"), 0));
+            }
         }
         catch (Exception e){
             e.printStackTrace();
@@ -66,8 +83,6 @@ public class Home_Page {
 
 
     JFrame f = new JFrame("Home Page");
-    Vector<Order> orders = new Vector<Order>(); 
-    Inventory inventory = new Inventory(); 
      Home_Page(){  
         fill_arrays();
         //JFrame f= new JFrame("Panel Example");    

@@ -164,6 +164,14 @@ public class jdbcpostgreSQL {
     	}
   	}
 
+	/*
+	 * @author Brandon Moon
+	 * @param table  	  			the table within the database to be queried from 
+	 * @param quantityAMT 			the new quantity of the item that you want to change
+	 * @param sufficientSupplyValue the value for whether or not the item has a sufficient supply (0 or 1)
+	 * @param itemID				the ID of the item that you want to modify
+	 * @catch Exception				if the database doesn't connect properly, execute the UPDATE query, or close the connection
+	 */
 	// constructor for update statement
 	jdbcpostgreSQL(String table, String quantityAmt, String sufficientSupplyValue, String itemID) {
 		//Building the connection with your credentials

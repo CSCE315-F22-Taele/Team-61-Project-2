@@ -16,8 +16,10 @@ public class jdbcpostgreSQL {
 
   	String statement = "";
 	String totalAmount = "";
+	String count = "";
 	String sql_output = "Result: \n";
 	String total_output = "Total: ";
+	String count_output = "Count: ";
 
 	/*
 	 * @author Justin Singletary
@@ -29,21 +31,22 @@ public class jdbcpostgreSQL {
 	 * @param  protein		  the protein option that is ordered (chicken, steak, beef, etc.)
 	 * @param  side 		  the side that is ordered with the entree (chips, salsa, guac, etc.)
 	 */
-  	jdbcpostgreSQL(String database, String inventory_item, String start, String end, String entree, String protein, String side) {
+  	jdbcpostgreSQL(String table, String inventory_item, String start, String end, String entree, String protein, String side) {
 
 		boolean whereUsed = false;
 
-		if (database == "Sales") {
+		if (table == "Sales") {
 
 			this.statement = "SELECT * FROM cabo_grill_sales";
 			this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales";
+			this.count = "SELECT COUNT(*) FROM cabo_grill_sales";
 			String additionalCriteria = "";
 
 			if (start != "" && end != "") {
 				additionalCriteria += " WHERE date BETWEEN '" + start + "' AND '" + end + "'";
 				whereUsed = true;
 			}
-			if (entree != "None") {
+			if (entree != "NONE") {
 				if (!whereUsed) {
 					additionalCriteria += " WHERE";
 					whereUsed = true;
@@ -52,7 +55,7 @@ public class jdbcpostgreSQL {
 				}
 				additionalCriteria += " entree_type = '" + entree + "'";
 			}
-			if (protein != "None") {
+			if (protein != "NONE") {
 				if (!whereUsed) {
 					additionalCriteria += " WHERE";
 					whereUsed = true;
@@ -61,7 +64,7 @@ public class jdbcpostgreSQL {
 				}
 				additionalCriteria += " protein = '" + protein + "'";
 			}
-			if (side != "None") {
+			if (side != "NONE") {
 				if (!whereUsed) {
 					additionalCriteria += " WHERE";
 					whereUsed = true;
@@ -70,11 +73,12 @@ public class jdbcpostgreSQL {
 				}
 				additionalCriteria += " " + side + " = 1";
 			}
-			this.statement += additionalCriteria + " ORDER BY sale_id DESC;";
+			this.statement += additionalCriteria + ";";
 			this.totalAmount += additionalCriteria + ";";
+			this.count += additionalCriteria + ";";
 		}
 
-		if (database == "Inventory") {
+		if (table == "Inventory") {
 			if (inventory_item == "All") {
 				this.statement = "SELECT * FROM cabo_grill ORDER BY id DESC;";
 			} else {
@@ -100,12 +104,11 @@ public class jdbcpostgreSQL {
     	}
     	//System.out.println("Opened database successfully");
 
-
     	try {
         	Statement stmt = conn.createStatement();
         	stmt.execute(statement);
 			ResultSet rs = stmt.executeQuery(statement);
-			if (database == "Sales") {
+			if (table == "Sales") {
 				while (rs.next()) {
 					String id = rs.getString(1);
 					String date = rs.getString(2);
@@ -118,15 +121,23 @@ public class jdbcpostgreSQL {
 					String cost = rs.getString(9);
 					sql_output += (id + " " + date + " " + entree_type + " " + protein_type + " " + chips_and_salsa + " " + chips_and_queso + " " + chips_and_guac + " " + drink + " " + cost +"\n");
 				}		
+
 				Statement stmt2 = conn.createStatement();
         		stmt2.execute(totalAmount);
 				ResultSet rs2 = stmt2.executeQuery(totalAmount);
 				while (rs2.next()) {
-					total_output += rs2.getString(1);
-				}		
+					total_output += "$" + rs2.getString(1);
+				}	
+
+				Statement stmt3 = conn.createStatement();
+				stmt3.execute(count);
+				ResultSet rs3 = stmt3.executeQuery(count);
+				while (rs3.next()) {
+					count_output += rs3.getString(1);
+				}			
 			}
 			
-			if (database == "Inventory") {
+			if (table == "Inventory") {
 				while (rs.next()) {
 					String id = rs.getString(1);
 					String item_name = rs.getString(2);
@@ -138,16 +149,17 @@ public class jdbcpostgreSQL {
 			}
 
     	} catch (Exception e){
-    		e.printStackTrace();
-    		System.err.println(e.getClass().getName()+": "+e.getMessage());
-    		System.exit(0);
+			sql_output += "Error: Query failed.";
+    		//e.printStackTrace();
+    		//System.err.println(e.getClass().getName()+": "+e.getMessage());
+    		//System.exit(0);
     	}
     	//closing the connection
     	try {
       		conn.close();
       		//System.out.println("Connection Closed.");
     	} catch(Exception e) {
-      		System.out.println("Connection NOT Closed.");
+      		//System.out.println("Connection NOT Closed.");
     	}
   	}
 
@@ -180,6 +192,7 @@ public class jdbcpostgreSQL {
 				// System.out.println(sql_query);
 				stmt.executeUpdate(sql_query);
 			}
+	
 		} catch (Exception e){
     		e.printStackTrace();
     		System.err.println(e.getClass().getName()+": "+e.getMessage());

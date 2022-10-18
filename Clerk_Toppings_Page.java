@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Clerk_Toppings_Page {
     JFrame f = new JFrame("Clerk Toppings Page");
-    Clerk_Toppings_Page(Vector<Order> orders, Inventory inventory, ArrayList<String> entrees, ArrayList<String> protein, ArrayList<String> sides, boolean additional_entree){  
+    Clerk_Toppings_Page(Vector<Order> orders, ArrayList<Tuple> inventory, ArrayList<String> entrees, ArrayList<String> protein, ArrayList<String> sides, boolean additional_entree){  
        //JFrame f= new JFrame("Panel Example");
        GridLayout test_layout = new GridLayout(4, 4); 
        JPanel panel=new JPanel();  
@@ -32,13 +32,21 @@ public class Clerk_Toppings_Page {
         lettuce_button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 if (lettuce_button.getBackground() == Color.green){
-                    inventory.lettuce -= 1; 
+                    for (Tuple item : inventory){
+                        if (item.side_name.equals("lettuce")){
+                            item.amount++; 
+                        }
+                    }
                     lettuce_button.setBackground(null);     
                     lettuce_button.setOpaque(true);
                     lettuce_button.setBorderPainted(false);
                 }
                 else{
-                    inventory.lettuce += 1; 
+                    for (Tuple item : inventory){
+                        if (item.side_name.equals("lettuce")){
+                            item.amount++; 
+                        }
+                    }
                     lettuce_button.setBackground(Color.green);     
                     lettuce_button.setOpaque(true);
                     lettuce_button.setBorderPainted(false);
@@ -48,13 +56,21 @@ public class Clerk_Toppings_Page {
         cheese_button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 if (cheese_button.getBackground() == Color.green){
-                    inventory.cheese -= 1; 
+                    for (Tuple item : inventory){
+                        if (item.side_name.equals("cheese")){
+                            item.amount++; 
+                        }
+                    }
                     cheese_button.setBackground(null);     
                     cheese_button.setOpaque(true);
                     cheese_button.setBorderPainted(false);
                 }
                 else{
-                    inventory.cheese += 1; 
+                    for (Tuple item : inventory){
+                        if (item.side_name.equals("cheese")){
+                            item.amount++; 
+                        }
+                    }
                     cheese_button.setBackground(Color.green);     
                     cheese_button.setOpaque(true);
                     cheese_button.setBorderPainted(false);
@@ -64,13 +80,21 @@ public class Clerk_Toppings_Page {
         tomatoes_button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 if (tomatoes_button.getBackground() == Color.green){
-                    inventory.tomatoes -= 1; 
+                    for (Tuple item : inventory){
+                        if (item.side_name.equals("tomatoes")){
+                            item.amount++; 
+                        }
+                    }
                     tomatoes_button.setBackground(null);     
                     tomatoes_button.setOpaque(true);
                     tomatoes_button.setBorderPainted(false);
                 }
                 else{
-                    inventory.tomatoes += 1; 
+                    for (Tuple item : inventory){
+                        if (item.side_name.equals("tomatoes")){
+                            item.amount++; 
+                        }
+                    }
                     tomatoes_button.setBackground(Color.green);     
                     tomatoes_button.setOpaque(true);
                     tomatoes_button.setBorderPainted(false);
@@ -80,13 +104,21 @@ public class Clerk_Toppings_Page {
         pico_button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 if (pico_button.getBackground() == Color.green){
-                    inventory.pico -= 1; 
+                    for (Tuple item : inventory){
+                        if (item.side_name.equals("pico de gallo")){
+                            item.amount++; 
+                        }
+                    }
                     pico_button.setBackground(null);     
                     pico_button.setOpaque(true);
                     pico_button.setBorderPainted(false);
                 }
                 else{
-                    inventory.pico += 1; 
+                    for (Tuple item : inventory){
+                        if (item.side_name.equals("pico de gallo")){
+                            item.amount++; 
+                        }
+                    }
                     pico_button.setBackground(Color.green);     
                     pico_button.setOpaque(true);
                     pico_button.setBorderPainted(false);
@@ -96,13 +128,21 @@ public class Clerk_Toppings_Page {
         corn_button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 if (corn_button.getBackground() == Color.green){
-                    inventory.corn -= 1; 
+                    for (Tuple item : inventory){
+                        if (item.side_name.equals("corn")){
+                            item.amount++; 
+                        }
+                    }
                     corn_button.setBackground(null);     
                     corn_button.setOpaque(true);
                     corn_button.setBorderPainted(false);
                 }
                 else{
-                    inventory.corn += 1; 
+                    for (Tuple item : inventory){
+                        if (item.side_name.equals("corn")){
+                            item.amount++; 
+                        }
+                    }
                     corn_button.setBackground(Color.green);     
                     corn_button.setOpaque(true);
                     corn_button.setBorderPainted(false);
@@ -112,13 +152,21 @@ public class Clerk_Toppings_Page {
         sour_cream_button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 if (sour_cream_button.getBackground() == Color.green){
-                    inventory.sour_cream -= 1; 
+                    for (Tuple item : inventory){
+                        if (item.side_name.equals("sour cream")){
+                            item.amount++; 
+                        }
+                    }
                     sour_cream_button.setBackground(null);     
                     sour_cream_button.setOpaque(true);
                     sour_cream_button.setBorderPainted(false);
                 }
                 else{
-                    inventory.sour_cream += 1; 
+                    for (Tuple item : inventory){
+                        if (item.side_name.equals("sour cream")){
+                            item.amount++; 
+                        }
+                    }
                     sour_cream_button.setBackground(Color.green);     
                     sour_cream_button.setOpaque(true);
                     sour_cream_button.setBorderPainted(false);

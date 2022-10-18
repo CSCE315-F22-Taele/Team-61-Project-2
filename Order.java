@@ -15,11 +15,8 @@ public class Order {
     String date; 
     String Entree; 
     String Protein;
-    int salsa;
-    int guac; 
-    int queso;
-    int drink;
-    double cost; 
+    ArrayList<Tuple> Sides; 
+    float cost; 
 
     Order(int saleid){
         Date temp_date = new Date(); 
@@ -27,17 +24,14 @@ public class Order {
         date = formatter.format(temp_date);
         Entree = ""; 
         Protein = "";
-        salsa = 0;
-        guac = 0;
-        queso = 0;
-        drink = 0; 
+        Sides = new ArrayList<Tuple>(); 
         cost = 0; 
         Sale_Id = saleid; 
     }
 
     Order(){
-        //Date temp_date = new Date(); 
-        //SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");  
+        Date temp_date = new Date(); 
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");  
 
         // connecting to our data base to get sale id start number
         Connection conn = null;
@@ -55,55 +49,86 @@ public class Order {
             System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
-        //System.out.println("Opened database successfully");
         try{
             Statement stmt = conn.createStatement(); 
             String sqlQuery = "SELECT MAX(sale_id) from cabo_grill_sales;";
             ResultSet result = stmt.executeQuery(sqlQuery); 
             result.next(); 
             Sale_Id = result.getInt("max") + 1; 
-            //System.out.println(Sale_Id);
         }
         catch (Exception e){
             e.printStackTrace();
             //System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
-        //date = formatter.format(date); 
-        date = "2022-12-12"; //needs to be changed to accomodate for proper date
+        
+        date = formatter.format(temp_date); 
+        //date = "2022-12-12"; //needs to be changed to accomodate for proper date
+        Sides = new ArrayList<Tuple>(); 
         Entree = ""; 
         Protein = "";
-        salsa = 0;
-        guac = 0;
-        queso = 0;
-        drink = 0; 
         cost = 0; 
     }
 
-    public void update_cost(){
-        cost = 0; 
-        if (Protein == "Chicken" && Entree == "Taco"){
-            cost += 7.89;
+
+    public void add_side(String side){
+        boolean found = false; 
+        for (int i = 0; i < Sides.size(); i++){
+            if (Sides.get(i).side_name == side){
+                Sides.get(i).amount++; 
+                found = true; 
+            }
         }
-        else if (Protein == "Chicken"){
-            cost += 8.5; 
+        if (!found){
+            Sides.add(new Tuple(side, 1)); 
         }
-        else if (Protein == "Steak"){
-            cost += 8.89;
-        }
-        else if (Protein == "Beef"){
-            cost += 8.79; 
-        }
-        else if (Protein == "Vegetable"){
-            cost += 7.89; 
-        }
-        cost += 2.19 * salsa;
-        cost += 3.49 * queso;
-        cost += 3.69 * guac; 
-        cost += 2.45 * drink; 
+
+
     }
 
-    public void print(){
-        System.out.println(Sale_Id + ", " + date + ", " + Entree + ", " + Protein + ", " + salsa + ", " + queso + ", " + guac + ", " + drink + "," + cost);
+    public void update_cost_individual(){
+        cost = 0; 
+
+        Connection conn = null;
+        String teamNumber = "61"; // Your team number
+        String sectionNumber = "905"; // Your section number
+        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup(); 
+
+        try {
+            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+          } 
+        catch (Exception e) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+        try{
+            String sqlQuery = "Select sale_cost from cabo_grill where item_name = '" + Protein + "';"; 
+            Statement stmt = conn.createStatement(); 
+            ResultSet result = stmt.executeQuery(sqlQuery); 
+            result = stmt.executeQuery(sqlQuery); 
+            result.next(); 
+            cost += result.getFloat("sale_cost"); 
+            if (Sides != null){
+                for (Tuple Side : Sides){
+                    String temp_side = Side.side_name; 
+                    float item_cost; 
+                    sqlQuery = "SELECT sale_cost from cabo_grill where item_name = '" + temp_side + "';";
+                    result = stmt.executeQuery(sqlQuery); 
+                    while(result.next()){
+                        item_cost = result.getFloat("sale_cost"); 
+                        cost += item_cost * Side.amount; 
+                    }
+                }
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            //System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
     }
+
 }

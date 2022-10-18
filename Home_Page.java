@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.sql.*; 
 /**
  * This class creates the base page for the point-of-sale system. It also has a method to help
- * populate a vector of the menu items. 
+ * populate a vector of the menu items. When the GUI is first opened, the user will be navigated to the home page
+ * where they will be able to select the clerk view or manager view.
  * @author Roee Belkin, Sam Brokaw
  */
 public class Home_Page {  

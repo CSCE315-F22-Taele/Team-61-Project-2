@@ -3,10 +3,21 @@ import javax.swing.*;
 import java.awt.event.*; 
 import java.util.ArrayList;
 
+/**
+ * This class is responsible for displaying the manager view in the point-of-sale system. In the manager view,
+ * the user can update prices, quantity and supply, view the inventory and sales report, and also view the restock report.
+ * @author Justin Singletary
+ */
 public class Manager_Home_Page {
 
     JFrame f = new JFrame("Home Page");
 
+    /**
+     * This constructor creates the layout for the manager side of the POS system. 
+     * @param entrees a vector of strings that contains the 3 different entree types (bowl, burrito, tacos)
+     * @param protein a vector of strings that contains the 4 different protein options
+     * @param sides a vector of strings that contains the side items
+     */
     Manager_Home_Page(ArrayList<String> entrees, ArrayList<String> protein, ArrayList<String> sides) {   
 
         JPanel panel = new JPanel();  

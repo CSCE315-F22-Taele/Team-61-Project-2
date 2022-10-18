@@ -18,7 +18,7 @@ public class jdbcpostgreSQL {
 	String totalAmount = "";
 	String count = "";
 	String sql_output = "Result: \n";
-	String total_output = "Total: ";
+	double total_output = 0.0;
 	String count_output = "Count: ";
 
 	/**
@@ -36,7 +36,7 @@ public class jdbcpostgreSQL {
 
 		boolean whereUsed = false;
 
-		if (table == "Sales") {
+		if (table == "Sales Report") {
 
 			this.statement = "SELECT * FROM cabo_grill_sales";
 			this.totalAmount = "SELECT SUM(cost) FROM cabo_grill_sales";
@@ -109,7 +109,7 @@ public class jdbcpostgreSQL {
         	Statement stmt = conn.createStatement();
         	stmt.execute(statement);
 			ResultSet rs = stmt.executeQuery(statement);
-			if (table == "Sales") {
+			if (table == "Sales Report") {
 				while (rs.next()) {
 					String id = rs.getString(1);
 					String date = rs.getString(2);
@@ -119,7 +119,7 @@ public class jdbcpostgreSQL {
 					String chips_and_queso = rs.getString(6);
 					String chips_and_guac = rs.getString(7);
 					String drink = rs.getString(8);
-					String cost = rs.getString(9);
+					String cost = rs.getString(9); 
 					sql_output += (id + " " + date + " " + entree_type + " " + protein_type + " " + chips_and_salsa + " " + chips_and_queso + " " + chips_and_guac + " " + drink + " " + cost +"\n");
 				}		
 
@@ -127,7 +127,7 @@ public class jdbcpostgreSQL {
         		stmt2.execute(totalAmount);
 				ResultSet rs2 = stmt2.executeQuery(totalAmount);
 				while (rs2.next()) {
-					total_output += "$" + rs2.getString(1);
+					total_output += rs2.getDouble(1);
 				}	
 
 				Statement stmt3 = conn.createStatement();
@@ -147,6 +147,19 @@ public class jdbcpostgreSQL {
 					String sufficient_supply = rs.getString(5);
 					sql_output += (id + " " + item_name + " " + type + " " + quantity + " " + sufficient_supply + "\n");
 				}
+
+				count = "SELECT COUNT(*) FROM cabo_grill";
+				if (inventory_item != "All") {
+					count += " WHERE type = '" + inventory_item + "'";
+				}
+				count += ";";
+
+				Statement stmt2 = conn.createStatement();
+				stmt2.execute(count);
+				ResultSet rs2 = stmt2.executeQuery(count);
+				while (rs2.next()) {
+					count_output += rs2.getString(1);
+				}		
 			}
 
     	} catch (Exception e){
@@ -196,10 +209,8 @@ public class jdbcpostgreSQL {
 			Statement stmt = conn.createStatement();
 			String sql_query = "";
 			if (table == "inventory") {
-				sql_query = "UPDATE cabo_grill SET quantity = " + quantityAmt + ", sufficient_supply = '" + sufficientSupplyValue
-							+ "' WHERE id = " + itemID;
-				// System.out.println(sql_query);
-				stmt.executeUpdate(sql_query);
+				sql_query = "UPDATE cabo_grill SET quantity = " + quantityAmt + ", sufficient_supply = '" + sufficientSupplyValue + "' WHERE id = " + itemID;
+				stmt.executeUpdate(sql_query);		
 			}
 	
 		} catch (Exception e){

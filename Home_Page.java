@@ -40,10 +40,9 @@ public class Home_Page {
             System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
-        try{
+        try {
             sides.add("NONE"); 
-            protein.add("NONE"); 
-            entrees.add("ALL"); 
+            protein.add("NONE");  
             entrees.add("NONE"); 
             Statement stmt = conn.createStatement(); 
             String sqlQuery = "SELECT item_name FROM cabo_grill WHERE type = 'protein';";

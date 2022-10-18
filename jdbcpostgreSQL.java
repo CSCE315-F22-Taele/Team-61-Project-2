@@ -30,6 +30,7 @@ public class jdbcpostgreSQL {
 	 * @param  entree         the entree that is selected from the list (bowl, taco, burrito, etc.)
 	 * @param  protein		  the protein option that is ordered (chicken, steak, beef, etc.)
 	 * @param  side 		  the side that is ordered with the entree (chips, salsa, guac, etc.)
+	 * @throws Exception	  when the database doesn't connect properly, query doesn't return any results or fails, and when the database closes unsuccessfully
 	 */
   	jdbcpostgreSQL(String table, String inventory_item, String start, String end, String entree, String protein, String side) {
 

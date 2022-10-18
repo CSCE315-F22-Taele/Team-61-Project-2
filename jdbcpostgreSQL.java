@@ -10,7 +10,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * @author Justin & Brandon
+ * This class's main purpose is to be utilized by the manager home page
+ * to execute specific queries to view the inventory and sales report from the database. 
+ * @author Justin Singletary, Brandon Moon
  */
 public class jdbcpostgreSQL {
 
@@ -22,6 +24,7 @@ public class jdbcpostgreSQL {
 	String count_output = "Count: ";
 
 	/**
+	 * This constructor is used for the manager home page's queries. It mainly uses select statements to access specific values from the database.
 	 * @author Justin Singletary
 	 * @param  table          the name of table that will be queried
 	 * @param  inventory_item the type of item to be selected in the table (protein, side, topping, etc.)
@@ -165,6 +168,8 @@ public class jdbcpostgreSQL {
   	}
 
 	/**
+	 * This constructor is used for the update function of the manager home page. The constructor uses the UPDATE clause to create a statement
+	 * that modifies the database's quantity and sufficient supply.
 	 * @author Brandon Moon
 	 * @param table  	  			the table within the database to be queried from 
 	 * @param quantityAMT 			the new quantity of the item that you want to change

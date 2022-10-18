@@ -29,6 +29,16 @@ public class Manager_Home_Page {
                 f.dispose(); 
             }
         }); 
+
+        JButton excess_report = new JButton("Excess Report"); 
+        b1.setBounds(50,100,80,30);   
+        excess_report.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                new Excess_Report_Page();
+                f.dispose(); 
+            }
+        });  
+        panel.add(excess_report);
         panel.add(b1);  
         panel.add(edit_item_button); 
 

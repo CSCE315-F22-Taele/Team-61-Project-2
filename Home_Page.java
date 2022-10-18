@@ -87,7 +87,7 @@ public class Home_Page {
 
 
     JFrame f = new JFrame("Home Page");
-    /*
+    /**
      * This constructor creates the main layout for the home page as well as the buttons to access the clerk and manager view.
      */
      Home_Page(){  

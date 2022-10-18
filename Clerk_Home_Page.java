@@ -5,12 +5,19 @@ import javax.swing.*;
 import java.awt.event.*; 
 import java.util.*; 
 /**
+ * This class consists of the components that make up the clerks point of view in the point-of-sale system.
  * @author Roee Belkin & Sam Brokaw
  */
 public class Clerk_Home_Page {
     JFrame f = new JFrame("Clerk Home Page"); 
     /**
-     * @param orders    the vector of orders taken from the Clerk-side view
+     * This constructor creates the layout for the clerk home page with buttons to take the customer's order
+     * @param orders            the vector of orders taken from the Clerk-side view
+     * @param inventory         a vector of tuples that stores the items in the inventory
+     * @param entrees           a vector of strings that contains the 3 different entree types (bowl, burrito, tacos)
+     * @param protein           a vector of strings that contains the 4 different protein options
+     * @param sides             a vector os strings that contains the side items
+     * @param additional_entree a boolean variable where 1 represents the customer is ordering another entree and 0 means no more entrees
      */
     Clerk_Home_Page(Vector<Order> orders, ArrayList<Tuple> inventory, ArrayList<String> entrees, ArrayList<String> protein, ArrayList<String> sides, boolean additional_entree){  
        GridLayout test_layout = new GridLayout(4, 4); 

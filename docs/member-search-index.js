@@ -1,1 +1,1 @@
-memberSearchIndex = [{"p":"<Unnamed>","c":"dbSetup","l":"dbSetup()","u":"%3Cinit%3E()"},{"p":"<Unnamed>","c":"jdbcpostgreSQL","l":"jdbcpostgreSQL()","u":"%3Cinit%3E()"},{"p":"<Unnamed>","c":"jdbcpostgreSQL","l":"main(String[])","u":"main(java.lang.String[])"},{"p":"<Unnamed>","c":"dbSetup","l":"pswd"},{"p":"<Unnamed>","c":"dbSetup","l":"user"}];updateSearchResults();
+memberSearchIndex = [];updateSearchResults();

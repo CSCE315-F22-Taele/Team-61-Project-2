@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-/*
+/**
  * @author Justin & Brandon
  */
 public class jdbcpostgreSQL {
@@ -21,7 +21,7 @@ public class jdbcpostgreSQL {
 	String total_output = "Total: ";
 	String count_output = "Count: ";
 
-	/*
+	/**
 	 * @author Justin Singletary
 	 * @param  table          the name of table that will be queried
 	 * @param  inventory_item the type of item to be selected in the table (protein, side, topping, etc.)
@@ -164,7 +164,7 @@ public class jdbcpostgreSQL {
     	}
   	}
 
-	/*
+	/**
 	 * @author Brandon Moon
 	 * @param table  	  			the table within the database to be queried from 
 	 * @param quantityAMT 			the new quantity of the item that you want to change

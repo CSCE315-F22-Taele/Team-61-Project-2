@@ -4,7 +4,9 @@ import java.awt.event.*;
 import java.util.*; 
 import java.util.ArrayList;
 import java.sql.*; 
-
+/**
+ * @author Roee Belkin & Sam Brokaw
+ */
 public class Home_Page {  
     Vector<Order> orders = new Vector<Order>(); 
     ArrayList<Tuple> inventory = new ArrayList<Tuple>();
@@ -17,6 +19,11 @@ public class Home_Page {
 
     }};
 
+    /**
+     * This method fills the entree, protein, and side arrays with 
+     * all the possible options that are within the database.
+     * @throws if database doesn't connect or query doesn't execute properly
+     */
     public void fill_arrays(){
         Connection conn = null;
         String teamNumber = "61"; // Your team number

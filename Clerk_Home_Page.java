@@ -4,12 +4,12 @@ import javax.accessibility.AccessibleRelationSet;
 import javax.swing.*;  
 import java.awt.event.*; 
 import java.util.*; 
-/*
+/**
  * @author Roee Belkin & Sam Brokaw
  */
 public class Clerk_Home_Page {
     JFrame f = new JFrame("Clerk Home Page"); 
-    /*
+    /**
      * @param orders    the vector of orders taken from the Clerk-side view
      */
     Clerk_Home_Page(Vector<Order> orders, ArrayList<Tuple> inventory, ArrayList<String> entrees, ArrayList<String> protein, ArrayList<String> sides, boolean additional_entree){  

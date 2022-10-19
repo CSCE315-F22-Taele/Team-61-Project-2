@@ -35,7 +35,7 @@ public class Excess_Report_Page {
              */ 
             public void actionPerformed(ActionEvent e){  
                 b1.setBackground(Color.green);  
-                new Home_Page(); 
+                new Home_Page();
                 f.dispose(); 
             }  
         }); 

@@ -49,7 +49,7 @@ public class Order {
             System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
-        try{
+        try {
             Statement stmt = conn.createStatement(); 
             String sqlQuery = "SELECT MAX(sale_id) from cabo_grill_sales;";
             ResultSet result = stmt.executeQuery(sqlQuery); 

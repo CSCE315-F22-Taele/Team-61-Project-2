@@ -7,7 +7,7 @@ public class Tuple{
     public Integer amount; 
 
     /**
-     * The tuple constructor initalizes the attributes with their default values of an empty string and 0.
+     * The tuple constructor initalizes the attributes with their default values of an empty string for the side name and 0 for the price.
      */
     Tuple(){
         side_name = "";
@@ -16,8 +16,8 @@ public class Tuple{
 
     /**
      * This constructor is used to create Tuple objects for a specific side with its' corresponding price.
-     * @param side
-     * @param amt
+     * @param side the name of the side to be passed into the constructor
+     * @param amt  the corresponding price of the side 
      */
     Tuple(String side, Integer amt){
         side_name = side; 

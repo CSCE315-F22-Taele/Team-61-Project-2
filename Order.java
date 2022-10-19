@@ -4,12 +4,15 @@ import java.util.*;
 import java.time.*;    
 import java.text.*; 
 import java.util.Date;
-
 import javax.security.sasl.Sasl;
-
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 
+/**
+ * This class is used to aid in creating orders to be inserted into the database. A proper order will consist of 6 main attributes: Sale ID, date,
+ * entree, protein, sides, and the total cost. 
+ * @author Roee Belkin, Sam Brokaw
+ */
 public class Order {
     int Sale_Id; 
     String date; 
@@ -126,7 +129,6 @@ public class Order {
         }
         catch (Exception e){
             e.printStackTrace();
-            //System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
     }

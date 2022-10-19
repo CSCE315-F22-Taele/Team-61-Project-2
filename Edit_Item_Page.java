@@ -105,8 +105,8 @@ public class Edit_Item_Page {
         new_cost_area.setBounds(600, 150, 100, 30);
         new_cost_area.setBorder(new LineBorder(Color.black));
         f.add(new_cost_area); 
-        // Text above Item ID text box
 
+        // Text above Item ID text box
         JButton update_cost_button = new JButton("Press here to update new cost");
         update_cost_button.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
@@ -141,15 +141,12 @@ public class Edit_Item_Page {
                     }
                     catch (Exception ee){
                         ee.printStackTrace();
-                        //System.err.println(e.getClass().getName()+": "+e.getMessage());
                         System.exit(0);
                     }
                     new_cost_area.setText("Cost Updated"); 
                 }
             }
         });
-        
-        //update_cost_button.setOpaque(true); 
 
         JButton add_new_button = new JButton("Press here to add new item"); 
         add_new_button.addActionListener(new ActionListener(){
@@ -205,7 +202,6 @@ public class Edit_Item_Page {
                     }
                     catch (Exception ee){
                         ee.printStackTrace();
-                        //System.err.println(e.getClass().getName()+": "+e.getMessage());
                         System.exit(0);
                     }
                     name_area.setText("Item Added"); 
@@ -214,8 +210,6 @@ public class Edit_Item_Page {
                     sale_area.setText("Item Added"); 
                     id_area.setText("Item Added");
                 }
-
-
             }
         });
         

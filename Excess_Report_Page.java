@@ -101,7 +101,6 @@ public class Excess_Report_Page {
                     System.err.println(ex.getClass().getName()+": "+ex.getMessage());
                     System.exit(0);
                 }
-                //System.out.println("Opened database successfully");
                 for(String s : chips){
                     try{
                         Statement stmt = conn.createStatement(); 
@@ -122,7 +121,6 @@ public class Excess_Report_Page {
                     }
                     catch (Exception ex){
                         ex.printStackTrace();
-                        //System.err.println(e.getClass().getName()+": "+e.getMessage());
                         System.exit(0);
                     }
                 }
@@ -147,7 +145,6 @@ public class Excess_Report_Page {
                     }
                     catch (Exception ex){
                         ex.printStackTrace();
-                        //System.err.println(e.getClass().getName()+": "+e.getMessage());
                         System.exit(0);
                     }
                 }

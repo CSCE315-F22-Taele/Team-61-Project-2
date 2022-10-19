@@ -13,7 +13,7 @@ import java.sql.*;
  * @author Sam Brokaw
  */
 public class Edit_Item_Page {  
-    JFrame f = new JFrame("Home Page");
+    JFrame f = new JFrame("Edit Item Page");
     Connection conn = null;
     String teamNumber = "61"; // Your team number
     String sectionNumber = "905"; // Your section number
@@ -35,11 +35,11 @@ public class Edit_Item_Page {
         JTextArea page_info = new JTextArea("Please use the top half of this page for editing current prices, and the bottom half for adding new items."); 
         JPanel button_panel = new JPanel();
         button_panel.setBounds(450,200,300,300); 
-        JButton b1 = new JButton("Back To Home Page");      
+        JButton b1 = new JButton("Back To Manager Page");      
         b1.addActionListener(new ActionListener() {  
             public void actionPerformed(ActionEvent e){  
                 b1.setBackground(Color.green);  
-                new Home_Page(); 
+                new Manager_Home_Page(entrees, protein, sides); 
                 f.dispose(); 
             }  
         }); 

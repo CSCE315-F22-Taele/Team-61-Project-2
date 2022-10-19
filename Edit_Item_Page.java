@@ -125,11 +125,9 @@ public class Edit_Item_Page {
                         System.exit(0);
                     }
                     float new_cost = Float.parseFloat(new_cost_area.getText()); 
-                    System.out.println("update cost button pressed"); 
                     try{
                         Statement stmt = conn.createStatement(); 
                         String sqlQuery = "UPDATE cabo_grill SET sale_cost = " + new_cost + " where item_name = '" + item_to_update + "';";
-                        System.out.println(sqlQuery); 
                         stmt.executeUpdate(sqlQuery); 
             
                     }

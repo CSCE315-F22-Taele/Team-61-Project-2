@@ -2,17 +2,18 @@ import java.awt.*;
 import javax.swing.*;  
 import java.awt.event.*; 
 import java.util.*; 
-
 import java.sql.*;
 import java.io.*;   
 import java.util.Random;
 import java.util.ArrayList;
-
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * This class provides the basis for the Excess Report Page within the Manager view of the POS. The excess report page
+ * reports the items that only sold less than 10% of their inventory between the given timestamp and current time.
+ */
 public class Excess_Report_Page {
     JFrame f = new JFrame("Excess Report Page"); 
     Excess_Report_Page(){  

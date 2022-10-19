@@ -57,21 +57,9 @@ public class Clerk_Home_Page {
         }
         close_out_button.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                Connection conn = null;
-                String teamNumber = "61"; // Your team number
-                String sectionNumber = "905"; // Your section number
-                String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
-                String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-                dbSetup myCredentials = new dbSetup(); 
+         
+                Connection conn = new connectionSetup().conn;
 
-                try {
-                    conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
-                } 
-                catch (Exception ex) {
-                    ex.printStackTrace();
-                    System.err.println(e.getClass().getName()+": "+ex.getMessage());
-                    System.exit(0);
-                }
                 for (Order order: orders){
                     try{
                         Statement stmt = conn.createStatement(); 

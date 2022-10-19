@@ -43,23 +43,9 @@ public class Order {
         Date temp_date = new Date(); 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");  
 
-        // connecting to our data base to get sale id start number
-        Connection conn = null;
-        String teamNumber = "61"; // Your team number
-        String sectionNumber = "905"; // Your section number
-        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
-        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-        dbSetup myCredentials = new dbSetup(); 
-
+        Connection conn = new connectionSetup().conn;
+        
         try {
-            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
-          } 
-        catch (Exception e) {
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }
-        try{
             Statement stmt = conn.createStatement(); 
             String sqlQuery = "SELECT MAX(sale_id) from cabo_grill_sales;";
             ResultSet result = stmt.executeQuery(sqlQuery); 
@@ -103,22 +89,9 @@ public class Order {
     public void update_cost_individual(){
         cost = 0; 
 
-        Connection conn = null;
-        String teamNumber = "61"; // Your team number
-        String sectionNumber = "905"; // Your section number
-        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
-        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-        dbSetup myCredentials = new dbSetup(); 
+        Connection conn = new connectionSetup().conn;
 
         try {
-            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
-          } 
-        catch (Exception e) {
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }
-        try{
             String sqlQuery = "Select sale_cost from cabo_grill where item_name = '" + Protein + "';"; 
             Statement stmt = conn.createStatement(); 
             ResultSet result = stmt.executeQuery(sqlQuery); 

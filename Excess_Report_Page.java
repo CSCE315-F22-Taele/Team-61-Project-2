@@ -2,19 +2,25 @@ import java.awt.*;
 import javax.swing.*;  
 import java.awt.event.*; 
 import java.util.*; 
-
 import java.sql.*;
 import java.io.*;   
 import java.util.Random;
 import java.util.ArrayList;
-
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * This class provides the basis for the Excess Report Page within the Manager view of the POS. The excess report page
+ * reports the items that only sold less than 10% of their inventory between the given timestamp and current time.
+ * @author Sam Brokaw
+ */
 public class Excess_Report_Page {
     JFrame f = new JFrame("Excess Report Page"); 
+    /**
+     * The constructor completes all of the queries to access the excess report and outputs all of the items that didn't sell less than 10%
+     * of their inventory to a textbox.
+     */
     Excess_Report_Page(){  
         JPanel panel= new JPanel();  
         panel.setBounds(10,10,1000,600);    
@@ -22,7 +28,11 @@ public class Excess_Report_Page {
 
         JButton b1 = new JButton("Back To Home Page");     
         b1.setBounds(50,50,150,30);    
-        b1.addActionListener(new ActionListener() {  
+        b1.addActionListener(new ActionListener() { 
+            /**
+             * This function changes the "Back To Home Page" button green after it is pressed
+             * @param e represents the click of the button  
+             */ 
             public void actionPerformed(ActionEvent e){  
                 b1.setBackground(Color.green);  
                 new Home_Page(); 
@@ -65,6 +75,10 @@ public class Excess_Report_Page {
         };
 
         submitButton.addActionListener(new ActionListener() {
+            /**
+             * This function executes the queries for the excess report when the submit button is pressed.
+             * @param e represents the click of the button
+             */
             public void actionPerformed(ActionEvent e) {
                 String beginDate = "";
                 ArrayList<String> excess = new ArrayList<String>();
@@ -87,7 +101,6 @@ public class Excess_Report_Page {
                     System.err.println(ex.getClass().getName()+": "+ex.getMessage());
                     System.exit(0);
                 }
-                //System.out.println("Opened database successfully");
                 for(String s : chips){
                     try{
                         Statement stmt = conn.createStatement(); 
@@ -108,7 +121,6 @@ public class Excess_Report_Page {
                     }
                     catch (Exception ex){
                         ex.printStackTrace();
-                        //System.err.println(e.getClass().getName()+": "+e.getMessage());
                         System.exit(0);
                     }
                 }
@@ -133,7 +145,6 @@ public class Excess_Report_Page {
                     }
                     catch (Exception ex){
                         ex.printStackTrace();
-                        //System.err.println(e.getClass().getName()+": "+e.getMessage());
                         System.exit(0);
                     }
                 }

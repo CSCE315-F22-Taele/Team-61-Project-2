@@ -1,9 +1,17 @@
 import java.util.*; 
 import java.sql.*; 
 
+/**
+ * The inventory class is used to query the database and output all columns in the inventory table
+ * @author Roee Belkin
+ */
 public class Inventory {
     public ArrayList<Tuple> items; 
 
+    /**
+     * This default constructor establishes the queries used to access the inventory items and adds the item names
+     * into the items array
+     */
     Inventory(){
         items = new ArrayList<Tuple>(); 
         Connection conn = null;
@@ -21,7 +29,7 @@ public class Inventory {
             System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
-        //System.out.println("Opened database successfully");
+
         try{
             String sqlQuery = "Select item_name from cabo_grill where id > 0;";
             Statement stmt = conn.createStatement(); 
@@ -33,7 +41,6 @@ public class Inventory {
         }
         catch (Exception e){
             e.printStackTrace();
-            //System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
     }

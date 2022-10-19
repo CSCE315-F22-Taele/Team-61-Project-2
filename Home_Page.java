@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.sql.*; 
 /**
  * This class creates the base page for the point-of-sale system. It also has a method to help
- * populate a vector of the menu items. 
+ * populate a vector of the menu items. When the GUI is first opened, the user will be navigated to the home page
+ * where they will be able to select the clerk view or manager view.
  * @author Roee Belkin, Sam Brokaw
  */
 public class Home_Page {  
@@ -66,7 +67,6 @@ public class Home_Page {
         }
         catch (Exception e){
             e.printStackTrace();
-            //System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
         try{
@@ -80,19 +80,17 @@ public class Home_Page {
         }
         catch (Exception e){
             e.printStackTrace();
-            //System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
     }
 
 
     JFrame f = new JFrame("Home Page");
-    /*
+    /**
      * This constructor creates the main layout for the home page as well as the buttons to access the clerk and manager view.
      */
      Home_Page(){  
-        fill_arrays();
-        //JFrame f= new JFrame("Panel Example");    
+        fill_arrays();    
         JPanel panel=new JPanel();  
         panel.setBounds(10,10,1000,600);    
         panel.setBackground(Color.gray);  
@@ -100,7 +98,11 @@ public class Home_Page {
         JButton b1=new JButton("Clerk Page");     
         b1.setBounds(50,100,80,30);    
         b1.setBackground(Color.red);
-        b1.addActionListener(new ActionListener(){  
+        b1.addActionListener(new ActionListener(){ 
+            /**
+             * When the "Clerk Page" button is pressed, it changes its' color to green
+             * @param e represents the click of the button
+             */ 
                 public void actionPerformed(ActionEvent e){  
                     b1.setBackground(Color.green);  
                         new Clerk_Home_Page(orders, inventory, entrees, protein, sides, false); 
@@ -112,6 +114,10 @@ public class Home_Page {
         b2.setBounds(100,100,80,30);    
         b2.setBackground(Color.yellow);   
         b2.addActionListener(new ActionListener(){  
+            /**
+             * When the "Manager Page" button is pressed, it changes its' color to green
+             * @param e represents the click of the button
+             */
             public void actionPerformed(ActionEvent e){  
                 b1.setBackground(Color.green);  
                 new Manager_Home_Page(entrees, protein, sides); 

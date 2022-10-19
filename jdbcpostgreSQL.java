@@ -2,9 +2,6 @@ import java.sql.*;
 import java.io.*;   
 import java.util.Random;
 import java.util.ArrayList;
-
-//import java.sql.Connection;
-//import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -33,7 +30,6 @@ public class jdbcpostgreSQL {
 	 * @param  entree         the entree that is selected from the list (bowl, taco, burrito, etc.)
 	 * @param  protein		  the protein option that is ordered (chicken, steak, beef, etc.)
 	 * @param  side 		  the side that is ordered with the entree (chips, salsa, guac, etc.)
-	 * @throws Exception	  when the database doesn't connect properly, query doesn't return any results or fails, and when the database closes unsuccessfully
 	 */
   	jdbcpostgreSQL(String table, String inventory_item, String start, String end, String entree, String protein, String side) {
 
@@ -105,8 +101,7 @@ public class jdbcpostgreSQL {
       		e.printStackTrace();
       		System.err.println(e.getClass().getName()+": "+e.getMessage());
       		System.exit(0);
-    	}
-    	//System.out.println("Opened database successfully");
+		}
 
     	try {
         	Statement stmt = conn.createStatement();
@@ -167,16 +162,12 @@ public class jdbcpostgreSQL {
 
     	} catch (Exception e){
 			sql_output += "Error: Query failed.";
-    		//e.printStackTrace();
-    		//System.err.println(e.getClass().getName()+": "+e.getMessage());
-    		//System.exit(0);
     	}
     	//closing the connection
     	try {
       		conn.close();
-      		//System.out.println("Connection Closed.");
     	} catch(Exception e) {
-      		//System.out.println("Connection NOT Closed.");
+			System.out.println("Connection NOT Closed.");
     	}
   	}
 
@@ -185,12 +176,10 @@ public class jdbcpostgreSQL {
 	 * that modifies the database's quantity and sufficient supply.
 	 * @author Brandon Moon
 	 * @param table  	  			the table within the database to be queried from 
-	 * @param quantityAMT 			the new quantity of the item that you want to change
+	 * @param quantityAmt 			the new quantity of the item that you want to change
 	 * @param sufficientSupplyValue the value for whether or not the item has a sufficient supply (0 or 1)
 	 * @param itemID				the ID of the item that you want to modify
-	 * @catch Exception				if the database doesn't connect properly, execute the UPDATE query, or close the connection
 	 */
-	// constructor for update statement
 	jdbcpostgreSQL(String table, String quantityAmt, String sufficientSupplyValue, String itemID) {
 		//Building the connection with your credentials
     	Connection conn = null;
@@ -227,7 +216,6 @@ public class jdbcpostgreSQL {
 		//closing the connection
     	try {
 			conn.close();
-			//System.out.println("Connection Closed.");
 		} catch(Exception e) {
 			System.out.println("Connection NOT Closed.");
 		}

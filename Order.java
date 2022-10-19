@@ -4,12 +4,15 @@ import java.util.*;
 import java.time.*;    
 import java.text.*; 
 import java.util.Date;
-
 import javax.security.sasl.Sasl;
-
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 
+/**
+ * This class is used to aid in creating orders to be inserted into the database. A proper order will consist of 6 main attributes: Sale ID, date,
+ * entree, protein, sides, and the total cost. 
+ * @author Roee Belkin, Sam Brokaw
+ */
 public class Order {
     int Sale_Id; 
     String date; 
@@ -18,6 +21,10 @@ public class Order {
     ArrayList<Tuple> Sides; 
     float cost; 
 
+    /**
+     * Order constructor that takes in the value of a sale ID 
+     * @param saleid an integer value that represents the sale ID of an order 
+     */
     Order(int saleid){
         Date temp_date = new Date(); 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");  
@@ -29,6 +36,9 @@ public class Order {
         Sale_Id = saleid; 
     }
 
+    /**
+     * The base constructor for the Order class that creates a base order to be used to insert orders into the database.
+     */
     Order(){
         Date temp_date = new Date(); 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");  
@@ -58,19 +68,20 @@ public class Order {
         }
         catch (Exception e){
             e.printStackTrace();
-            //System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
         
         date = formatter.format(temp_date); 
-        //date = "2022-12-12"; //needs to be changed to accomodate for proper date
         Sides = new ArrayList<Tuple>(); 
         Entree = ""; 
         Protein = "";
         cost = 0; 
     }
 
-
+    /**
+     * This method is used to add a side to the order
+     * @param side A string variable that represents the side to be added to the order
+     */
     public void add_side(String side){
         boolean found = false; 
         for (int i = 0; i < Sides.size(); i++){
@@ -86,6 +97,9 @@ public class Order {
 
     }
 
+    /**
+     * A method that is used to update an indivudal order's price.
+     */
     public void update_cost_individual(){
         cost = 0; 
 
@@ -126,9 +140,7 @@ public class Order {
         }
         catch (Exception e){
             e.printStackTrace();
-            //System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
     }
-
 }

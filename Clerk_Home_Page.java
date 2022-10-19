@@ -6,7 +6,7 @@ import java.awt.event.*;
 import java.util.*; 
 /**
  * This class consists of the components that make up the clerks point of view in the point-of-sale system.
- * @author Roee Belkin & Sam Brokaw
+ * @author Roee Belkin, Sam Brokaw
  */
 public class Clerk_Home_Page {
     JFrame f = new JFrame("Clerk Home Page"); 
@@ -16,7 +16,7 @@ public class Clerk_Home_Page {
      * @param inventory         a vector of tuples that stores the items in the inventory
      * @param entrees           a vector of strings that contains the 3 different entree types (bowl, burrito, tacos)
      * @param protein           a vector of strings that contains the 4 different protein options
-     * @param sides             a vector os strings that contains the side items
+     * @param sides             a vector of strings that contains the side items
      * @param additional_entree a boolean variable where 1 represents the customer is ordering another entree and 0 means no more entrees
      */
     Clerk_Home_Page(Vector<Order> orders, ArrayList<Tuple> inventory, ArrayList<String> entrees, ArrayList<String> protein, ArrayList<String> sides, boolean additional_entree){  
@@ -84,7 +84,6 @@ public class Clerk_Home_Page {
                     }
                     catch (Exception ex){
                         ex.printStackTrace();
-                        //System.err.println(e.getClass().getName()+": "+e.getMessage());
                         System.exit(0);
                     }
                 }
@@ -102,7 +101,6 @@ public class Clerk_Home_Page {
                     }
                     catch (Exception ex){
                         ex.printStackTrace();
-                        //System.err.println(e.getClass().getName()+": "+e.getMessage());
                         System.exit(0);
                     }
                 }
@@ -117,11 +115,12 @@ public class Clerk_Home_Page {
         f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
        }  
 
+       /**
+        * This method is used to close the instance of the GUI window so that the user doesn't have to close it manually through 
+        * the terminal.
+        * @param e a WindowEvent object that indicates the status of the java.swing window
+        */
        public void windowClosing (WindowEvent e) {    
            f.dispose();    
        }    
-    //    public static void main(String args[])  
-    //    {  
-    //    new Clerk_Home_Page();  
-    //    }  
 }

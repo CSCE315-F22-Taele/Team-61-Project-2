@@ -5,6 +5,10 @@ import javax.swing.*;
 import java.awt.event.*; 
 import java.util.*; 
 
+/**
+ * This class creates a connection with the AWS server in order to connect to the postgreSQL database
+ * @author Unknown, Code was provided
+ */
 public class connectionSetup {
 
     Connection conn = null;

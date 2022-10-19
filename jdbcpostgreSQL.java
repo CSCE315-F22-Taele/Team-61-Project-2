@@ -192,6 +192,12 @@ public class jdbcpostgreSQL {
 		}
 	}
 
+
+	/**
+	 * This constructor is used for the Restock Report and Update Inventory Supply 
+	 * @author Justin Singletary
+	 * @param inventoryFunction  	function to be executed on Inventory table
+	 */
 	jdbcpostgreSQL(String inventoryFunction) {
 
 		Connection conn = new connectionSetup().conn;

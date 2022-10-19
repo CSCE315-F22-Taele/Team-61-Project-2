@@ -16,7 +16,7 @@ public class jdbcpostgreSQL {
   	String statement = "";
 	String totalAmount = "";
 	String count = "";
-	String sql_output = "Result: \n";
+	String sql_output = "";
 	double total_output = 0.0;
 	String count_output = "Count: ";
 
@@ -86,22 +86,7 @@ public class jdbcpostgreSQL {
 			}
 		}
 		
-    	//Building the connection with your credentials
-    	Connection conn = null;
-    	String teamNumber = "61"; // Your team number
-    	String sectionNumber = "905"; // Your section number
-    	String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
-    	String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-    	dbSetup myCredentials = new dbSetup(); 
-
-    	//Connecting to the database
-    	try {
-      		conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
-    	} catch (Exception e) {
-      		e.printStackTrace();
-      		System.err.println(e.getClass().getName()+": "+e.getMessage());
-      		System.exit(0);
-		}
+		Connection conn = new connectionSetup().conn;
 
     	try {
         	Statement stmt = conn.createStatement();
@@ -118,7 +103,7 @@ public class jdbcpostgreSQL {
 					String chips_and_guac = rs.getString(7);
 					String drink = rs.getString(8);
 					String cost = rs.getString(9); 
-					sql_output += (id + " " + date + " " + entree_type + " " + protein_type + " " + chips_and_salsa + " " + chips_and_queso + " " + chips_and_guac + " " + drink + " " + cost +"\n");
+					sql_output += (" " + id + " " + date + " " + entree_type + " " + protein_type + " " + chips_and_salsa + " " + chips_and_queso + " " + chips_and_guac + " " + drink + " " + cost +"\n");
 				}		
 
 				Statement stmt2 = conn.createStatement();
@@ -143,7 +128,9 @@ public class jdbcpostgreSQL {
 					String type = rs.getString(3);
 					String quantity = rs.getString(4);
 					String sufficient_supply = rs.getString(5);
-					sql_output += (id + " " + item_name + " " + type + " " + quantity + " " + sufficient_supply + "\n");
+					double sale_cost = rs.getDouble(6);
+					int minimum_supply = rs.getInt(7);
+					sql_output += (id + " " + item_name + " " + type + " " + quantity + " " + sufficient_supply + " " + sale_cost + " " + minimum_supply + "\n");
 				}
 
 				count = "SELECT COUNT(*) FROM cabo_grill";
@@ -181,22 +168,8 @@ public class jdbcpostgreSQL {
 	 * @param itemID				the ID of the item that you want to modify
 	 */
 	jdbcpostgreSQL(String table, String quantityAmt, String sufficientSupplyValue, String itemID) {
-		//Building the connection with your credentials
-    	Connection conn = null;
-    	String teamNumber = "61"; // Your team number
-    	String sectionNumber = "905"; // Your section number
-    	String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
-    	String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-    	dbSetup myCredentials = new dbSetup(); 
-
-    	//Connecting to the database
-    	try {
-      		conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
-    	} catch (Exception e) {
-      		e.printStackTrace();
-      		System.err.println(e.getClass().getName()+": "+e.getMessage());
-      		System.exit(0);
-    	}
+	
+		Connection conn = new connectionSetup().conn;
 
 		// Try Except block executes UPDATE query
 		try {
@@ -206,11 +179,46 @@ public class jdbcpostgreSQL {
 				sql_query = "UPDATE cabo_grill SET quantity = " + quantityAmt + ", sufficient_supply = '" + sufficientSupplyValue + "' WHERE id = " + itemID;
 				stmt.executeUpdate(sql_query);		
 			}
+
+		} catch (Exception e){
+    		sql_output += "Error: Update failed.";
+    	}
+
+		//closing the connection
+    	try {
+			conn.close();
+		} catch(Exception e) {
+			System.out.println("Connection NOT Closed.");
+		}
+	}
+
+	jdbcpostgreSQL(String report) {
+
+		Connection conn = new connectionSetup().conn;
+
+		// Try Except block executes UPDATE query
+		try {
+			Statement stmt = conn.createStatement();
+			String sql_query = "";
+
+			if (report == "Restock Report") {
+				statement = "SELECT * FROM cabo_grill WHERE sufficient_supply = '0';";
+        		stmt.execute(statement);
+				ResultSet rs = stmt.executeQuery(statement);
+				while (rs.next()) {
+					String id = rs.getString(1);
+					String item_name = rs.getString(2);
+					String type = rs.getString(3);
+					String quantity = rs.getString(4);
+					String sufficient_supply = rs.getString(5);
+					double sale_cost = rs.getDouble(6);
+					int minimum_supply = rs.getInt(7);
+					sql_output += ("   " + id + " " + item_name + " " + type + " " + quantity + " " + sufficient_supply + " " + sale_cost + " " + minimum_supply + "\n"); 
+				}
+			}
 	
 		} catch (Exception e){
-    		e.printStackTrace();
-    		System.err.println(e.getClass().getName()+": "+e.getMessage());
-    		System.exit(0);
+    		sql_output += "Error: Restock report failed.";
     	}
 
 		//closing the connection

@@ -86,21 +86,9 @@ public class Excess_Report_Page {
                     beginDate = date.getText();
                 }
                 queryLabel.setText("");
-                Connection conn = null;
-                String teamNumber = "61"; // Your team number
-                String sectionNumber = "905"; // Your section number
-                String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
-                String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-                dbSetup myCredentials = new dbSetup(); 
+             
+                Connection conn = new connectionSetup().conn;
 
-                try {
-                    conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
-                } 
-                catch (Exception ex) {
-                    ex.printStackTrace();
-                    System.err.println(ex.getClass().getName()+": "+ex.getMessage());
-                    System.exit(0);
-                }
                 for(String s : chips){
                     try{
                         Statement stmt = conn.createStatement(); 

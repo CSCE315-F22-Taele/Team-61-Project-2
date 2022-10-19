@@ -10,7 +10,7 @@ import java.sql.*;
  */
 public class Manager_Home_Page {
 
-    JFrame f = new JFrame("Home Page");
+    JFrame f = new JFrame("Manager Page");
 
     /**
      * This constructor creates the layout for the manager side of the POS system. 
@@ -21,10 +21,19 @@ public class Manager_Home_Page {
     Manager_Home_Page(ArrayList<String> entrees, ArrayList<String> protein, ArrayList<String> sides) {   
 
         JPanel panel = new JPanel();  
-        panel.setBounds(10, 10, 1000, 600); 
+        panel.setBounds(10, 10, 2000, 600); 
+
+        // Label outputs on GUI the selections
+        JTextArea queryTextBox = new JTextArea();
+        Font queryTextBoxFont = new Font("Times New Roman", Font.PLAIN, 15);
+        queryTextBox.setFont(queryTextBoxFont); 
+                
+        // Label outputs total
+        JTextArea totalLabel = new JTextArea();
+        totalLabel.setBounds(50, 360, 200, 50);
 
         JButton b1 = new JButton("Back To Home Page");     
-        b1.setBounds(50,100,80,30);    
+        b1.setBounds(30,100,80,30);    
         b1.addActionListener(new ActionListener() { 
             /**
              * This functions sets the background color of the "Back To Home Page" button green on click
@@ -38,9 +47,6 @@ public class Manager_Home_Page {
         }); 
 
         JButton update_inventory = new JButton("Update Inventory Supply");
-        panel.add(update_inventory); 
-
-
         update_inventory.addActionListener(new ActionListener(){
             /**
              * When the update inventory button is pressed, the logic within this function is executed thus updating the 
@@ -78,7 +84,7 @@ public class Manager_Home_Page {
         });
 
         JButton edit_item_button = new JButton("Adjust Prices / Add New Items"); 
-        edit_item_button.setBounds(200,200,100,40);
+        edit_item_button.setBounds(180,200,100,40);
         edit_item_button.addActionListener(new ActionListener(){
             /**
              * Creates a new page view when the edit item button is selected
@@ -91,16 +97,29 @@ public class Manager_Home_Page {
         }); 
 
         JButton excess_report = new JButton("Excess Report"); 
-        b1.setBounds(50,100,80,30);   
+        b1.setBounds(30,100,80,30);   
         excess_report.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 new Excess_Report_Page();
                 f.dispose(); 
             }
         });  
-        panel.add(excess_report);
+
+        JButton restock_report = new JButton("Restock Report"); 
+        b1.setBounds(30,200,80,30);   
+        restock_report.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                jdbcpostgreSQL databaseConnection = new jdbcpostgreSQL("Restock Report");
+                totalLabel.setText("");
+                queryTextBox.setText("");
+                queryTextBox.append(" Result - Items with Low Supply\n\n" + databaseConnection.sql_output);
+            }
+        }); 
         panel.add(b1);  
+        panel.add(update_inventory); 
         panel.add(edit_item_button); 
+        panel.add(excess_report);  
+        panel.add(restock_report);
 
         //Start Date TextBox
         JTextArea start = new JTextArea();  
@@ -186,15 +205,6 @@ public class Manager_Home_Page {
         f.add(salesSelectLabel);
         f.add(selectTableLabel);
 
-        // Label outputs on GUI the selections
-        JTextArea queryTextBox = new JTextArea();
-        Font queryTextBoxFont = new Font("Times New Roman", Font.PLAIN, 15);
-        queryTextBox.setFont(queryTextBoxFont); 
-                
-        // Label outputs total
-        JTextArea totalLabel = new JTextArea();
-        totalLabel.setBounds(50, 380, 200, 50);
-
         JButton submitButton = new JButton("Submit");
         submitButton.setBounds(270, 200, 100, 30);
 
@@ -204,23 +214,23 @@ public class Manager_Home_Page {
         f.add(itemIDTextBox); 
         // Text above Item ID text box
         JLabel itemIDTextLabel = new JLabel("Item ID");
-        itemIDTextLabel.setBounds(20, 430, 100, 30);
+        itemIDTextLabel.setBounds(20, 440, 100, 30);
         f.add(itemIDTextLabel);
         // Text box for quantity 
         JTextArea quantityTextBox = new JTextArea();
-        quantityTextBox.setBounds(80, 470, 50, 20);
+        quantityTextBox.setBounds(85, 470, 50, 20);
         f.add(quantityTextBox);
         // Text above quantity text box
         JLabel quantityTextLabel = new JLabel("Quantity");
-        quantityTextLabel.setBounds(80, 430, 100, 30);
+        quantityTextLabel.setBounds(80, 440, 100, 30);
         f.add(quantityTextLabel);
         // Text box for sufficient supply 
         JTextArea sufficientSupplyTextBox = new JTextArea();
-        sufficientSupplyTextBox.setBounds(140, 470, 50, 20);
+        sufficientSupplyTextBox.setBounds(150, 470, 50, 20);
         f.add(sufficientSupplyTextBox);
         // Text above sufficient supply text box
         JLabel sufficientSupplyTextLabel = new JLabel("Sufficient Supply");
-        sufficientSupplyTextLabel.setBounds(140, 430, 150, 30);
+        sufficientSupplyTextLabel.setBounds(150, 440, 150, 30);
         f.add(sufficientSupplyTextLabel);
         
         // After drop down menu items are selected and submit button is pressed, the values are stored and outputted on the frame
@@ -265,7 +275,7 @@ public class Manager_Home_Page {
 
                 jdbcpostgreSQL databaseConnection = new jdbcpostgreSQL(database, inventory, startDate, endDate, entreeType, proteinType, extrasSelected);
                 String output = databaseConnection.sql_output;
-                queryTextBox.append(output);
+                queryTextBox.append("Result - Sales Report:\n" + output);
 
                 double total = databaseConnection.total_output;
                 String totalString = String.format("%.2f", total);
@@ -278,7 +288,7 @@ public class Manager_Home_Page {
 
         // Update button to update inventory quantity and sufficient supply field
         JButton updateButton = new JButton("Update");
-        updateButton.setBounds(60, 500, 100, 30);
+        updateButton.setBounds(220, 470, 100, 30);
         updateButton.addActionListener(new ActionListener() {
             /**
              * when the update button is pressed, the database updates the quantity and sufficient supply of the corresponding item id
@@ -301,7 +311,7 @@ public class Manager_Home_Page {
         totalLabel.setForeground(Color.BLUE);
 
         JScrollPane scrollableTextArea = new JScrollPane(queryTextBox);
-        scrollableTextArea.setBounds(350, 280, 500, 200);
+        scrollableTextArea.setBounds(350, 280, 550, 200);
 
         f.add(updateButton); f.add(submitButton); f.add(totalLabel); f.add(scrollableTextArea); f.add(panel); 
         f.setSize(1010,610);    

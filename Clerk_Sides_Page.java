@@ -34,7 +34,6 @@ public class Clerk_Sides_Page {
         return return_cost; 
     }
 
-
     JFrame f = new JFrame("Clerk Sides Page");
     float total_cost = 0; 
     /**
@@ -85,7 +84,6 @@ public class Clerk_Sides_Page {
             }
         }
 
-
         more_food.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){  
                 orders.lastElement().update_cost_individual();
@@ -108,9 +106,9 @@ public class Clerk_Sides_Page {
         f.setSize(1010,610);    
         f.setLayout(null);    
         f.setVisible(true);    
-       }  
+    }
        
-       public void windowClosing (WindowEvent e) {    
-           f.dispose();    
-       }    
+    public void windowClosing (WindowEvent e) {    
+        f.dispose();    
+    }    
 }

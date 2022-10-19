@@ -27,21 +27,9 @@ public class Home_Page {
      * all the possible options that are within the database.
      */
     public void fill_arrays(){
-        Connection conn = null;
-        String teamNumber = "61"; // Your team number
-        String sectionNumber = "905"; // Your section number
-        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
-        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-        dbSetup myCredentials = new dbSetup();
+        
+        Connection conn = new connectionSetup().conn;
 
-        try {
-            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
-        } 
-        catch (Exception e) {
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }
         try {
             sides.add("NONE"); 
             protein.add("NONE");  

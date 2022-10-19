@@ -3,6 +3,7 @@ import java.sql.*;
 
 /**
  * The inventory class is used to query the database and output all columns in the inventory table
+ * @author Roee Belkin
  */
 public class Inventory {
     public ArrayList<Tuple> items; 

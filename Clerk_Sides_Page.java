@@ -2,24 +2,29 @@ import java.awt.*;
 import javax.swing.*;  
 import java.awt.event.*; 
 import java.util.*; 
-
 import java.sql.*; 
 import java.io.*;
 import java.util.*;
 import java.time.*;    
 import java.text.*; 
-
 import javax.security.sasl.Sasl;
-
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 
+/**
+ * This is the final page that is seen on the clerk-side view after the order has been taken. This page will show the total and ask the 
+ * clerk if the customer is requesting another item.
+ * @author Roee Belkin, Sam Brokaw
+ */
 public class Clerk_Sides_Page {
 
-    //function deals with getting cost when we have multiple entrees under the same persons bill, so same sale_id. 
+    /**
+     * function deals with getting cost when we have multiple entrees under the same persons bill, so same sale_id
+     * @param orders a vector of Order objects that represent the previous orders made by the customer
+     * @return the total cost of the order
+     */ 
     public float sale_id_cost(Vector<Order> orders){
         float return_cost = 0; 
-        //orders.lastElement().update_cost_individual();
         return_cost = orders.lastElement().cost; 
         for (int i = 0; i < orders.size() -1; i++){
             if (orders.get(i).Sale_Id == orders.lastElement().Sale_Id){
@@ -32,15 +37,21 @@ public class Clerk_Sides_Page {
 
     JFrame f = new JFrame("Clerk Sides Page");
     float total_cost = 0; 
+    /**
+     * The constructor creates the layout for the checkout page.
+     * @param orders                a vector of Order objects that represent the orders made by the customer
+     * @param inventory             a vector of Tuple objects that represent the inventory items
+     * @param entrees               a vector of strings that represent the options of possible entrees
+     * @param protein               a vector of strings that represent the options of possible proteins
+     * @param sides                 a vector of strings that represent the sides ordered by the customer
+     * @param additional_entree     a boolean variable that represents whether or not the customer is ordering multiple items
+     */
     Clerk_Sides_Page(Vector<Order> orders, ArrayList<Tuple> inventory, ArrayList<String> entrees, ArrayList<String> protein, ArrayList<String> sides, boolean additional_entree){  
        
        GridLayout test_layout = new GridLayout(4, 4); 
        JPanel panel=new JPanel();  
        panel.setLayout(test_layout); 
        panel.setBounds(10,10,1000,600);           
-       //b1.setBackground(Color.red);     
-       //b1.setOpaque(true);
-       //b1.setBorderPainted(false);
        orders.lastElement().update_cost_individual();
        total_cost = sale_id_cost(orders); 
        JButton home_page_button =new JButton("Back To Clerk Home Page");
@@ -102,8 +113,4 @@ public class Clerk_Sides_Page {
        public void windowClosing (WindowEvent e) {    
            f.dispose();    
        }    
-    //    public static void main(String args[])  
-    //    {  
-    //    new Clerk_Protein_Page();  
-    //    }  
 }

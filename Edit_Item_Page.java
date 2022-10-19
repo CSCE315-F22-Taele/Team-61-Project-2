@@ -10,6 +10,7 @@ import java.sql.*;
 /**
  * This class provides the basis for the layout and queries of the "Add/Update New Item Page". This page can be directed to within
  * the manager view of the POS. 
+ * @author Sam Brokaw
  */
 public class Edit_Item_Page {  
     JFrame f = new JFrame("Home Page");

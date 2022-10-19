@@ -3,17 +3,27 @@ import javax.swing.*;
 import java.awt.event.*; 
 import java.util.*; 
 
+/**
+ * This class creates the layout for the clerk-side toppings page. Once on this page, you will see numerous options to select
+ * the type of order the customer requests.
+ * @author Roee Belkin, Sam Brokaw
+ */
 public class Clerk_Toppings_Page {
     JFrame f = new JFrame("Clerk Toppings Page");
+    /**
+     * The constructor is where all of the layout buttons are created and modified.
+     * @param orders     a vector of orders that stores the customer's orders
+     * @param inventory  a vector of tuples that contains the inventory of items
+     * @param entrees    a vector of strings that contains the options available for the entrees
+     * @param protein    a vector of strings that contains the options available for proteins
+     * @param sides      a vector of strings that contains the options available for the sides
+     * @param additional_entree a boolean value that represents whether or not the customer decides to get another order
+     */
     Clerk_Toppings_Page(Vector<Order> orders, ArrayList<Tuple> inventory, ArrayList<String> entrees, ArrayList<String> protein, ArrayList<String> sides, boolean additional_entree){  
-       //JFrame f= new JFrame("Panel Example");
        GridLayout test_layout = new GridLayout(4, 4); 
        JPanel panel=new JPanel();  
        panel.setLayout(test_layout); 
        panel.setBounds(10,10,1000,600);           
-       //b1.setBackground(Color.red);     
-       //b1.setOpaque(true);
-       //b1.setBorderPainted(false);
        JButton home_page_button =new JButton("Back To Clerk Home Page");
        JButton lettuce_button = new JButton("Lettuce"); 
        JButton cheese_button = new JButton("Cheese"); 

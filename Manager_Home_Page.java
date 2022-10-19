@@ -150,7 +150,9 @@ public class Manager_Home_Page {
 
         DefaultListModel<String> l3 = new DefaultListModel<>();  
         for (String s : sides) {
-            l3.addElement(s);
+            if (!(s.equals("medium salsa") || s.equals("hot salsa"))) {
+                l3.addElement(s);
+            }
         }
         JList<String> list3 = new JList<>(l3);  
         list3.setBounds(700, 100, 140, 150);  

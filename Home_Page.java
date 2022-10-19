@@ -57,7 +57,7 @@ public class Home_Page {
             e.printStackTrace();
             System.exit(0);
         }
-        try{
+        try {
             String sqlQuery = "Select item_name from cabo_grill where id > 0;";
             Statement stmt = conn.createStatement(); 
             ResultSet result = stmt.executeQuery(sqlQuery); 

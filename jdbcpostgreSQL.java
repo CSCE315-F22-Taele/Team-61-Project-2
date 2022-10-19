@@ -80,9 +80,9 @@ public class jdbcpostgreSQL {
 
 		if (table == "Inventory") {
 			if (inventory_item == "All") {
-				this.statement = "SELECT * FROM cabo_grill ORDER BY id DESC;";
+				this.statement = "SELECT * FROM cabo_grill ORDER BY id ASC;";
 			} else {
-				this.statement = "SELECT * FROM cabo_grill WHERE type = " + "'" + inventory_item + "' ORDER BY id DESC;";
+				this.statement = "SELECT * FROM cabo_grill WHERE type = " + "'" + inventory_item + "' ORDER BY id ASC;";
 			}
 		}
 		
@@ -103,7 +103,7 @@ public class jdbcpostgreSQL {
 					String chips_and_guac = rs.getString(7);
 					String drink = rs.getString(8);
 					String cost = rs.getString(9); 
-					sql_output += (" " + id + " " + date + " " + entree_type + " " + protein_type + " " + chips_and_salsa + " " + chips_and_queso + " " + chips_and_guac + " " + drink + " " + cost +"\n");
+					sql_output += ("    " + id + " " + date + " " + entree_type + " " + protein_type + " " + chips_and_salsa + " " + chips_and_queso + " " + chips_and_guac + " " + drink + " " + cost +"\n");
 				}		
 
 				Statement stmt2 = conn.createStatement();
@@ -130,7 +130,7 @@ public class jdbcpostgreSQL {
 					String sufficient_supply = rs.getString(5);
 					double sale_cost = rs.getDouble(6);
 					int minimum_supply = rs.getInt(7);
-					sql_output += (id + " " + item_name + " " + type + " " + quantity + " " + sufficient_supply + " " + sale_cost + " " + minimum_supply + "\n");
+					sql_output += ("    " + id + " " + item_name + " " + type + " " + quantity + " " + sufficient_supply + " " + sale_cost + " " + minimum_supply + "\n");
 				}
 
 				count = "SELECT COUNT(*) FROM cabo_grill";
@@ -148,7 +148,7 @@ public class jdbcpostgreSQL {
 			}
 
     	} catch (Exception e){
-			sql_output += "Error: Query failed.";
+			sql_output += " Error: Query failed.";
     	}
     	//closing the connection
     	try {
@@ -181,7 +181,7 @@ public class jdbcpostgreSQL {
 			}
 
 		} catch (Exception e){
-    		sql_output += "Error: Update failed.";
+    		sql_output += " Error: Update failed.";
     	}
 
 		//closing the connection
@@ -192,7 +192,7 @@ public class jdbcpostgreSQL {
 		}
 	}
 
-	jdbcpostgreSQL(String report) {
+	jdbcpostgreSQL(String inventoryFunction) {
 
 		Connection conn = new connectionSetup().conn;
 
@@ -201,8 +201,8 @@ public class jdbcpostgreSQL {
 			Statement stmt = conn.createStatement();
 			String sql_query = "";
 
-			if (report == "Restock Report") {
-				statement = "SELECT * FROM cabo_grill WHERE sufficient_supply = '0';";
+			if (inventoryFunction == "Restock Report") {
+				statement = "SELECT * FROM cabo_grill WHERE sufficient_supply = '0' ORDER BY id ASC;";
         		stmt.execute(statement);
 				ResultSet rs = stmt.executeQuery(statement);
 				while (rs.next()) {
@@ -213,12 +213,27 @@ public class jdbcpostgreSQL {
 					String sufficient_supply = rs.getString(5);
 					double sale_cost = rs.getDouble(6);
 					int minimum_supply = rs.getInt(7);
-					sql_output += ("   " + id + " " + item_name + " " + type + " " + quantity + " " + sufficient_supply + " " + sale_cost + " " + minimum_supply + "\n"); 
+					sql_output += ("    " + id + " " + item_name + " " + type + " " + quantity + " " + sufficient_supply + " " + sale_cost + " " + minimum_supply + "\n"); 
+				}
+
+				statement = "SELECT COUNT(*) FROM cabo_grill WHERE sufficient_supply = '0';";
+				stmt.execute(statement);
+				rs = stmt.executeQuery(statement);
+				while(rs.next()) {
+					count_output += rs.getString(1);
 				}
 			}
-	
+
+			if (inventoryFunction == "Update Inventory Supply") {
+                statement = "update cabo_grill set sufficient_supply = '0' where quantity < minimum_supply;";
+                stmt.executeUpdate(statement); 
+                statement = "update cabo_grill set sufficient_supply = '1' where quantity > minimum_supply;";
+                stmt.executeUpdate(statement);
+				sql_output += "Inventory Updated";
+            }
+        
 		} catch (Exception e){
-    		sql_output += "Error: Restock report failed.";
+    		sql_output += " Error: Restock report failed.";
     	}
 
 		//closing the connection

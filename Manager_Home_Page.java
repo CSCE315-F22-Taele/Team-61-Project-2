@@ -54,32 +54,10 @@ public class Manager_Home_Page {
              * @param e represents the status of the button when it is clicked
              */
             public void actionPerformed(ActionEvent e){
-                Connection conn = null;
-                String teamNumber = "61"; // Your team number
-                String sectionNumber = "905"; // Your section number
-                String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
-                String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-                dbSetup myCredentials = new dbSetup(); 
-
-                try {
-                    conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
-                } 
-                catch (Exception ex) {
-                    ex.printStackTrace();
-                    System.err.println(e.getClass().getName()+": "+ex.getMessage());
-                    System.exit(0);
-                }
-                try {
-                    Statement stmt = conn.createStatement(); 
-                    String sqlQuery = "update cabo_grill set sufficient_supply = '0' where quantity < minimum_supply;";
-                    stmt.executeUpdate(sqlQuery); 
-                    sqlQuery = "update cabo_grill set sufficient_supply = '1' where quantity > minimum_supply;";
-                    stmt.executeUpdate(sqlQuery);
-                }
-                catch (Exception ee){
-                    ee.printStackTrace();
-                    System.exit(0);
-                }
+                jdbcpostgreSQL databaseConnection = new jdbcpostgreSQL("Update Inventory Supply");
+                totalLabel.setText("");
+                queryTextBox.setText("");
+                queryTextBox.append("\n    Result - " + databaseConnection.sql_output);
             }
         });
 
@@ -112,7 +90,14 @@ public class Manager_Home_Page {
                 jdbcpostgreSQL databaseConnection = new jdbcpostgreSQL("Restock Report");
                 totalLabel.setText("");
                 queryTextBox.setText("");
-                queryTextBox.append(" Result - Items with Low Supply\n\n" + databaseConnection.sql_output);
+                queryTextBox.append("\n    Result - Items with Low Supply\n\n" + databaseConnection.sql_output);
+
+                double total = databaseConnection.total_output;
+                String totalString = String.format("%.2f", total);
+                totalLabel.append("Total: $" + totalString);
+
+                String count = databaseConnection.count_output;
+                totalLabel.append("\n" + count); 
             }
         }); 
         panel.add(b1);  
@@ -240,6 +225,9 @@ public class Manager_Home_Page {
              * @param e represents the button being clicked
              */
             public void actionPerformed(ActionEvent e) {
+                itemIDTextBox.setText("");
+                quantityTextBox.setText("");
+                sufficientSupplyTextBox.setText("");
                 queryTextBox.setText("");
                 totalLabel.setText("");
                 String database = "";
@@ -275,7 +263,11 @@ public class Manager_Home_Page {
 
                 jdbcpostgreSQL databaseConnection = new jdbcpostgreSQL(database, inventory, startDate, endDate, entreeType, proteinType, extrasSelected);
                 String output = databaseConnection.sql_output;
-                queryTextBox.append("Result - Sales Report:\n" + output);
+                if (database == "Sales Report") {
+                    queryTextBox.append("\n    Result - Sales Report\n\n" + output);
+                } else if (database == "Inventory") {
+                    queryTextBox.append("\n    Result - Inventory\n\n" + output);
+                }
 
                 double total = databaseConnection.total_output;
                 String totalString = String.format("%.2f", total);

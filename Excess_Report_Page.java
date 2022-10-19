@@ -28,7 +28,11 @@ public class Excess_Report_Page {
 
         JButton b1 = new JButton("Back To Home Page");     
         b1.setBounds(50,50,150,30);    
-        b1.addActionListener(new ActionListener() {  
+        b1.addActionListener(new ActionListener() { 
+            /**
+             * This function changes the "Back To Home Page" button green after it is pressed
+             * @param e represents the click of the button  
+             */ 
             public void actionPerformed(ActionEvent e){  
                 b1.setBackground(Color.green);  
                 new Home_Page(); 
@@ -71,6 +75,10 @@ public class Excess_Report_Page {
         };
 
         submitButton.addActionListener(new ActionListener() {
+            /**
+             * This function executes the queries for the excess report when the submit button is pressed.
+             * @param e represents the click of the button
+             */
             public void actionPerformed(ActionEvent e) {
                 String beginDate = "";
                 ArrayList<String> excess = new ArrayList<String>();

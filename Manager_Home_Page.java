@@ -25,7 +25,11 @@ public class Manager_Home_Page {
 
         JButton b1 = new JButton("Back To Home Page");     
         b1.setBounds(50,100,80,30);    
-        b1.addActionListener(new ActionListener() {  
+        b1.addActionListener(new ActionListener() { 
+            /**
+             * This functions sets the background color of the "Back To Home Page" button green on click
+             * @param e the ActionEvent status which is represented by a mouse click
+             */ 
             public void actionPerformed(ActionEvent e){  
                 b1.setBackground(Color.green);  
                 new Home_Page(); 
@@ -38,6 +42,11 @@ public class Manager_Home_Page {
 
 
         update_inventory.addActionListener(new ActionListener(){
+            /**
+             * When the update inventory button is pressed, the logic within this function is executed thus updating the 
+             * inventory.
+             * @param e represents the status of the button when it is clicked
+             */
             public void actionPerformed(ActionEvent e){
                 Connection conn = null;
                 String teamNumber = "61"; // Your team number
@@ -71,6 +80,10 @@ public class Manager_Home_Page {
         JButton edit_item_button = new JButton("Adjust Prices / Add New Items"); 
         edit_item_button.setBounds(200,200,100,40);
         edit_item_button.addActionListener(new ActionListener(){
+            /**
+             * Creates a new page view when the edit item button is selected
+             * @param e represents the click of the button
+             */
             public void actionPerformed(ActionEvent e){
                 new Edit_Item_Page(entrees, protein, sides);
                 f.dispose(); 
@@ -212,6 +225,10 @@ public class Manager_Home_Page {
         
         // After drop down menu items are selected and submit button is pressed, the values are stored and outputted on the frame
         submitButton.addActionListener(new ActionListener() {
+            /**
+             * When the submit button is pressed, the query is outputted into the text box
+             * @param e represents the button being clicked
+             */
             public void actionPerformed(ActionEvent e) {
                 queryTextBox.setText("");
                 totalLabel.setText("");
@@ -263,6 +280,10 @@ public class Manager_Home_Page {
         JButton updateButton = new JButton("Update");
         updateButton.setBounds(60, 500, 100, 30);
         updateButton.addActionListener(new ActionListener() {
+            /**
+             * when the update button is pressed, the database updates the quantity and sufficient supply of the corresponding item id
+             * @param e repreesnts the click of the button
+             */
             public void actionPerformed(ActionEvent e) {
                 String id = "";
                 String quantity = "";

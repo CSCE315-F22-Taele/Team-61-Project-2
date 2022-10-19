@@ -98,7 +98,11 @@ public class Home_Page {
         JButton b1=new JButton("Clerk Page");     
         b1.setBounds(50,100,80,30);    
         b1.setBackground(Color.red);
-        b1.addActionListener(new ActionListener(){  
+        b1.addActionListener(new ActionListener(){ 
+            /**
+             * When the "Clerk Page" button is pressed, it changes its' color to green
+             * @param e represents the click of the button
+             */ 
                 public void actionPerformed(ActionEvent e){  
                     b1.setBackground(Color.green);  
                         new Clerk_Home_Page(orders, inventory, entrees, protein, sides, false); 
@@ -110,6 +114,10 @@ public class Home_Page {
         b2.setBounds(100,100,80,30);    
         b2.setBackground(Color.yellow);   
         b2.addActionListener(new ActionListener(){  
+            /**
+             * When the "Manager Page" button is pressed, it changes its' color to green
+             * @param e represents the click of the button
+             */
             public void actionPerformed(ActionEvent e){  
                 b1.setBackground(Color.green);  
                 new Manager_Home_Page(entrees, protein, sides); 

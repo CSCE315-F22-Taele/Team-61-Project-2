@@ -2,7 +2,7 @@ import java.awt.*;
 import javax.swing.*;  
 import java.awt.event.*; 
 import java.util.ArrayList;
-
+import java.sql.*; 
 /**
  * This class is responsible for displaying the manager view in the point-of-sale system. In the manager view,
  * the user can update prices, quantity and supply, view the inventory and sales report, and also view the restock report.
@@ -32,6 +32,42 @@ public class Manager_Home_Page {
                 f.dispose(); 
             }  
         }); 
+
+        JButton update_inventory = new JButton("Update Inventory Supply");
+        panel.add(update_inventory); 
+
+
+        update_inventory.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                Connection conn = null;
+                String teamNumber = "61"; // Your team number
+                String sectionNumber = "905"; // Your section number
+                String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
+                String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+                dbSetup myCredentials = new dbSetup(); 
+
+                try {
+                    conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+                } 
+                catch (Exception ex) {
+                    ex.printStackTrace();
+                    System.err.println(e.getClass().getName()+": "+ex.getMessage());
+                    System.exit(0);
+                }
+                try {
+                    Statement stmt = conn.createStatement(); 
+                    String sqlQuery = "update cabo_grill set sufficient_supply = '0' where quantity < minimum_supply;";
+                    stmt.executeUpdate(sqlQuery); 
+                    sqlQuery = "update cabo_grill set sufficient_supply = '1' where quantity > minimum_supply;";
+                    stmt.executeUpdate(sqlQuery);
+                }
+                catch (Exception ee){
+                    ee.printStackTrace();
+                    System.exit(0);
+                }
+            }
+        });
+
         JButton edit_item_button = new JButton("Adjust Prices / Add New Items"); 
         edit_item_button.setBounds(200,200,100,40);
         edit_item_button.addActionListener(new ActionListener(){

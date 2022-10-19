@@ -25,7 +25,7 @@ public class Manager_Home_Page {
         edit_item_button.setBounds(200,200,100,40);
         edit_item_button.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                new Edit_Item_Page();
+                new Edit_Item_Page(entrees, protein, sides);
                 f.dispose(); 
             }
         }); 

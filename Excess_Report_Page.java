@@ -16,6 +16,10 @@ import java.sql.Statement;
  */
 public class Excess_Report_Page {
     JFrame f = new JFrame("Excess Report Page"); 
+    /**
+     * The constructor completes all of the queries to access the excess report and outputs all of the items that didn't sell less than 10%
+     * of their inventory to a textbox.
+     */
     Excess_Report_Page(){  
         JPanel panel= new JPanel();  
         panel.setBounds(10,10,1000,600);    

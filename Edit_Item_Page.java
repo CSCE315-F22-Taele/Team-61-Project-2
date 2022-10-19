@@ -2,12 +2,15 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.text.*;
-
 import java.awt.event.*; 
 import java.util.*; 
 import java.util.ArrayList;
 import java.sql.*; 
 
+/**
+ * This class provides the basis for the layout and queries of the "Add/Update New Item Page". This page can be directed to within
+ * the manager view of the POS. 
+ */
 public class Edit_Item_Page {  
     JFrame f = new JFrame("Home Page");
     Connection conn = null;
@@ -18,11 +21,15 @@ public class Edit_Item_Page {
     Statement stmt = null; 
     dbSetup myCredentials = new dbSetup();
     
+    /**
+     * The constructor is where all of the layout code and queries are executed. This constructor takes in as input 3 values: the entrees, proteins,
+     * and sides to be edited.
+     * @param entrees an array of strings that represent the entree options
+     * @param protein an array of strings that represent the protein options
+     * @param sides   an array of strings that represent the possible sides
+     */
     Edit_Item_Page(ArrayList<String> entrees, ArrayList<String> protein, ArrayList<String> sides) { 
         
-
-
-
         GridLayout test_layout = new GridLayout(1, 3); 
         JTextArea page_info = new JTextArea("Please use the top half of this page for editing current prices, and the bottom half for adding new items."); 
         JPanel button_panel = new JPanel();
